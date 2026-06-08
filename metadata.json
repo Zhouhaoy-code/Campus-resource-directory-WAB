@@ -1,0 +1,6 @@
+{
+  "name": "WAB Community Hub & Lost & Found",
+  "description": "An interactive, high-contrast Persona 5 styled community portal and lost-and-found system for the Western Academy of Beijing (WAB) high school onboarding, counseling, and contacts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

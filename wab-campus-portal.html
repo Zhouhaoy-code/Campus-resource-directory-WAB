@@ -90,6 +90,23 @@
   }
   .quote-box:hover { background: var(--p4-yellow-pale); }
 
+  /* --- RESOURCE INTEGRATION PORTALS --- */
+  .portal-section {
+    background: var(--p4-card); border: 4px solid #000;
+    padding: 1.25rem; margin-bottom: 1.5rem; position: relative;
+    overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .portal-btn {
+    display: inline-block; text-align: center; background: var(--p4-yellow); color: #000;
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; font-weight: 900;
+    letter-spacing: 0.05em; padding: 10px 24px; border: 2px solid #000;
+    text-decoration: none; transition: all 0.2s;
+    filter: drop-shadow(4px 4px 0 #000);
+  }
+  .portal-btn:hover { background: var(--p4-yellow-pale); transform: translateY(-2px); filter: drop-shadow(6px 6px 0 #000); }
+  .portal-btn.powerschool { background: var(--p4-cyan); }
+  .portal-btn.powerschool:hover { background: #66d9ff; }
+
   /* --- EMERGENCY CARD --- */
   .emergency-card {
     border: 4px solid #000; background: #0F0F14;
@@ -398,6 +415,28 @@
     </div>
   </header>
 
+  <!-- IMPORTANT INTEGRATED LOGIN LINKS -->
+  <section class="portal-section">
+    <div class="bg-scanlines" style="position:absolute;inset:0;opacity:0.1;pointer-events:none;"></div>
+    <div style="display:flex; align-items:center; gap:12px; z-index:1;">
+      <div style="background:var(--p4-yellow); color:#000; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; padding:6px 12px; border:2px solid #000; transform:rotate(-2deg); font-weight:bold;">
+        ⚡ PORTALS
+      </div>
+      <div>
+        <h3 class="bebas" style="font-size:1.6rem; color:#fff; text-transform:uppercase; line-height:1.1;">WAB Student Integrated Channels</h3>
+        <p style="font-size:9px; font-family:'JetBrains Mono',monospace; color:#888; text-transform:uppercase;">Instant login links for high school schedulers and grade management systems</p>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px; z-index:1;">
+      <a href="https://mytime.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn">
+        ★ MYTIME LOGIN ↗
+      </a>
+      <a href="https://powerschool.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn powerschool">
+        ★ POWERSCHOOL LOGIN ↗
+      </a>
+    </div>
+  </section>
+
   <!-- EMERGENCY CARD -->
   <div class="emergency-card">
     <div class="bg-danger-stripes emergency-stripe-l"></div>
@@ -604,7 +643,7 @@
       <h4 class="bebas" style="font-size:2rem;color:var(--p4-yellow);text-transform:uppercase;-webkit-text-stroke:1px #000;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
       <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;letter-spacing:0.1em;margin-top:8px;line-height:1.7;">Western Academy of Beijing. This platform operates independently in service of high school onboarding convenience, seamless property recovery and digital happiness.</p>
       <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:12px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--p4-orange);font-weight:700;">
-        <span>★ SYSTEM SECURITY VERIFIED ★</span>
+        <span><span>★ SYSTEM SECURITY VERIFIED ★</span></span>
         <span>☆ DIRECTORY RESOLUTION ☆</span>
       </div>
       <p style="font-size:10px;color:#444;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;border-top:1px solid #222;padding-top:1rem;">© 2026 WAB Directory Portal. Styled with retro yellow pop aesthetic.</p>
@@ -667,7 +706,7 @@ let typeFilter = 'all', selectedImage = '', formType = 'lost', formOpen = false;
 
 function saveItems() { localStorage.setItem('wab_lf', JSON.stringify(items)); }
 
-// TAB
+// TAB SWITCHING
 function switchTab(tab) {
   document.getElementById('panel-directory').style.display = tab === 'directory' ? '' : 'none';
   document.getElementById('panel-lostfound').style.display = tab === 'lostfound' ? '' : 'none';
@@ -676,7 +715,7 @@ function switchTab(tab) {
   if (tab === 'lostfound') { renderLF(); detectMatches(); }
 }
 
-// RESOURCE CARDS
+// RESOURCE CARDS IN DIRECTORY
 function badgeClass(cat) { return 'card-cat-badge badge-' + cat; }
 function renderCards() {
   const grid = document.getElementById('cardsGrid');
@@ -702,7 +741,7 @@ function renderCards() {
   `).join('');
 }
 
-// MODAL
+// MODAL CONTROLS
 let currentBookingResource = null;
 function openModal(id) {
   const r = resources.find(x => x.id === id);
@@ -781,12 +820,12 @@ function submitBooking() {
   `;
 }
 
-// LOST & FOUND
+// LOST & FOUND RENDER FILTERING
 function setTypeFilter(f) {
   typeFilter = f;
   ['all','lost','found','reclaimed'].forEach(t => {
     const el = document.getElementById('ft' + t.charAt(0).toUpperCase() + t.slice(1));
-    el.className = 'filter-tag' + (t === f ? ' active-' + t : '');
+    if (el) el.className = 'filter-tag' + (t === f ? ' active-' + t : '');
   });
   renderLF();
 }
@@ -863,6 +902,7 @@ function deleteItem(id) {
   saveItems(); renderLF();
 }
 
+// MATCHING ALGORITHM INTERSECTIONS
 function detectMatches() {
   const actives = items.filter(i => i.status === 'active');
   const losts = actives.filter(i => i.type === 'lost');
@@ -896,7 +936,7 @@ function detectMatches() {
   `).join('');
 }
 
-// FORM
+// TOGGLE BULLETIN CASE CONTROLLER
 function toggleForm() {
   formOpen = !formOpen;
   document.getElementById('formPanel').style.display = formOpen ? '' : 'none';
@@ -982,7 +1022,7 @@ function submitItem() {
   renderLF();
 }
 
-// INIT
+// SETUP INIT
 renderCards();
 </script>
 </body>

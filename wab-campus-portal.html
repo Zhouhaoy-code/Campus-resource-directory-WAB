@@ -21,330 +21,63 @@
     --p4-gray: #2C2C38;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--p4-dark);
-    color: var(--p4-light);
-    font-family: 'Space Grotesk', sans-serif;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
+  body { background: var(--p4-dark); color: var(--p4-light); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; min-height: 100vh; }
   .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
   .mono { font-family: 'JetBrains Mono', monospace; }
-  
-  /* Backgrounds */
   .bg-danger-stripes { background: repeating-linear-gradient(45deg, var(--p4-yellow), var(--p4-yellow) 12px, #000 12px, #000 24px); }
   .bg-rainbow-stripes { background: linear-gradient(90deg, #FDF100 0% 20%, #FF9000 20% 40%, #FF0090 40% 60%, #00BCFF 60% 80%, #F7F7FA 80% 100%); }
   .bg-dots { background-image: radial-gradient(rgba(253,241,0,0.15) 12%, transparent 13%); background-size: 14px 14px; }
   .bg-scanlines { background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%); background-size: 100% 4px; }
-  
-  /* Clip paths */
-  .clip-slant-right { clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 0 98.5%); }
-  .clip-slant-left { clip-path: polygon(0 1.5%, 100% 0, 100% 98.5%, 0 100%); }
-  .clip-sharp { clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%); }
-  .clip-badge { clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
-  
-  /* Shadows */
-  .shadow-black { filter: drop-shadow(5px 5px 0 #000); }
-  .shadow-glow { filter: drop-shadow(0 0 12px rgba(253,241,0,0.6)); }
-  
-  /* Layout */
   .max-w { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-  
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #0F0F14; }
-  ::-webkit-scrollbar-thumb { background: var(--p4-yellow); border-radius: 2px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--p4-orange); }
-
-  /* --- HEADER --- */
   .top-stripe { height: 16px; border-bottom: 2px solid #000; }
   .hero { display: flex; gap: 1.5rem; margin: 1.5rem 0 2rem; flex-wrap: wrap; }
-  .hero-main {
-    flex: 1; min-width: 280px;
-    background: var(--p4-yellow); border: 4px solid #000;
-    padding: 2rem; position: relative; overflow: hidden;
-    clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 0 98.5%);
-  }
-  .hero-badge {
-    position: absolute; top: 0; right: 0;
-    background: #000; color: var(--p4-yellow);
-    font-size: 10px; font-family: 'JetBrains Mono', monospace;
-    font-weight: 700; padding: 4px 12px; text-transform: uppercase; letter-spacing: 0.1em;
-    border-left: 2px solid #000; border-bottom: 2px solid #000;
-  }
+  .hero-main { flex: 1; min-width: 280px; background: var(--p4-yellow); border: 4px solid #000; padding: 2rem; position: relative; overflow: hidden; clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 0 98.5%); }
+  .hero-badge { position: absolute; top: 0; right: 0; background: #000; color: var(--p4-yellow); font-size: 10px; font-family: 'JetBrains Mono', monospace; font-weight: 700; padding: 4px 12px; text-transform: uppercase; letter-spacing: 0.1em; border-left: 2px solid #000; border-bottom: 2px solid #000; }
   .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: #000; line-height: 1; text-transform: uppercase; }
   .hero-title span { color: var(--p4-magenta); }
   .hero-rainbow { position: absolute; bottom: 0; left: 0; right: 0; height: 6px; }
-
-  .hero-sidebar {
-    width: 300px; background: var(--p4-gray); border: 4px solid #000;
-    padding: 1.25rem; position: relative; overflow: hidden;
-    clip-path: polygon(0 1.5%, 100% 0, 100% 98.5%, 0 100%);
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
+  .hero-sidebar { width: 300px; background: var(--p4-gray); border: 4px solid #000; padding: 1.25rem; position: relative; overflow: hidden; clip-path: polygon(0 1.5%, 100% 0, 100% 98.5%, 0 100%); display: flex; flex-direction: column; justify-content: space-between; }
   .status-dot { display: inline-block; width: 8px; height: 8px; background: var(--p4-magenta); border-radius: 50%; animation: blink 1.2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-  .quote-box {
-    background: var(--p4-yellow); color: #000; padding: 10px; border: 2px solid #000;
-    cursor: pointer; margin-top: 1rem;
-    font-size: 10px; font-weight: 700; line-height: 1.4;
-  }
-  .quote-box:hover { background: var(--p4-yellow-pale); }
-
-  /* --- EMERGENCY CARD --- */
-  .emergency-card {
-    border: 4px solid #000; background: #0F0F14;
-    padding: 1rem 2rem; position: relative; overflow: hidden;
-    display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
-    transform: rotate(-1deg); transition: transform 0.3s; margin: 1rem 0;
-  }
-  .emergency-card:hover { transform: rotate(0deg); }
-  .emergency-stripe-l { position: absolute; top: 0; bottom: 0; left: 0; width: 16px; }
-  .emergency-stripe-r { position: absolute; top: 0; bottom: 0; right: 0; width: 16px; }
-  .emergency-contact {
-    display: flex; align-items: center; gap: 10px;
-    background: #111; border: 2px solid #333; padding: 10px 14px;
-    text-decoration: none; transition: all 0.2s; flex-shrink: 0;
-  }
+  .quote-box { background: var(--p4-yellow); color: #000; padding: 10px; border: 2px solid #000; cursor: pointer; margin-top: 1rem; font-size: 10px; font-weight: 700; line-height: 1.4; }
+  .emergency-card { border: 4px solid #000; background: #0F0F14; padding: 1rem 2rem; position: relative; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; transform: rotate(-1deg); margin: 1rem 0; }
+  .emergency-contact { display: flex; align-items: center; gap: 10px; background: #111; border: 2px solid #333; padding: 10px 14px; text-decoration: none; transition: all 0.2s; flex-shrink: 0; }
   .emergency-contact:hover { background: var(--p4-yellow); }
-  .emergency-contact:hover .ec-number { color: #000; }
-  .emergency-contact:hover .ec-label { color: rgba(0,0,0,0.7); }
   .ec-label { font-size: 9px; font-family: 'JetBrains Mono',monospace; text-transform: uppercase; color: #666; display: block; }
   .ec-number { font-size: 11px; font-weight: 700; color: #fff; display: block; }
   .ec-dial { background: #1a1a1a; border: 1px solid #333; color: var(--p4-yellow); font-size: 9px; font-weight: 700; padding: 2px 6px; font-family: 'JetBrains Mono',monospace; }
-  
-  /* --- TABS --- */
   .tabs { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0 0; }
-  .tab-btn {
-    padding: 1rem 2rem; font-family: 'Bebas Neue',sans-serif; font-size: 1.4rem;
-    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
-    border: 2px solid #333; background: var(--p4-card); color: #666;
-    display: flex; align-items: center; gap: 8px; transition: all 0.2s;
-    flex: 1; justify-content: center;
-  }
-  .tab-btn:hover { border-color: var(--p4-yellow); color: #fff; }
-  .tab-btn.active {
-    background: var(--p4-yellow); color: #000; font-weight: 900;
-    border: 4px solid #000; transform: translateY(-4px) rotate(-1deg);
-    filter: drop-shadow(5px 5px 0 #000);
-  }
-  
-  /* --- RESOURCE CARDS GRID --- */
+  .tab-btn { padding: 1rem 2rem; font-family: 'Bebas Neue',sans-serif; font-size: 1.4rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: 2px solid #333; background: var(--p4-card); color: #666; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .tab-btn.active { background: var(--p4-yellow); color: #000; font-weight: 900; border: 4px solid #000; transform: translateY(-4px) rotate(-1deg); filter: drop-shadow(5px 5px 0 #000); }
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  
-  .resource-card {
-    background: var(--p4-card); border: 2px solid #000; position: relative;
-    cursor: pointer; display: flex; flex-direction: column;
-    transition: all 0.2s; overflow: visible;
-  }
-  .resource-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: #000; border: 2px solid #000;
-    z-index: -1; transition: transform 0.2s;
-  }
-  .resource-card:hover::before { transform: translate(6px, 6px); }
-  .resource-card:hover { transform: scale(1.02) rotate(-1.5deg); z-index: 10; }
-  
+  .resource-card { background: var(--p4-card); border: 2px solid #000; position: relative; cursor: pointer; display: flex; flex-direction: column; transition: all 0.2s; }
   .card-header { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 10px 12px; border-bottom: 2px solid #000; }
-  .card-cat-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); border: 1px solid #000; }
+  .card-cat-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700; text-transform: uppercase; border: 1px solid #000; }
   .badge-counseling { background: var(--p4-yellow); color: #000; }
   .badge-library { background: var(--p4-orange); color: #fff; }
   .badge-tech { background: var(--p4-cyan); color: #000; }
   .badge-service { background: var(--p4-magenta); color: #fff; }
   .badge-community { background: var(--p4-gray); color: #fff; }
-  
   .card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .card-title { font-family:'Bebas Neue',sans-serif; font-size: 2rem; text-transform: uppercase; line-height: 1; color: #fff; transition: color 0.2s; margin-bottom: 6px; }
-  .resource-card:hover .card-title { color: var(--p4-yellow); }
-  .card-subtitle { font-size: 10px; font-family:'JetBrains Mono',monospace; color: #666; text-transform: uppercase; margin-bottom: 12px; }
-  .card-desc { font-size: 13px; color: #aaa; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .card-meta { border-top: 1px solid #333; padding-top: 10px; margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
-  .card-meta-row { display: flex; align-items: center; gap: 6px; font-size: 11px; font-family:'JetBrains Mono',monospace; color: #666; }
-  .card-footer { background: #000; padding: 8px 12px; text-align: center; border-top: 2px solid #000; font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p4-light); transition: all 0.2s; }
+  .card-title { font-family:'Bebas Neue',sans-serif; font-size: 2rem; text-transform: uppercase; line-height: 1; color: #fff; margin-bottom: 6px; }
+  .card-footer { background: #000; padding: 8px 12px; text-align: center; border-top: 2px solid #000; font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; color: var(--p4-light); }
   .resource-card:hover .card-footer { background: var(--p4-yellow); color: #000; }
-  
-  /* --- MODAL --- */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; overflow-y: auto; }
-  .modal {
-    background: #0d0d12; border: 4px solid #000; width: 100%; max-width: 900px;
-    display: flex; flex-wrap: wrap; position: relative;
-    animation: modalIn 0.3s ease;
-  }
-  @keyframes modalIn { from { transform: scale(0.9) rotate(-3deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
-  .modal-left { width: 40%; min-width: 260px; padding: 1.5rem; background: #0F0F14; border-right: 4px solid #000; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .modal-right { flex: 1; min-width: 260px; padding: 1.5rem 2rem; background: #050508; display: flex; flex-direction: column; }
-  .modal-close {
-    position: absolute; top: 12px; right: 12px;
-    background: var(--p4-yellow); border: 2px solid #000; color: #000;
-    padding: 4px; cursor: pointer; font-size: 18px; font-weight: 900; line-height: 1; z-index: 10;
-  }
-  .modal-close:hover { background: var(--p4-orange); }
-  .modal-title { font-family:'Bebas Neue',sans-serif; font-size: 3rem; color: #fff; text-transform: uppercase; line-height: 1; }
-  .info-block { border-left: 4px solid var(--p4-yellow); padding: 8px 12px; background: rgba(0,0,0,0.6); margin-bottom: 8px; }
-  .info-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; }
-  .info-value { font-size: 13px; font-weight: 700; color: #fff; }
-  .quote-block { background: var(--p4-yellow); padding: 12px; border: 2px solid #000; position: relative; transform: rotate(-2deg); margin-top: 1rem; }
-  .quote-block::before { content: 'CAMPUS ADVISOR NOTE'; position: absolute; top: -10px; left: 12px; background: #000; color: var(--p4-yellow); font-size: 8px; font-family:'JetBrains Mono',monospace; padding: 2px 8px; }
-  .services-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 1rem 0; }
-  .services-list li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: #0d0d12; border-left: 2px solid var(--p4-yellow); font-size: 13px; color: #ddd; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0; }
-  .contact-item { background: #000; padding: 10px 12px; border: 2px solid #222; }
-  .contact-item-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; display: block; }
-  .contact-item-value { font-size: 11px; font-family:'JetBrains Mono',monospace; color: var(--p4-orange); font-weight: 700; word-break: break-all; }
-  .contact-item-value a { color: inherit; text-decoration: none; }
-  .contact-item-value a:hover { text-decoration: underline; }
-  .booking-form { background: #000; border: 2px solid #000; padding: 1rem; position: relative; margin-top: auto; }
-  .booking-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .booking-input, .booking-textarea {
-    width: 100%; background: #111; border: 2px solid #333; color: #fff;
-    padding: 8px 10px; font-size: 11px; outline: none; font-family:'JetBrains Mono',monospace;
-    text-transform: uppercase;
-  }
-  .booking-input:focus, .booking-textarea:focus { border-color: var(--p4-yellow); }
-  .booking-textarea { resize: none; }
-  .booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .booking-submit {
-    width: 100%; background: var(--p4-yellow); color: #000; border: 2px solid #000;
-    padding: 12px; font-family:'Bebas Neue',sans-serif; font-size: 1.3rem;
-    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background 0.2s;
-  }
-  .booking-submit:hover { background: var(--p4-orange); }
-  .booking-success { text-align: center; padding: 1.5rem; background: #0d0d12; border: 1px dashed rgba(253,241,0,0.3); }
-  .booking-form-tag { position: absolute; top: -10px; left: 16px; background: var(--p4-yellow); color: #000; font-size: 9px; font-family:'JetBrains Mono',monospace; font-weight: 900; text-transform: uppercase; padding: 2px 10px; border: 1px solid #000; }
-  
-  /* --- LOST & FOUND --- */
-  .lf-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 2px solid #333; padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
-  .lf-post-btn {
-    background: var(--p4-yellow); color: #000; border: 2px solid #000; padding: 12px 24px;
-    font-family:'Bebas Neue',sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; text-transform: uppercase;
-    cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;
-    transform: rotate(1deg); clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%);
-  }
-  .lf-post-btn:hover { background: var(--p4-orange); transform: rotate(0deg); }
-  
-  .filter-bar { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; background: var(--p4-card); padding: 1rem; border: 2px solid #333; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .search-wrap { position: relative; }
-  .search-input { width: 100%; background: #0a0a0f; border: 2px solid #333; color: #fff; padding: 10px 10px 10px 36px; font-size: 11px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none; }
-  .search-input:focus { border-color: var(--p4-yellow); }
-  .filter-select { background: #0a0a0f; border: 2px solid #333; color: #aaa; padding: 10px; font-size: 10px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none; cursor: pointer; }
-  .filter-select:focus { border-color: var(--p4-yellow); }
-  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-tag {
-    padding: 6px 12px; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700;
-    text-transform: uppercase; cursor: pointer; border: 1px solid #333; background: #0a0a0f; color: #666;
-    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
-    transition: all 0.15s;
-  }
-  .filter-tag:hover { color: #fff; }
-  .filter-tag.active-all { background: var(--p4-cyan); color: #000; border-color: transparent; }
-  .filter-tag.active-lost { background: var(--p4-orange); color: #000; border-color: transparent; }
-  .filter-tag.active-found { background: var(--p4-yellow); color: #000; border-color: transparent; }
-  .filter-tag.active-reclaimed { background: #16a34a; color: #fff; border-color: transparent; }
-  
   .lf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  
-  .lf-card { background: var(--p4-card); border: 2px solid #333; display: flex; flex-direction: column; transition: all 0.2s; overflow: hidden; }
-  .lf-card:hover { border-color: var(--p4-yellow); filter: drop-shadow(0 0 12px rgba(253,241,0,0.3)); }
-  .lf-img-wrap { height: 176px; position: relative; overflow: hidden; }
-  .lf-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-  .lf-card:hover .lf-img { transform: scale(1.05); }
-  .lf-type-badge {
-    position: absolute; top: 0; left: 0; font-family:'Bebas Neue',sans-serif;
-    font-size: 1rem; letter-spacing: 0.1em; padding: 4px 14px; border: 1px solid #000; color: #000;
-    transform: rotate(-4deg) translate(-2px, 6px);
-  }
-  .lf-reclaimed-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; }
-  .reclaimed-stamp { border: 3px dashed #16a34a; color: #4ade80; font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; padding: 8px 16px; transform: rotate(-15deg); background: rgba(0,0,0,0.8); text-align: center; }
-  
-  .lf-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .lf-meta { display: flex; justify-content: space-between; font-size: 10px; font-family:'JetBrains Mono',monospace; color: #555; margin-bottom: 6px; }
-  .lf-title { font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; text-transform: uppercase; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lf-cat { font-size: 10px; font-family:'JetBrains Mono',monospace; color: #555; background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 2px 8px; display: inline-block; margin-bottom: 8px; }
-  .lf-desc { font-size: 12px; color: #888; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 12px; }
-  .lf-reporter { border-top: 1px solid #222; padding-top: 10px; display: flex; flex-direction: column; gap: 4px; }
-  .lf-reporter-row { display: flex; justify-content: space-between; font-size: 11px; font-family:'JetBrains Mono',monospace; }
-  .lf-reporter-label { color: #555; text-transform: uppercase; }
-  .lf-reporter-value { color: #fff; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .lf-contact-value { color: var(--p4-orange); font-weight: 700; font-size: 10px; }
-  .lf-reward { background: rgba(255,144,0,0.15); border: 1px dashed rgba(255,144,0,0.4); padding: 6px 10px; font-size: 10px; color: var(--p4-orange); font-weight: 700; text-transform: uppercase; margin-top: 6px; }
-  
+  .lf-card { background: var(--p4-card); border: 2px solid #333; display: flex; flex-direction: column; overflow: hidden; }
+  .lf-img-wrap { height: 176px; position: relative; }
+  .lf-img { width: 100%; height: 100%; object-fit: cover; }
+  .lf-type-badge { position: absolute; top: 0; left: 0; font-family:'Bebas Neue',sans-serif; font-size: 1rem; padding: 4px 14px; color: #000; }
+  .lf-body { padding: 1rem; flex: 1; }
+  .lf-title { font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; color: #fff; }
   .lf-actions { background: #000; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #222; }
-  .btn-reclaim {
-    flex: 1; background: #15803d; color: #fff; border: 1px solid #16a34a;
-    font-family:'Bebas Neue',sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.2s;
-  }
-  .btn-reclaim:hover { background: #16a34a; }
-  .btn-delete { background: transparent; border: 1px solid #333; color: #666; padding: 8px 12px; cursor: pointer; transition: all 0.2s; }
-  .btn-delete:hover { border-color: var(--p4-magenta); color: var(--p4-magenta); }
-  
-  .reclaimed-label { width: 100%; text-align: center; padding: 8px; font-size: 10px; font-family:'JetBrains Mono',monospace; color: #4ade80; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  
-  /* Match banner */
-  .match-banner { border: 4px solid #000; background: var(--p4-yellow); color: #000; padding: 1rem; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
-  .match-banner-top { height: 8px; position: absolute; top: 0; left: 0; right: 0; }
-  .match-pair { background: #050508; border: 2px solid #333; padding: 10px; font-size: 12px; transition: border-color 0.2s; }
-  .match-pair:hover { border-color: var(--p4-yellow); }
-  .match-pairs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-  
-  /* Success banner */
-  .success-banner { background: var(--p4-yellow); color: #000; padding: 10px; text-align: center; font-family:'Bebas Neue',sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; border: 2px solid #000; transform: rotate(-1deg); margin-bottom: 1rem; }
-  
-  /* Form Panel */
-  .form-panel { background: var(--p4-card); border: 4px solid #000; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
-  .form-panel::after { content: ''; position: absolute; right: -32px; top: 0; bottom: 0; width: 128px; background: rgba(253,241,0,0.05); transform: skewX(12deg); pointer-events: none; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .form-group { margin-bottom: 1rem; }
-  .form-label { font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
-  .label-yellow { color: var(--p4-yellow); }
-  .label-orange { color: var(--p4-orange); }
-  .label-gray { color: #888; }
-  .form-input, .form-select, .form-textarea {
-    width: 100%; background: #050508; border: 2px solid #333; color: #fff;
-    padding: 10px 12px; font-size: 11px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--p4-yellow); }
-  .form-textarea { resize: none; }
-  .form-type-toggle { display: flex; background: #000; border: 2px solid #444; padding: 4px; }
-  .type-btn { font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; padding: 6px 16px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border: none; background: transparent; color: #666; transition: all 0.15s; }
-  .type-btn.active-lost { background: var(--p4-orange); color: #000; font-weight: 900; }
-  .type-btn.active-found { background: var(--p4-yellow); color: #000; font-weight: 900; }
-  
-  .img-drop-zone { border: 2px dashed #444; display: flex; align-items: center; justify-content: center; min-height: 160px; flex-direction: column; gap: 8px; cursor: pointer; transition: all 0.2s; padding: 1rem; text-align: center; background: #050508; }
-  .img-drop-zone:hover, .img-drop-zone.drag-over { border-color: var(--p4-yellow); background: rgba(253,241,0,0.05); }
-  .img-drop-zone img { max-height: 120px; object-fit: contain; }
-  .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
-  .preset-img-btn { height: 48px; overflow: hidden; border: 2px solid #333; cursor: pointer; transition: border-color 0.2s; background: none; }
-  .preset-img-btn:hover, .preset-img-btn.selected { border-color: var(--p4-yellow); }
-  .preset-img-btn img { width: 100%; height: 100%; object-fit: cover; }
-  .form-actions { border-top: 1px solid #333; padding-top: 1rem; display: flex; justify-content: flex-end; gap: 12px; }
-  .form-cancel { background: transparent; border: none; color: #666; font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; padding: 8px 16px; transition: color 0.2s; }
-  .form-cancel:hover { color: #fff; }
-  .form-submit { background: var(--p4-yellow); color: #000; border: 2px solid #000; padding: 12px 32px; font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%); transition: background 0.2s; }
-  .form-submit:hover { background: var(--p4-orange); }
-  
-  /* Footer */
-  footer { margin-top: 5rem; border-top: 4px solid #000; padding: 2rem; text-align: center; background: #000; position: relative; overflow: hidden; }
-  
-  /* No results */
-  .no-results { grid-column: 1/-1; border: 2px dashed #333; padding: 4rem; text-align: center; }
-  
-  /* Section header */
-  .section-header { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #222; padding-bottom: 12px; margin-bottom: 1.5rem; }
-  .section-badge { padding: 4px 14px; background: var(--p4-yellow); color: #000; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 900; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); transform: rotate(-2deg); border: 1px solid #000; }
-  
-  /* Responsive */
-  @media (max-width: 640px) {
-    .hero-sidebar { width: 100%; }
-    .modal-left { width: 100%; border-right: none; border-bottom: 4px solid #000; }
-    .form-row, .form-row-3, .booking-row { grid-template-columns: 1fr; }
-    .filter-bar { grid-template-columns: 1fr; }
-    .match-pairs-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-  }
+  .btn-reclaim { flex: 1; background: #15803d; color: #fff; border: none; padding: 8px; cursor: pointer; font-family:'Bebas Neue'; }
+  .btn-delete { background: transparent; border: 1px solid #333; color: #666; padding: 8px 12px; cursor: pointer; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; overflow-y: auto; }
+  .modal { background: #0d0d12; border: 4px solid #000; width: 100%; max-width: 900px; display: flex; flex-wrap: wrap; position: relative; }
+  .modal-close { position: absolute; top: 12px; right: 12px; background: var(--p4-yellow); border: 2px solid #000; cursor: pointer; z-index: 10; font-weight: 900; }
+  .form-panel { background: var(--p4-card); border: 4px solid #000; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .form-input, .form-select, .form-textarea { width: 100%; background: #050508; border: 2px solid #333; color: #fff; padding: 10px; margin-bottom: 1rem; font-family: 'JetBrains Mono'; }
+  .success-banner { background: var(--p4-yellow); color: #000; padding: 10px; text-align: center; font-family:'Bebas Neue',sans-serif; border: 2px solid #000; transform: rotate(-1deg); margin-bottom: 1rem; }
 </style>
 </head>
 <body>
@@ -352,627 +85,202 @@
 <div class="bg-danger-stripes top-stripe"></div>
 
 <div class="max-w" style="padding-top:1.5rem; padding-bottom:5rem;">
-
   <!-- HERO -->
   <header class="hero">
     <div class="hero-main">
       <div class="hero-badge">★ WAB PORTAL INDEX ★</div>
-      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
-        <div style="background:#000; padding:12px; border:2px solid var(--p4-yellow); transform:rotate(-4deg); flex-shrink:0;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FDF100" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
-        <div>
-          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; font-weight:700; text-transform:uppercase; background:#000; color:var(--p4-yellow); padding:2px 8px; display:inline-block; margin-bottom:4px;">Beijing WAB Academy ★ DIRECTORY &amp; RECOVERY</div>
-          <h1 class="hero-title">WAB CAMPUS <span>RECOVERY</span> &amp; RESOURCE HUB</h1>
-        </div>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <h1 class="hero-title">WAB CAMPUS <span>RECOVERY</span> HUB</h1>
       </div>
-      <p style="font-size:12px; color:rgba(0,0,0,0.75); font-weight:600; max-width:640px; line-height:1.6;">Welcome to the centralized community directory for the Western Academy of Beijing. This platform connects students to counselors, tech support, library resources, CAS initiatives, and a lost-and-found registry.</p>
+      <p style="font-size:12px; margin-top:1rem;">Welcome to the centralized community directory for the Western Academy of Beijing.</p>
       <div class="hero-rainbow bg-rainbow-stripes"></div>
     </div>
-    
     <div class="hero-sidebar">
-      <div class="bg-scanlines" style="position:absolute;inset:0;opacity:0.2;pointer-events:none;"></div>
-      <div style="position:absolute;right:-20px;bottom:-20px;color:var(--p4-yellow);opacity:0.08;font-size:8rem;font-weight:900;line-height:1;pointer-events:none;">★</div>
-      <div style="position:relative;z-index:1;">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--p4-yellow);border-bottom:1px solid #444;padding-bottom:8px;margin-bottom:10px;">
-          <span>WAB CAMPUS STATUS</span>
-          <span style="color:var(--p4-magenta);">● <span class="status-dot" style="width:6px;height:6px;display:inline-block;background:var(--p4-magenta);border-radius:50%;"></span> ONLINE</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:700;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Student Safety Index:</span>
-            <span style="background:var(--p4-yellow);color:#000;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">100% SECURE</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Support Desks:</span>
-            <span style="background:var(--p4-cyan);color:#000;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">5 DEPARTMENTS</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Match Algorithm:</span>
-            <span style="background:var(--p4-magenta);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">★ ACTIVE READY</span>
-          </div>
-        </div>
-      </div>
-      <div class="quote-box" id="quoteBox" onclick="rotateQuote()" style="position:relative;z-index:1;">
-        <p id="quoteText" style="font-size:10px;line-height:1.5;"></p>
-        <p style="font-size:8px;font-family:'JetBrains Mono',monospace;color:var(--p4-magenta);text-align:right;margin-top:6px;font-weight:900;">CLICK TO ROTATE CAMPUS QUOTES</p>
+      <div style="font-size:10px; color:var(--p4-yellow);">STATUS: <span class="status-dot"></span> ONLINE</div>
+      <div class="quote-box" onclick="rotateQuote()">
+        <p id="quoteText" style="font-size:10px;"></p>
       </div>
     </div>
   </header>
 
-  <!-- EMERGENCY CARD -->
-  <div class="emergency-card">
-    <div class="bg-danger-stripes emergency-stripe-l"></div>
-    <div class="bg-danger-stripes emergency-stripe-r"></div>
-    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
-      <div style="background:var(--p4-yellow);color:#000;font-weight:900;font-family:'Bebas Neue',sans-serif;font-size:1rem;padding:6px 14px;border:1px solid #000;text-transform:uppercase;transform:rotate(-2deg);">★ BROADCAST HOTLINES ★</div>
-      <div>
-        <div class="bebas" style="font-size:1.4rem;color:#fff;text-transform:uppercase;">HIGH-STRESS EMERGENCY CALLING CARD</div>
-        <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">Centralized quick dial ports for diverse community onboarding</div>
-      </div>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;">
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-yellow)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div><span class="ec-label">CAMPUS CLINIC</span><span class="ec-number">+86 (10) 8456-4155 ext. 100</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-cyan)" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div><span class="ec-label">BUS TRANSIT UNIT</span><span class="ec-number">+86 (10) 8456-4155 ext. 200</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-magenta)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div><span class="ec-label">HS CORE OFFICE</span><span class="ec-number">+86 (10) 8456-4155 ext. 331</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-    </div>
-  </div>
-
   <!-- TABS -->
   <div class="tabs">
-    <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-      ★ CAMPUS RESOURCE DIRECTORY ★
-    </button>
-    <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-      ☆ STUDENT LOST &amp; FOUND BULLETINS ☆
-    </button>
+    <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">★ RESOURCE DIRECTORY ★</button>
+    <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">☆ LOST & FOUND ☆</button>
   </div>
 
-  <!-- TAB CONTENT -->
   <main style="margin-top:2rem;">
     <div id="panel-directory">
-      <div class="section-header">
-        <div class="section-badge">★ DEPARTMENTS ACTIVE ★</div>
-        <h2 class="bebas" style="font-size:2rem;color:#fff;text-transform:uppercase;">Centralized Alliance Resources</h2>
-      </div>
-      <p style="font-size:13px;color:#888;max-width:700px;margin-bottom:2rem;line-height:1.7;">Click on any service card below to summon detailed dossiers. Each hub block provides immediate hotlines, location tracking, and an interactive booking system.</p>
       <div class="cards-grid" id="cardsGrid"></div>
     </div>
     
     <div id="panel-lostfound" style="display:none;">
-      <div id="matchBanner" style="display:none;" class="match-banner">
-        <div class="match-banner-top bg-danger-stripes"></div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding-top:8px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="background:#000;color:var(--p4-yellow);padding:8px;border:1px solid #000;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4 class="bebas" style="font-size:1.4rem;color:#000;text-transform:uppercase;">★ BULLETIN MATCH DETECTOR: POTENTIAL ACTIVE MATCH IDENTIFIED ★</h4>
-              <p style="font-size:11px;font-weight:600;color:rgba(0,0,0,0.75);">Our directory has cross-referenced active lost &amp; found tags. Check matching criteria below.</p>
-            </div>
-          </div>
-          <div id="matchCount" style="background:#000;color:var(--p4-yellow);font-family:'Bebas Neue',sans-serif;padding:4px 12px;font-weight:900;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;"></div>
-        </div>
-        <div class="match-pairs-grid" id="matchPairs"></div>
-      </div>
-      
       <div id="successBanner" style="display:none;" class="success-banner"></div>
-      
-      <div class="lf-header">
-        <div>
-          <h2 class="bebas" style="font-size:2.5rem;color:#fff;text-transform:uppercase;">★ WAB High School Bulletins ★</h2>
-          <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">RECOVER PROPERTY, EXPEDITE SECURITY, CONNECT TEAMMATES</p>
-        </div>
-        <button class="lf-post-btn" id="postBtn" onclick="toggleForm()">★ POST NEW ITEM CASE ★ <span id="postBtnIcon" style="font-size:1.2rem;">+</span></button>
+      <div class="lf-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h2 class="bebas" style="font-size:2rem;">★ WAB High School Bulletins ★</h2>
+        <button class="tab-btn" style="max-width:200px;" onclick="toggleForm()">POST NEW ITEM +</button>
       </div>
-      
+
       <div id="formPanel" style="display:none;" class="form-panel">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid #333;padding-bottom:1rem;margin-bottom:1.5rem;">
-          <h3 class="bebas" style="font-size:2rem;color:#fff;text-transform:uppercase;">Submit New School Lost or Found Post</h3>
-          <div class="form-type-toggle">
-            <button class="type-btn active-lost" id="typeLost" onclick="setFormType('lost')">★ I LOST SOMETHING</button>
-            <button class="type-btn" id="typeFound" onclick="setFormType('found')">☆ I FOUND SOMETHING</button>
-          </div>
+        <input type="text" id="fTitle" class="form-input" placeholder="Item Headline" />
+        <textarea id="fDesc" class="form-textarea" placeholder="Description"></textarea>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+            <input type="text" id="fName" class="form-input" placeholder="Your Full Name" />
+            <input type="text" id="fContact" class="form-input" placeholder="Contact (WeChat/Email)" />
         </div>
-        
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;align-items:start;">
-          <div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Item Headline</label>
-                <input type="text" id="fTitle" class="form-input" placeholder="BE PRECISE & BRIEF" />
-              </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Reporting Date</label>
-                <input type="date" id="fDate" class="form-input" />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Campus Zone</label>
-                <select id="fLocation" class="form-select">
-                  <option>Atrium</option><option>Library</option><option>Sports Pitch</option>
-                  <option>Cafeteria</option><option>HS Wing</option><option>Drama Theater</option>
-                  <option>Gym</option><option>Other</option>
-                </select>
-              </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Category</label>
-                <select id="fCategory" class="form-select">
-                  <option value="Clothing/Blazer">Clothing/Blazer</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="ID/Card">ID Card</option>
-                  <option value="Bottle/Flask">Water Flask</option>
-                  <option value="Keys/Fobs">Keys/Fobs</option>
-                  <option value="Bags/Books">Bags/Books</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label label-gray">Full Description (marks, serial numbers, labels)</label>
-              <textarea id="fDesc" class="form-textarea" rows="3" placeholder="E.G. SCANS ON INNER FABRIC READS SIZE M, FEATURES MASCOT BADGE..."></textarea>
-            </div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Your Full Name</label>
-                <input type="text" id="fName" class="form-input" placeholder="E.G. MICHAEL CHEN" />
-              </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Contact (WeChat or Email)</label>
-                <input type="text" id="fContact" class="form-input" placeholder="WECHAT ID OR SCHOOL EMAIL" />
-              </div>
-            </div>
-            <div class="form-group" id="rewardGroup">
-              <label class="form-label label-orange">Incentive Reward (Optional)</label>
-              <input type="text" id="fReward" class="form-input" placeholder="E.G. FREE BOBA STUDY TREAT AT CAFETERIA!" />
-            </div>
-          </div>
-          
-          <div>
-            <label class="form-label" style="color:#fff;margin-bottom:8px;display:block;">Item Visual Proof (Image)</label>
-            <div class="img-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
-              <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFile(event)" />
-              <div id="dropContent">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" style="margin:0 auto 8px;display:block;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <p class="bebas" style="font-size:1.1rem;color:#fff;">Drag &amp; drop item photo</p>
-                <p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;">OR CLICK TO BROWSE FILES</p>
-              </div>
-            </div>
-            <div style="margin-top:8px;">
-              <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;display:block;margin-bottom:6px;">Or select a template:</span>
-              <div class="preset-grid" id="presetGrid"></div>
-            </div>
-          </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+            <select id="fLocation" class="form-select">
+                <option>Atrium</option><option>Library</option><option>Cafeteria</option><option>Gym</option><option>HS Wing</option>
+            </select>
+            <select id="fCategory" class="form-select">
+                <option>Electronics</option><option>Clothing</option><option>ID Card</option><option>Bottle/Flask</option><option>Other</option>
+            </select>
         </div>
-        
-        <div class="form-actions">
-          <button class="form-cancel" onclick="toggleForm()">CANCEL</button>
-          <button class="form-submit" onclick="submitItem()">★ SUBMIT ITEM BULLETIN ★</button>
-        </div>
-      </div>
-      
-      <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;background:var(--p4-card);padding:1rem;border:2px solid #333;margin-bottom:1.5rem;flex-wrap:wrap;" id="filterBar">
-        <div class="search-wrap">
-          <input type="text" class="search-input" id="searchInput" placeholder="Search bulletins..." oninput="renderLF()" />
-          <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="filter-tag active-all" id="ftAll" onclick="setTypeFilter('all')">ALL</button>
-          <button class="filter-tag" id="ftLost" onclick="setTypeFilter('lost')">★ LOST</button>
-          <button class="filter-tag" id="ftFound" onclick="setTypeFilter('found')">☆ FOUND</button>
-          <button class="filter-tag" id="ftReclaimed" onclick="setTypeFilter('reclaimed')">RECLAIMED</button>
-        </div>
-        <select class="filter-select" id="locFilter" onchange="renderLF()">
-          <option value="all">ALL LOCATIONS</option>
-          <option>Atrium</option><option>Library</option><option>Sports Pitch</option>
-          <option>Cafeteria</option><option>HS Wing</option><option>Drama Theater</option>
-          <option>Gym</option><option>Other</option>
-        </select>
-        <select class="filter-select" id="catFilter" onchange="renderLF()">
-          <option value="all">ALL CATEGORIES</option>
-          <option value="Clothing/Blazer">Clothing</option>
-          <option value="Electronics">Electronics</option>
-          <option value="ID/Card">ID Card</option>
-          <option value="Bottle/Flask">Flask</option>
-          <option value="Keys/Fobs">Keys</option>
-          <option value="Bags/Books">Bags</option>
-          <option value="Other">Other</option>
-        </select>
+        <button class="tab-btn" style="background:var(--p4-yellow); color:#000;" onclick="submitItem()">★ SUBMIT TO BULLETIN ★</button>
       </div>
       
       <div class="lf-grid" id="lfGrid"></div>
     </div>
   </main>
-
-  <footer>
-    <div style="position:absolute;top:0;left:0;right:0;height:4px;" class="bg-rainbow-stripes"></div>
-    <div style="position:relative;z-index:1;">
-      <h4 class="bebas" style="font-size:2rem;color:var(--p4-yellow);text-transform:uppercase;-webkit-text-stroke:1px #000;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
-      <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;letter-spacing:0.1em;margin-top:8px;line-height:1.7;">Western Academy of Beijing. This platform operates independently in service of high school onboarding convenience, seamless property recovery and digital happiness.</p>
-      <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:12px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--p4-orange);font-weight:700;">
-        <span>★ SYSTEM SECURITY VERIFIED ★</span>
-        <span>☆ DIRECTORY RESOLUTION ☆</span>
-      </div>
-      <p style="font-size:10px;color:#444;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;border-top:1px solid #222;padding-top:1rem;">© 2026 WAB Directory Portal. Styled with retro yellow pop aesthetic.</p>
-    </div>
-  </footer>
 </div>
 
 <!-- MODAL -->
 <div id="modal" class="modal-backdrop" style="display:none;" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-left bg-dots" id="modalLeft"></div>
-    <div class="modal-right" id="modalRight"></div>
+    <div id="modalContent" style="padding:2.5rem; width:100%;"></div>
   </div>
 </div>
 
 <script>
 // --- SUPABASE 配置 ---
-// ⚠️ 请在这里替换成你的 Supabase Project URL
 const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// ⚠️ 重要修复：将变量名改为 supabaseClient 避免冲突
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // DATA
-const quotes = [
-  '"A diverse campus thrives on collaboration. Keep your belongings secured and your heart open!" — Grade 12 Advisor',
-  '"Found my lost Math calculator in Room H304 in just 10 minutes. This portal is absolute magic!" — Emily W. (Grade 10)',
-  '"If you are feeling overwhelmed by classes or IB deadlines, Counselor Sarah has the ultimate dialogue tree." — Anon Tiger',
-  '"Service CAS groups meet every Tuesday in the Global citizens lounge. Join the alliance today!" — CAS Liaison'
-];
-let quoteIdx = 0;
-function rotateQuote() {
-  quoteIdx = (quoteIdx + 1) % quotes.length;
-  document.getElementById('quoteText').textContent = quotes[quoteIdx];
-}
-document.getElementById('quoteText').textContent = quotes[0];
+const quotes = ['"A diverse campus thrives on collaboration!"', '"Found my calculator in 10 minutes!"', '"The Hub is open until 6 PM."'];
+let items = [];
 
 const resources = [
-  { id:'res-counseling-1', category:'counseling', title:'High School Support & Wellbeing', subtitle:'Confidential Guidance & Emotional Counseling', lead:'Ms. Sarah Martinez & Mr. Alan Vance', location:'HS Admin Block, 2nd Floor', hours:'Monday – Friday, 08:00 – 16:30', description:'Providing a safe harbor for personal, academic, and mental health challenges. Whether you are battling workload stress, social pressure, or just need an attentive listener, our certified counselors are here to help.', keyServices:['Individual Mental Health Chats','Stress & Time-Management Masterclasses','Crisis Response & Safety Support','Peer Support Network Facilitation','University Transition Guidance Sessions'], contactInfo:{ email:'hscounseling@wab.edu', phone:'+86 (10) 8456-4155 ext. 201', wechat:'WAB_HS_Wellbeing', room:'Room H214' }, p5Quote:'"You don\'t have to carry academic or personal stress alone. A single constructive conversation can help clear your path and restore balance."', actionLabel:'Reserve Chat Session' },
-  { id:'res-library-1', category:'library', title:'The Hub: Library & Research Center', subtitle:'Inquiry, Research Databases, and Literary Aid', lead:'Dr. Timothy Cole (Head Librarian)', location:'The HUB Atrium, Central Wing', hours:'Monday – Friday, 07:30 – 18:00', description:'A cutting-edge collaborative space with thousands of physical texts, digital database subscriptions (JSTOR, EBSCO), private group study rooms, and individual research mentorship for IB Extended Essays.', keyServices:['IB EE Research Mentorship','Advanced Citation & Academic Integrity Audits','Audiobox Equipment & VR Sandbox Checkouts','Overdrive & Libby Digital Audiobooks Access','Silent Study Booth Private Bookings'], contactInfo:{ email:'hub_library@wab.edu', phone:'+86 (10) 8456-4155 ext. 330', website:'https://hub.wab.edu', room:'Levels 1 & 2, HUB' }, p5Quote:'"Knowledge is built on curious, exhaustive inquiry. Arm your research with robust academic databases."', actionLabel:'Book Research Booth' },
-  { id:'res-tech-1', category:'tech', title:'WAB TigerTech Support Center', subtitle:'MacBook Diagnostic, Network, and Software Help', lead:'Mr. David Wu (IT Operations Lead)', location:'Information Technology Bar, Ground Floor', hours:'Monday – Friday, 08:00 – 17:00', description:'The core repair and support branch for school-issued MacBooks, institutional login/VPN troubleshooting, software updates, printer configurations, and server/Wi-Fi authentication glitches.', keyServices:['MacBook Broken Screen & Battery Replacements','Institutional Wi-Fi & VPN Configuration Support','Dual-factor Authentication & Reset Support','Adobe Creative Cloud & Office Licensing','Loaner MacBook Sign-outs'], contactInfo:{ email:'support@wab.edu', phone:'+86 (10) 8456-4155 ext. 500', wechat:'WAB_TigerTech_Quick', room:'TechBar Level 1' }, p5Quote:'"Technical and network glitches are just temporary hurdles. Let our IT operations support team configure your digital tools."', actionLabel:'Submit IT Ticket' },
-  { id:'res-service-1', category:'service', title:'High School Service & Outreach Groups', subtitle:'Engaging Community Action & Global Projects', lead:'Mrs. Cynthia Zhang (CAS Coordinator)', location:'Global Citizens Studio', hours:'CAS Advisory: Tues/Thurs 15:05 – 16:30', description:'Central community link coordinating WAB students with local and international service groups. Build friendships and construct sustainable CAS projects.', keyServices:['Local Community Volunteering Placement','CAS Portfolio Idea Incubation & Approval','Environmental Recycling & Upcycling Campaigns','Service Event Funding Proposals','Student Service Council Liaison'], contactInfo:{ email:'cas_outreach@wab.edu', website:'https://cas.wab.edu', room:'Studio G10' }, p5Quote:'"Meaningful communal impact comes from dedication. Connect your skills and passion with our charity partnerships."', actionLabel:'Explore CAS Partners' },
-  { id:'res-community-1', category:'community', title:'WAB Parent-Teacher & Administrative Council', subtitle:'Core Contacts & Crisis Community Lines', lead:'Dr. Sandra Vance (Director of Communications)', location:'Main Administrative Center', hours:'Monday – Friday, 08:00 – 17:00 (Emergency: 24/7)', description:'Connecting our diverse global community. The immediate bridge for family logistics, high school athletic councils, campus safety coordinators, and public announcement updates.', keyServices:['Bus Transport Hotline & Dynamic Delays','Parent Association (WABPA) Join Portal','Main Clinic Coordination & Emergency Dispatch','Off-campus Student Activities Registry','Cross-Cultural Community Translators'], contactInfo:{ phone:'+86 (10) 8456-4155 ext. 100', email:'directorate@wab.edu', wechat:'WAB_Official_Public' }, p5Quote:'"We thrive on creating a close-knit educational ecosystem where every student feels secure and supported."', actionLabel:'Contact Main Office' }
+  { id:'res-1', category:'counseling', title:'HS Support & Wellbeing', location:'H214', hours:'08:00 – 16:30', desc:'Confidential guidance and emotional counseling.' },
+  { id:'res-2', category:'library', title:'The Hub: Library', location:'Atrium', hours:'07:30 – 18:00', desc:'Research databases and study spaces.' },
+  { id:'res-3', category:'tech', title:'TigerTech Support', location:'Ground Floor', hours:'08:00 – 17:00', desc:'MacBook and software troubleshooting.' }
 ];
 
-const presetImages = [
-  { name:'Navy Blazer', url:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
-  { name:'Headphones', url:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400' },
-  { name:'Calculator', url:'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400' },
-  { name:'Water Flask', url:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400' },
-  { name:'Keychain', url:'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400' },
-  { name:'Backpack', url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
-];
+// 初始化
+window.onload = () => {
+  renderCards();
+  fetchItems();
+  rotateQuote();
+};
 
-// STATE
-let items = []; // 数据将从 Supabase 加载
-let typeFilter = 'all', selectedImage = '', formType = 'lost', formOpen = false;
-
-// --- 从 Supabase 加载数据 ---
-async function fetchItems() {
-  const { data, error } = await supabase
-    .from('items')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching data:', error);
-  } else {
-    items = data || [];
-    renderLF();
-  }
+function rotateQuote() {
+  document.getElementById('quoteText').textContent = quotes[Math.floor(Math.random()*quotes.length)];
 }
 
-// TAB
 function switchTab(tab) {
   document.getElementById('panel-directory').style.display = tab === 'directory' ? '' : 'none';
   document.getElementById('panel-lostfound').style.display = tab === 'lostfound' ? '' : 'none';
-  document.getElementById('tab-directory').className = 'tab-btn' + (tab === 'directory' ? ' active' : '');
-  document.getElementById('tab-lostfound').className = 'tab-btn' + (tab === 'lostfound' ? ' active' : '');
-  if (tab === 'lostfound') { fetchItems(); detectMatches(); }
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if(tab === 'lostfound') fetchItems();
 }
 
-// RESOURCE CARDS
-function badgeClass(cat) { return 'card-cat-badge badge-' + cat; }
 function renderCards() {
   const grid = document.getElementById('cardsGrid');
   grid.innerHTML = resources.map(r => `
     <div class="resource-card" onclick="openModal('${r.id}')">
-      <div class="card-header">
-        <span class="${badgeClass(r.category)}">${r.category}</span>
-        <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">★ DEPT ID // ${r.id.split('-')[2]||'CODE'}</span>
-      </div>
+      <div class="card-header"><span class="card-cat-badge badge-${r.category}">${r.category}</span></div>
       <div class="card-body">
-        <div>
-          <h3 class="card-title">${r.title}</h3>
-          ${r.subtitle ? `<p class="card-subtitle">${r.subtitle}</p>` : ''}
-          <p class="card-desc">${r.description}</p>
-        </div>
-        <div class="card-meta">
-          <div class="card-meta-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--p4-orange)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> LOC: ${r.location}</div>
-          <div class="card-meta-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> HRS: ${r.hours}</div>
-        </div>
+        <h3 class="card-title">${r.title}</h3>
+        <p style="font-size:12px; color:#aaa;">📍 ${r.location} | 🕒 ${r.hours}</p>
       </div>
-      <div class="card-footer">★ ${r.actionLabel} ★</div>
+      <div class="card-footer">★ VIEW RESOURCE ★</div>
     </div>
   `).join('');
 }
 
-// MODAL 逻辑保持不变...
-let currentBookingResource = null;
-function openModal(id) {
-  const r = resources.find(x => x.id === id);
-  if (!r) return;
-  currentBookingResource = r;
-  
-  const colorMap = { counseling:'var(--p4-yellow)', library:'var(--p4-orange)', tech:'var(--p4-cyan)', service:'var(--p4-magenta)', community:'#888' };
-  const c = colorMap[r.category] || 'var(--p4-yellow)';
-  
-  document.getElementById('modalLeft').innerHTML = `
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;">
-        <span style="padding:8px;background:${c};color:#000;border:2px solid #000;font-weight:900;font-size:10px;text-transform:uppercase;">${r.category}</span>
-        <span class="bebas" style="font-size:1.4rem;color:#fff;text-transform:uppercase;">${r.category}</span>
-      </div>
-      <h2 class="modal-title">${r.title}</h2>
-      <p style="color:var(--p4-yellow);font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin:6px 0 1.5rem;font-weight:700;">★ OFFICIAL DIRECTORY INFO ★</p>
-      <div class="info-block" style="border-left-color:var(--p4-yellow);margin-bottom:8px;"><div class="info-label">LEAD DIRECTOR</div><div class="info-value">${r.lead}</div></div>
-      <div class="info-block" style="border-left-color:#fff;margin-bottom:8px;"><div class="info-label">HEADQUARTERS</div><div class="info-value">${r.location}</div></div>
-      <div class="info-block" style="border-left-color:var(--p4-orange);"><div class="info-label">ACTIVE TIMINGS</div><div class="info-value">${r.hours}</div></div>
-    </div>
-    ${r.p5Quote ? `<div class="quote-block"><p style="font-size:12px;color:#000;font-style:italic;font-weight:700;line-height:1.6;">${r.p5Quote}</p></div>` : ''}
-  `;
-  
-  const contacts = Object.entries(r.contactInfo).map(([k,v]) => {
-    const labels = {email:'OFFICIAL EMAIL', phone:'DIRECT DIAL', wechat:'WECHAT CHANNEL', website:'OFFICIAL WEBSITE', room:'ROOM NUMBER'};
-    const href = k==='email' ? `mailto:${v}` : k==='phone' ? `tel:${v}` : k==='website' ? v : null;
-    return `<div class="contact-item"><span class="contact-item-label">${labels[k]||k.toUpperCase()}</span><span class="contact-item-value">${href ? `<a href="${href}" target="_blank">${v}</a>` : v}</span></div>`;
-  }).join('');
-  
-  document.getElementById('modalRight').innerHTML = `
-    <button class="modal-close" onclick="closeModal()" style="position:absolute;top:12px;right:12px;">✕</button>
-    <h3 class="bebas" style="font-size:2rem;color:var(--p4-yellow);text-transform:uppercase;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:1rem;">★ Key Support Actions ★</h3>
-    <p style="font-size:13px;color:#aaa;line-height:1.7;margin-bottom:1.5rem;">${r.description}</p>
-    <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--p4-yellow);font-weight:700;text-transform:uppercase;margin-bottom:8px;">Services Offered:</p>
-    <ul class="services-list">${r.keyServices.map(s => `<li><span style="color:var(--p4-yellow);font-weight:700;">★</span> ${s}</li>`).join('')}</ul>
-    <div class="contact-grid">${contacts}</div>
-    <div class="booking-form" id="bookingForm">
-      <div class="booking-form-tag">BOOK APPOINTMENT / SUBMIT INQUIRY</div>
-      <div id="bookingContent">
-        <div class="booking-row" style="margin-top:8px;">
-          <div><label class="booking-label">Your Full Name</label><input type="text" id="bkName" class="booking-input" placeholder="E.G. LIAM WONG" /></div>
-          <div><label class="booking-label">Preferred Time</label><input type="text" id="bkTime" class="booking-input" placeholder="E.G. AFTER SCHOOL" /></div>
-        </div>
-        <div style="margin-bottom:10px;"><label class="booking-label">Brief Description of Need</label><textarea id="bkDetail" class="booking-textarea" rows="2" placeholder="E.G. INQUIRING REGARDING EXAM STRESS RELIEF..."></textarea></div>
-        <button class="booking-submit" onclick="submitBooking()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          CONFIRM INQUIRY REQUEST
-        </button>
-      </div>
-    </div>
-  `;
-  
-  document.getElementById('modal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function submitBooking() {
-  const name = document.getElementById('bkName').value.trim();
-  if (!name) { document.getElementById('bkName').style.borderColor = 'var(--p4-magenta)'; return; }
-  document.getElementById('bookingContent').innerHTML = `
-    <div class="booking-success">
-      <div style="background:var(--p4-yellow);color:#000;padding:8px;display:inline-flex;border:2px solid #000;margin-bottom:12px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      </div>
-      <h4 class="bebas" style="font-size:1.8rem;color:var(--p4-yellow);text-transform:uppercase;">★ INQUIRY RECEIVED SUCCESSFULLY ★</h4>
-      <p style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#aaa;margin-top:8px;">Reservation Secured for: <strong style="color:#fff;">${name}</strong></p>
-      <p style="font-size:12px;color:#ccc;margin-top:6px;line-height:1.6;">WAB HS staff will reach out to you within standard school sessions.</p>
-      <button onclick="document.getElementById('bookingContent').innerHTML=''" style="margin-top:12px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--p4-yellow);border:1px solid rgba(253,241,0,0.3);background:transparent;padding:4px 12px;cursor:pointer;text-transform:uppercase;">Request Another Booking</button>
-    </div>
-  `;
-}
-
-// LOST & FOUND 渲染
-function setTypeFilter(f) {
-  typeFilter = f;
-  ['all','lost','found','reclaimed'].forEach(t => {
-    const el = document.getElementById('ft' + t.charAt(0).toUpperCase() + t.slice(1));
-    el.className = 'filter-tag' + (t === f ? ' active-' + t : '');
-  });
+async function fetchItems() {
+  const { data, error } = await supabaseClient.from('items').select('*').order('created_at', { ascending: false });
+  if (error) { console.error('Error fetching:', error); return; }
+  items = data || [];
   renderLF();
-}
-
-function renderLF() {
-  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
-  const loc = document.getElementById('locFilter')?.value || 'all';
-  const cat = document.getElementById('catFilter')?.value || 'all';
-  
-  const filtered = items.filter(item => {
-    const matchQ = !q || item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.studentName.toLowerCase().includes(q);
-    const matchType = typeFilter === 'all' ? true : typeFilter === 'reclaimed' ? item.status === 'reclaimed' : item.type === typeFilter && item.status === 'active';
-    const matchLoc = loc === 'all' || item.location === loc;
-    const matchCat = cat === 'all' || item.category === cat;
-    return matchQ && matchType && matchLoc && matchCat;
-  });
-  
-  const grid = document.getElementById('lfGrid');
-  if (!grid) return;
-  
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="no-results"><h4>★ NO BULLETINS MATCH ★</h4></div>`;
-    return;
-  }
-  
-  grid.innerHTML = filtered.map(item => `
-    <div class="lf-card">
-      <div class="lf-img-wrap">
-        <img class="lf-img" src="${item.image}" referrerpolicy="no-referrer" />
-        <div class="lf-type-badge" style="background:${item.type==='lost' ? 'var(--p4-orange)' : 'var(--p4-yellow)'};">
-          ${item.type === 'lost' ? '★ LOST' : '☆ FOUND'}
-        </div>
-        ${item.status === 'reclaimed' ? `<div class="lf-reclaimed-overlay"><div class="reclaimed-stamp">★ SECURED ★</div></div>` : ''}
-      </div>
-      <div class="lf-body">
-        <div>
-          <div class="lf-meta"><span>📍 ${item.location}</span><span>📅 ${item.date}</span></div>
-          <h3 class="lf-title">${item.title}</h3>
-          <span class="lf-cat">${item.category}</span>
-          <p class="lf-desc">${item.description}</p>
-        </div>
-        <div class="lf-reporter">
-          <div class="lf-reporter-row"><span class="lf-reporter-label">BY:</span><span class="lf-reporter-value">${item.studentName}</span></div>
-          <div class="lf-reporter-row"><span class="lf-reporter-label">CONTACT:</span><span class="lf-contact-value">${item.contactDetails}</span></div>
-        </div>
-      </div>
-      <div class="lf-actions">
-        ${item.status === 'active' ? `
-          <button class="btn-reclaim" onclick="reclaimItem('${item.id}')">RECLAIM</button>
-          <button class="btn-delete" onclick="deleteItem('${item.id}')">✕</button>
-        ` : `<div class="reclaimed-label">RESOLVED</div>`}
-      </div>
-    </div>
-  `).join('');
-  detectMatches();
-}
-
-// --- Supabase 操作函数 ---
-
-async function reclaimItem(id) {
-  const { error } = await supabase
-    .from('items')
-    .update({ status: 'reclaimed' })
-    .eq('id', id);
-  if (!error) fetchItems();
-}
-
-async function deleteItem(id) {
-  if (confirm("Delete this bulletin?")) {
-    const { error } = await supabase
-      .from('items')
-      .delete()
-      .eq('id', id);
-    if (!error) fetchItems();
-  }
 }
 
 async function submitItem() {
   const title = document.getElementById('fTitle').value.trim();
   const name = document.getElementById('fName').value.trim();
   const contact = document.getElementById('fContact').value.trim();
-  if (!title || !name || !contact) return;
+  if(!title || !name) { alert("Title and Name are required!"); return; }
 
   const newItem = {
-    type: formType,
-    title,
+    title, studentName: name, contactDetails: contact,
     description: document.getElementById('fDesc').value,
-    category: document.getElementById('fCategory').value,
-    image: selectedImage || presetImages[5].url,
-    date: document.getElementById('fDate').value,
     location: document.getElementById('fLocation').value,
-    studentName: name,
-    contactDetails: contact,
-    status: 'active',
-    rewardInfo: formType==='lost' ? document.getElementById('fReward').value : ''
+    category: document.getElementById('fCategory').value,
+    status: 'active', type: 'lost',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400'
   };
 
-  const { error } = await supabase.from('items').insert([newItem]);
-  
+  const { error } = await supabaseClient.from('items').insert([newItem]);
   if (!error) {
     toggleForm();
     fetchItems();
-    // 成功提示
     const sb = document.getElementById('successBanner');
-    sb.textContent = `★ NEW ITEM POSTED ★`;
-    sb.style.display = '';
-    setTimeout(() => sb.style.display = 'none', 5000);
-  } else {
-    alert("Error saving: " + error.message);
+    sb.style.display = 'block'; sb.textContent = "★ ITEM POSTED TO CLOUD ★";
+    setTimeout(() => sb.style.display = 'none', 4000);
   }
 }
 
-// 其余 UI 逻辑保持不变...
-function detectMatches() {
-  const actives = items.filter(i => i.status === 'active');
-  const losts = actives.filter(i => i.type === 'lost');
-  const founds = actives.filter(i => i.type === 'found');
-  const matches = [];
-  losts.forEach(lost => {
-    founds.forEach(found => {
-      let score = 0;
-      if (lost.category === found.category) score += 2;
-      if (lost.location === found.location) score += 2;
-      if (score >= 4) matches.push({lost, found, score});
-    });
-  });
-  const banner = document.getElementById('matchBanner');
-  if (matches.length === 0) { banner.style.display = 'none'; return; }
-  banner.style.display = '';
-  document.getElementById('matchCount').textContent = `PAIRS: ${matches.length}`;
-}
-
-function toggleForm() {
-  formOpen = !formOpen;
-  document.getElementById('formPanel').style.display = formOpen ? '' : 'none';
-  if (formOpen) renderPresets();
-}
-
-function renderPresets() {
-  const grid = document.getElementById('presetGrid');
-  grid.innerHTML = presetImages.map(p => `
-    <button class="preset-img-btn" onclick="selectPreset('${p.url}')" type="button">
-      <img src="${p.url}" referrerpolicy="no-referrer" />
-    </button>
+function renderLF() {
+  const grid = document.getElementById('lfGrid');
+  if(!grid) return;
+  grid.innerHTML = items.map(item => `
+    <div class="lf-card">
+      <div class="lf-img-wrap">
+        <img class="lf-img" src="${item.image}" />
+        <div class="lf-type-badge" style="background:var(--p4-yellow)">LOST</div>
+      </div>
+      <div class="lf-body">
+        <h3 class="lf-title">${item.title}</h3>
+        <p style="font-size:12px; color:#888;">Reported by: ${item.studentName}</p>
+        <p style="font-size:11px;">📍 ${item.location} | 📂 ${item.category}</p>
+      </div>
+      <div class="lf-actions">
+        <button class="btn-reclaim" onclick="deleteItem('${item.id}')">✕ REMOVE CASE</button>
+      </div>
+    </div>
   `).join('');
 }
 
-function selectPreset(url) {
-  selectedImage = url;
-  document.getElementById('dropContent').innerHTML = `<img src="${url}" style="max-height:100px;">`;
+async function deleteItem(id) {
+  if(confirm("Confirm removal of this bulletin?")) {
+    await supabaseClient.from('items').delete().eq('id', id);
+    fetchItems();
+  }
 }
 
-function handleFile(e) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = ev => {
-    selectedImage = ev.target.result;
-    document.getElementById('dropContent').innerHTML = `<img src="${selectedImage}" style="max-height:100px;">`;
-  };
-  reader.readAsDataURL(file);
+function toggleForm() {
+  const p = document.getElementById('formPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
 }
 
-function setFormType(t) {
-  formType = t;
-  document.getElementById('typeLost').className = 'type-btn' + (t==='lost'?' active-lost':'');
-  document.getElementById('typeFound').className = 'type-btn' + (t==='found'?' active-found':'');
+function openModal(id) {
+  const r = resources.find(x => x.id === id);
+  document.getElementById('modalContent').innerHTML = `
+    <h2 class="bebas" style="font-size:3rem; color:var(--p4-yellow);">${r.title}</h2>
+    <p style="margin: 1rem 0;">${r.desc}</p>
+    <div style="background:#000; padding:1rem; border:1px solid #333;">
+        <p><strong>LOCATION:</strong> ${r.location}</p>
+        <p><strong>HOURS:</strong> ${r.hours}</p>
+    </div>
+  `;
+  document.getElementById('modal').style.display = 'flex';
 }
 
-// INIT
-window.onload = () => {
-  renderCards();
-  fetchItems();
-};
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
 </script>
 </body>
 </html>

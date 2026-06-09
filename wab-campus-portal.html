@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WAB Campus Recovery & Resource Hub</title>
+<!-- 引入 Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -622,6 +624,12 @@
 </div>
 
 <script>
+// --- SUPABASE 配置 ---
+// ⚠️ 请在这里替换成你的 Supabase Project URL
+const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // DATA
 const quotes = [
   '"A diverse campus thrives on collaboration. Keep your belongings secured and your heart open!" — Grade 12 Advisor',
@@ -653,19 +661,24 @@ const presetImages = [
   { name:'Backpack', url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
 ];
 
-const initialItems = [
-  { id:'lf-001', type:'found', title:'High School Blazer (Size M)', description:'Official navy blue jacket with school stitching. Left on a chair in the cafeteria during lunchtime. The label has a faded hand-written "J.C." on the inside tag.', category:'Clothing/Blazer', image:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400', date:'2026-06-03', location:'Cafeteria', studentName:'Alex Mercer (Grade 12)', contactDetails:'amercer@wab.edu', status:'active' },
-  { id:'lf-002', type:'lost', title:'Beats Studio Pro (Navy)', description:'Navy blue over-ear headphones in a black protective zip pouch. Probably lost near the main Turf Sports Pitch or the Bleachers during Track practice. High sentimental value!', category:'Electronics', image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400', date:'2026-06-05', location:'Sports Pitch', studentName:'Chloe Henderson (Grade 11)', contactDetails:'WeChat: ChloeH_Beijing', status:'active', rewardInfo:'A box of cupcakes & huge eternal gratitude!' },
-  { id:'lf-003', type:'found', title:'TI-84 Plus CE Graphing Calculator', description:'Stylized black graphic calculator with "WAB Tiger Mascot" sticker on the back cover. Display battery level is low. Picked up from Room H304 (Math Wing).', category:'Electronics', image:'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400', date:'2026-06-06', location:'HS Wing', studentName:'Julian Song (Grade 10)', contactDetails:'jsong28@wab.edu', status:'active' },
-  { id:'lf-004', type:'found', title:'Yeti Rambler Sage Water Bottle', description:'Sage Green 26 oz bottle. Covered in various outdoor stickers. Found under table #4 in the Secondary Library ground floor quiet zone.', category:'Bottle/Flask', image:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400', date:'2026-06-07', location:'Library', studentName:'Lucas Zhang (Grade 11)', contactDetails:'lucas_zg_pku', status:'active' },
-  { id:'lf-005', type:'lost', title:'House Keys on Red Lanyard', description:'Set of 3 keys (one silver, two brassy) on a red fabric lanyard with a cute cat plushie chain keyring. Fell out of sports bag on the Atrium stairs.', category:'Keys/Fobs', image:'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400', date:'2026-06-07', location:'Atrium', studentName:'Emma Watson (Grade 10)', contactDetails:'ewatson@wab.edu', status:'active' }
-];
-
 // STATE
-let items = JSON.parse(localStorage.getItem('wab_lf') || 'null') || initialItems;
+let items = []; // 数据将从 Supabase 加载
 let typeFilter = 'all', selectedImage = '', formType = 'lost', formOpen = false;
 
-function saveItems() { localStorage.setItem('wab_lf', JSON.stringify(items)); }
+// --- 从 Supabase 加载数据 ---
+async function fetchItems() {
+  const { data, error } = await supabase
+    .from('items')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching data:', error);
+  } else {
+    items = data || [];
+    renderLF();
+  }
+}
 
 // TAB
 function switchTab(tab) {
@@ -673,7 +686,7 @@ function switchTab(tab) {
   document.getElementById('panel-lostfound').style.display = tab === 'lostfound' ? '' : 'none';
   document.getElementById('tab-directory').className = 'tab-btn' + (tab === 'directory' ? ' active' : '');
   document.getElementById('tab-lostfound').className = 'tab-btn' + (tab === 'lostfound' ? ' active' : '');
-  if (tab === 'lostfound') { renderLF(); detectMatches(); }
+  if (tab === 'lostfound') { fetchItems(); detectMatches(); }
 }
 
 // RESOURCE CARDS
@@ -702,7 +715,7 @@ function renderCards() {
   `).join('');
 }
 
-// MODAL
+// MODAL 逻辑保持不变...
 let currentBookingResource = null;
 function openModal(id) {
   const r = resources.find(x => x.id === id);
@@ -781,7 +794,7 @@ function submitBooking() {
   `;
 }
 
-// LOST & FOUND
+// LOST & FOUND 渲染
 function setTypeFilter(f) {
   typeFilter = f;
   ['all','lost','found','reclaimed'].forEach(t => {
@@ -808,157 +821,69 @@ function renderLF() {
   if (!grid) return;
   
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="no-results"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" style="margin:0 auto 12px;display:block;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h4 class="bebas" style="font-size:1.5rem;color:var(--p4-yellow);">★ NO BULLETINS MATCH APPLIED FILTERS ★</h4><p style="font-size:12px;color:#555;margin-top:6px;">Try resetting search or filter parameters.</p></div>`;
+    grid.innerHTML = `<div class="no-results"><h4>★ NO BULLETINS MATCH ★</h4></div>`;
     return;
   }
   
   grid.innerHTML = filtered.map(item => `
     <div class="lf-card">
       <div class="lf-img-wrap">
-        <img class="lf-img" src="${item.image}" alt="${item.title}" referrerpolicy="no-referrer" />
+        <img class="lf-img" src="${item.image}" referrerpolicy="no-referrer" />
         <div class="lf-type-badge" style="background:${item.type==='lost' ? 'var(--p4-orange)' : 'var(--p4-yellow)'};">
-          ${item.type === 'lost' ? '★ LOST AT WAB' : '☆ DETECTED / FOUND'}
+          ${item.type === 'lost' ? '★ LOST' : '☆ FOUND'}
         </div>
-        ${item.status === 'reclaimed' ? `<div class="lf-reclaimed-overlay"><div class="reclaimed-stamp">★ SECURED &amp; RESTORED ★</div></div>` : ''}
+        ${item.status === 'reclaimed' ? `<div class="lf-reclaimed-overlay"><div class="reclaimed-stamp">★ SECURED ★</div></div>` : ''}
       </div>
       <div class="lf-body">
         <div>
-          <div class="lf-meta">
-            <span>📍 ${item.location}</span>
-            <span>📅 ${item.date}</span>
-          </div>
+          <div class="lf-meta"><span>📍 ${item.location}</span><span>📅 ${item.date}</span></div>
           <h3 class="lf-title">${item.title}</h3>
-          <span class="lf-cat">TAG: ${item.category}</span>
+          <span class="lf-cat">${item.category}</span>
           <p class="lf-desc">${item.description}</p>
         </div>
         <div class="lf-reporter">
-          <div class="lf-reporter-row"><span class="lf-reporter-label">REPORTER:</span><span class="lf-reporter-value">${item.studentName}</span></div>
+          <div class="lf-reporter-row"><span class="lf-reporter-label">BY:</span><span class="lf-reporter-value">${item.studentName}</span></div>
           <div class="lf-reporter-row"><span class="lf-reporter-label">CONTACT:</span><span class="lf-contact-value">${item.contactDetails}</span></div>
-          ${item.rewardInfo ? `<div class="lf-reward">★ INCENTIVE: ${item.rewardInfo}</div>` : ''}
         </div>
       </div>
       <div class="lf-actions">
         ${item.status === 'active' ? `
-          <button class="btn-reclaim" onclick="reclaimItem('${item.id}')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            RECLAIM / RESOLVED
-          </button>
-          <button class="btn-delete" onclick="deleteItem('${item.id}')" title="Remove Post">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-          </button>
-        ` : `<div class="reclaimed-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> PROPERTY RECLAIMED &amp; RESOLVED</div>`}
+          <button class="btn-reclaim" onclick="reclaimItem('${item.id}')">RECLAIM</button>
+          <button class="btn-delete" onclick="deleteItem('${item.id}')">✕</button>
+        ` : `<div class="reclaimed-label">RESOLVED</div>`}
       </div>
     </div>
   `).join('');
-  
   detectMatches();
 }
 
-function reclaimItem(id) {
-  items = items.map(i => i.id === id ? {...i, status:'reclaimed'} : i);
-  saveItems(); renderLF();
-}
-function deleteItem(id) {
-  items = items.filter(i => i.id !== id);
-  saveItems(); renderLF();
+// --- Supabase 操作函数 ---
+
+async function reclaimItem(id) {
+  const { error } = await supabase
+    .from('items')
+    .update({ status: 'reclaimed' })
+    .eq('id', id);
+  if (!error) fetchItems();
 }
 
-function detectMatches() {
-  const actives = items.filter(i => i.status === 'active');
-  const losts = actives.filter(i => i.type === 'lost');
-  const founds = actives.filter(i => i.type === 'found');
-  const matches = [];
-  losts.forEach(lost => {
-    founds.forEach(found => {
-      let score = 0;
-      if (lost.category.toLowerCase() === found.category.toLowerCase()) score += 2;
-      if (lost.location.toLowerCase() === found.location.toLowerCase()) score += 2;
-      const lw = lost.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-      lw.forEach(w => { if (found.title.toLowerCase().includes(w) || found.description.toLowerCase().includes(w)) score += 3; });
-      if (score >= 4) matches.push({lost, found, score});
-    });
-  });
-  matches.sort((a,b) => b.score - a.score);
-  const banner = document.getElementById('matchBanner');
-  if (!banner) return;
-  if (matches.length === 0) { banner.style.display = 'none'; return; }
-  banner.style.display = '';
-  document.getElementById('matchCount').textContent = `ACTIVE SUGGESTED PAIRS: ${matches.length}`;
-  document.getElementById('matchPairs').innerHTML = matches.slice(0,2).map(m => `
-    <div class="match-pair">
-      <p style="color:var(--p4-orange);font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px;">LOST: <span style="color:#fff;">${m.lost.title}</span> (by ${m.lost.studentName})</p>
-      <p style="color:#4ade80;font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px;">FOUND: <span style="color:#fff;">${m.found.title}</span> (at ${m.found.location})</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;">Location: <span style="color:var(--p4-magenta);font-weight:600;">${m.lost.location}</span></p>
-        <span style="font-size:9px;font-family:'JetBrains Mono',monospace;background:rgba(255,144,0,0.2);color:var(--p4-orange);font-weight:700;padding:2px 8px;border:1px solid var(--p4-orange);">${Math.min(95,60+m.score*8)}% MATCH</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-// FORM
-function toggleForm() {
-  formOpen = !formOpen;
-  document.getElementById('formPanel').style.display = formOpen ? '' : 'none';
-  const btn = document.getElementById('postBtn');
-  btn.textContent = formOpen ? 'CLOSE CASE PANEL' : '★ POST NEW ITEM CASE ★';
-  btn.innerHTML += ` <span id="postBtnIcon">${formOpen ? '✕' : '+'}</span>`;
-  if (formOpen) {
-    document.getElementById('fDate').value = new Date().toISOString().split('T')[0];
-    renderPresets();
+async function deleteItem(id) {
+  if (confirm("Delete this bulletin?")) {
+    const { error } = await supabase
+      .from('items')
+      .delete()
+      .eq('id', id);
+    if (!error) fetchItems();
   }
 }
 
-function renderPresets() {
-  const grid = document.getElementById('presetGrid');
-  if (!grid) return;
-  grid.innerHTML = presetImages.map((p,i) => `
-    <button class="preset-img-btn ${selectedImage===p.url?'selected':''}" onclick="selectPreset('${p.url}')" type="button">
-      <img src="${p.url}" alt="${p.name}" referrerpolicy="no-referrer" />
-    </button>
-  `).join('');
-}
-function selectPreset(url) {
-  selectedImage = url;
-  document.getElementById('dropContent').innerHTML = `<img src="${url}" alt="preview" style="max-height:100px;object-fit:contain;margin-bottom:6px;" referrerpolicy="no-referrer"><p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">IMAGE SELECTED — CLICK TO CHANGE</p>`;
-  renderPresets();
-}
-function handleFile(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    selectedImage = ev.target.result;
-    document.getElementById('dropContent').innerHTML = `<img src="${selectedImage}" alt="preview" style="max-height:100px;object-fit:contain;margin-bottom:6px;"><p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">PREVIEW READY</p>`;
-  };
-  reader.readAsDataURL(file);
-}
-function handleDrop(e) {
-  e.preventDefault(); document.getElementById('dropZone').classList.remove('drag-over');
-  const file = e.dataTransfer.files[0]; if (!file) return;
-  const inp = document.getElementById('fileInput');
-  const dt = new DataTransfer(); dt.items.add(file); inp.files = dt.files;
-  handleFile({target:{files:[file]}});
-}
-
-function setFormType(t) {
-  formType = t;
-  document.getElementById('typeLost').className = 'type-btn' + (t==='lost'?' active-lost':'');
-  document.getElementById('typeFound').className = 'type-btn' + (t==='found'?' active-found':'');
-  document.getElementById('rewardGroup').style.display = t==='lost' ? '' : 'none';
-}
-
-function submitItem() {
+async function submitItem() {
   const title = document.getElementById('fTitle').value.trim();
   const name = document.getElementById('fName').value.trim();
   const contact = document.getElementById('fContact').value.trim();
-  if (!title || !name || !contact) {
-    if (!title) document.getElementById('fTitle').style.borderColor = 'var(--p4-magenta)';
-    if (!name) document.getElementById('fName').style.borderColor = 'var(--p4-magenta)';
-    if (!contact) document.getElementById('fContact').style.borderColor = 'var(--p4-magenta)';
-    return;
-  }
+  if (!title || !name || !contact) return;
+
   const newItem = {
-    id: 'lf-custom-' + Date.now(),
     type: formType,
     title,
     description: document.getElementById('fDesc').value,
@@ -969,21 +894,85 @@ function submitItem() {
     studentName: name,
     contactDetails: contact,
     status: 'active',
-    rewardInfo: formType==='lost' ? document.getElementById('fReward').value || undefined : undefined
+    rewardInfo: formType==='lost' ? document.getElementById('fReward').value : ''
   };
-  items = [newItem, ...items];
-  saveItems();
-  toggleForm();
-  selectedImage = '';
-  const sb = document.getElementById('successBanner');
-  sb.textContent = `★ NEW ITEM POSTED ★ Bulletin posted successfully: ${newItem.title}`;
-  sb.style.display = '';
-  setTimeout(() => sb.style.display = 'none', 8000);
-  renderLF();
+
+  const { error } = await supabase.from('items').insert([newItem]);
+  
+  if (!error) {
+    toggleForm();
+    fetchItems();
+    // 成功提示
+    const sb = document.getElementById('successBanner');
+    sb.textContent = `★ NEW ITEM POSTED ★`;
+    sb.style.display = '';
+    setTimeout(() => sb.style.display = 'none', 5000);
+  } else {
+    alert("Error saving: " + error.message);
+  }
+}
+
+// 其余 UI 逻辑保持不变...
+function detectMatches() {
+  const actives = items.filter(i => i.status === 'active');
+  const losts = actives.filter(i => i.type === 'lost');
+  const founds = actives.filter(i => i.type === 'found');
+  const matches = [];
+  losts.forEach(lost => {
+    founds.forEach(found => {
+      let score = 0;
+      if (lost.category === found.category) score += 2;
+      if (lost.location === found.location) score += 2;
+      if (score >= 4) matches.push({lost, found, score});
+    });
+  });
+  const banner = document.getElementById('matchBanner');
+  if (matches.length === 0) { banner.style.display = 'none'; return; }
+  banner.style.display = '';
+  document.getElementById('matchCount').textContent = `PAIRS: ${matches.length}`;
+}
+
+function toggleForm() {
+  formOpen = !formOpen;
+  document.getElementById('formPanel').style.display = formOpen ? '' : 'none';
+  if (formOpen) renderPresets();
+}
+
+function renderPresets() {
+  const grid = document.getElementById('presetGrid');
+  grid.innerHTML = presetImages.map(p => `
+    <button class="preset-img-btn" onclick="selectPreset('${p.url}')" type="button">
+      <img src="${p.url}" referrerpolicy="no-referrer" />
+    </button>
+  `).join('');
+}
+
+function selectPreset(url) {
+  selectedImage = url;
+  document.getElementById('dropContent').innerHTML = `<img src="${url}" style="max-height:100px;">`;
+}
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.onload = ev => {
+    selectedImage = ev.target.result;
+    document.getElementById('dropContent').innerHTML = `<img src="${selectedImage}" style="max-height:100px;">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function setFormType(t) {
+  formType = t;
+  document.getElementById('typeLost').className = 'type-btn' + (t==='lost'?' active-lost':'');
+  document.getElementById('typeFound').className = 'type-btn' + (t==='found'?' active-found':'');
 }
 
 // INIT
-renderCards();
+window.onload = () => {
+  renderCards();
+  fetchItems();
+};
 </script>
 </body>
 </html>

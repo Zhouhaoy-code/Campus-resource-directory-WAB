@@ -1,556 +1,1496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>WAB Campus Recovery & Resource Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --p4-yellow: #FDF100;
-    --p4-yellow-pale: #FFE54C;
-    --p4-orange: #FF9000;
-    --p4-cyan: #00BCFF;
-    --p4-magenta: #FF0090;
-    --p4-dark: #0F0F14;
-    --p4-pure: #000000;
-    --p4-card: #1C1C24;
-    --p4-light: #F2F2F7;
-    --p4-gray: #2C2C38;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--p4-dark);
-    color: var(--p4-light);
-    font-family: 'Space Grotesk', sans-serif;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-  .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
-  .mono { font-family: 'JetBrains Mono', monospace; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WAB Campus Recovery & Resource Hub</title>
   
-  /* Backgrounds */
-  .bg-danger-stripes { background: repeating-linear-gradient(45deg, var(--p4-yellow), var(--p4-yellow) 12px, #000 12px, #000 24px); }
-  .bg-rainbow-stripes { background: linear-gradient(90deg, #FDF100 0% 20%, #FF9000 20% 40%, #FF0090 40% 60%, #00BCFF 60% 80%, #F7F7FA 80% 100%); }
-  .bg-dots { background-image: radial-gradient(rgba(253,241,0,0.15) 12%, transparent 13%); background-size: 14px 14px; }
-  .bg-scanlines { background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%); background-size: 100% 4px; }
+  <!-- Fonts Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   
-  /* Clip paths */
-  .clip-slant-right { clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 0 98.5%); }
-  .clip-slant-left { clip-path: polygon(0 1.5%, 100% 0, 100% 98.5%, 0 100%); }
-  .clip-sharp { clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%); }
-  .clip-badge { clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
-  
-  /* Shadows */
-  .shadow-black { filter: drop-shadow(5px 5px 0 #000); }
-  .shadow-glow { filter: drop-shadow(0 0 12px rgba(253,241,0,0.6)); }
-  
-  /* Layout */
-  .max-w { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
-  
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #0F0F14; }
-  ::-webkit-scrollbar-thumb { background: var(--p4-yellow); border-radius: 2px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--p4-orange); }
+  <style>
+    :root {
+      --p4-yellow: #FDF100;
+      --p4-yellow-pale: #FFE54C;
+      --p4-orange: #FF9000;
+      --p4-cyan: #00BCFF;
+      --p4-magenta: #FF0090;
+      --p4-dark: #0F0F14;
+      --p4-pure: #000000;
+      --p4-card: #1C1C24;
+      --p4-light: #F2F2F7;
+      --p4-gray: #2C2C38;
+      
+      --gradient-stripes: repeating-linear-gradient(
+        -45deg,
+        #000,
+        #000 10px,
+        var(--p4-yellow) 10px,
+        var(--p4-yellow) 20px
+      );
+      
+      --danger-stripes: repeating-linear-gradient(
+        -45deg,
+        var(--p4-pure) 0,
+        var(--p4-pure) 10px,
+        var(--p4-orange) 10px,
+        var(--p4-orange) 20px
+      );
+    }
 
-  /* --- HEADER --- */
-  .top-stripe { height: 16px; border-bottom: 2px solid #000; }
-  .hero { display: flex; gap: 1.5rem; margin: 1.5rem 0 2rem; flex-wrap: wrap; }
-  .hero-main {
-    flex: 1; min-width: 280px;
-    background: var(--p4-yellow); border: 4px solid #000;
-    padding: 2rem; position: relative; overflow: hidden;
-    clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 0 98.5%);
-  }
-  .hero-badge {
-    position: absolute; top: 0; right: 0;
-    background: #000; color: var(--p4-yellow);
-    font-size: 10px; font-family: 'JetBrains Mono', monospace;
-    font-weight: 700; padding: 4px 12px; text-transform: uppercase; letter-spacing: 0.1em;
-    border-left: 2px solid #000; border-bottom: 2px solid #000;
-  }
-  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: #000; line-height: 1; text-transform: uppercase; }
-  .hero-title span { color: var(--p4-magenta); }
-  .hero-rainbow { position: absolute; bottom: 0; left: 0; right: 0; height: 6px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .hero-sidebar {
-    width: 300px; background: var(--p4-gray); border: 4px solid #000;
-    padding: 1.25rem; position: relative; overflow: hidden;
-    clip-path: polygon(0 1.5%, 100% 0, 100% 98.5%, 0 100%);
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-  .status-dot { display: inline-block; width: 8px; height: 8px; background: var(--p4-magenta); border-radius: 50%; animation: blink 1.2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    body {
+      background-color: var(--p4-dark);
+      color: var(--p4-light);
+      font-family: 'Space Grotesk', sans-serif;
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
 
-  .quote-box {
-    background: var(--p4-yellow); color: #000; padding: 10px; border: 2px solid #000;
-    cursor: pointer; margin-top: 1rem;
-    font-size: 10px; font-weight: 700; line-height: 1.4;
-  }
-  .quote-box:hover { background: var(--p4-yellow-pale); }
+    /* Helper Utilities */
+    .bebas { font-family: 'Bebas Neue', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    .bg-danger-stripes { background: var(--danger-stripes); }
+    
+    .shadow-black {
+      box-shadow: 5px 5px 0 rgba(0,0,0,1);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
 
-  /* --- RESOURCE INTEGRATION PORTALS --- */
-  .portal-section {
-    background: var(--p4-card); border: 4px solid #000;
-    padding: 1.25rem; margin-bottom: 1.5rem; position: relative;
-    overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
-  }
-  .portal-btn {
-    display: inline-block; text-align: center; background: var(--p4-yellow); color: #000;
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; font-weight: 900;
-    letter-spacing: 0.05em; padding: 10px 24px; border: 2px solid #000;
-    text-decoration: none; transition: all 0.2s;
-    filter: drop-shadow(4px 4px 0 #000);
-  }
-  .portal-btn:hover { background: var(--p4-yellow-pale); transform: translateY(-2px); filter: drop-shadow(6px 6px 0 #000); }
-  .portal-btn.powerschool { background: var(--p4-cyan); }
-  .portal-btn.powerschool:hover { background: #66d9ff; }
+    /* Aesthetic Elements */
+    .hazard-header {
+      height: 16px;
+      border-bottom: 2px solid var(--p4-pure);
+    }
 
-  /* --- EMERGENCY CARD --- */
-  .emergency-card {
-    border: 4px solid #000; background: #0F0F14;
-    padding: 1rem 2rem; position: relative; overflow: hidden;
-    display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
-    transform: rotate(-1deg); transition: transform 0.3s; margin: 1rem 0;
-  }
-  .emergency-card:hover { transform: rotate(0deg); }
-  .emergency-stripe-l { position: absolute; top: 0; bottom: 0; left: 0; width: 16px; }
-  .emergency-stripe-r { position: absolute; top: 0; bottom: 0; right: 0; width: 16px; }
-  .emergency-contact {
-    display: flex; align-items: center; gap: 10px;
-    background: #111; border: 2px solid #333; padding: 10px 14px;
-    text-decoration: none; transition: all 0.2s; flex-shrink: 0;
-  }
-  .emergency-contact:hover { background: var(--p4-yellow); }
-  .emergency-contact:hover .ec-number { color: #000; }
-  .emergency-contact:hover .ec-label { color: rgba(0,0,0,0.7); }
-  .ec-label { font-size: 9px; font-family: 'JetBrains Mono',monospace; text-transform: uppercase; color: #666; display: block; }
-  .ec-number { font-size: 11px; font-weight: 700; color: #fff; display: block; }
-  .ec-dial { background: #1a1a1a; border: 1px solid #333; color: var(--p4-yellow); font-size: 9px; font-weight: 700; padding: 2px 6px; font-family: 'JetBrains Mono',monospace; }
-  
-  /* --- TABS --- */
-  .tabs { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0 0; }
-  .tab-btn {
-    padding: 1rem 2rem; font-family: 'Bebas Neue',sans-serif; font-size: 1.4rem;
-    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
-    border: 2px solid #333; background: var(--p4-card); color: #666;
-    display: flex; align-items: center; gap: 8px; transition: all 0.2s;
-    flex: 1; justify-content: center;
-  }
-  .tab-btn:hover { border-color: var(--p4-yellow); color: #fff; }
-  .tab-btn.active {
-    background: var(--p4-yellow); color: #000; font-weight: 900;
-    border: 4px solid #000; transform: translateY(-4px) rotate(-1deg);
-    filter: drop-shadow(5px 5px 0 #000);
-  }
-  
-  /* --- RESOURCE CARDS GRID --- */
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  
-  .resource-card {
-    background: var(--p4-card); border: 2px solid #000; position: relative;
-    cursor: pointer; display: flex; flex-direction: column;
-    transition: all 0.2s; overflow: visible;
-  }
-  .resource-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: #000; border: 2px solid #000;
-    z-index: -1; transition: transform 0.2s;
-  }
-  .resource-card:hover::before { transform: translate(6px, 6px); }
-  .resource-card:hover { transform: scale(1.02) rotate(-1.5deg); z-index: 10; }
-  
-  .card-header { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 10px 12px; border-bottom: 2px solid #000; }
-  .card-cat-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); border: 1px solid #000; }
-  .badge-counseling { background: var(--p4-yellow); color: #000; }
-  .badge-library { background: var(--p4-orange); color: #fff; }
-  .badge-tech { background: var(--p4-cyan); color: #000; }
-  .badge-service { background: var(--p4-magenta); color: #fff; }
-  .badge-community { background: var(--p4-gray); color: #fff; }
-  
-  .card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .card-title { font-family:'Bebas Neue',sans-serif; font-size: 2rem; text-transform: uppercase; line-height: 1; color: #fff; transition: color 0.2s; margin-bottom: 6px; }
-  .resource-card:hover .card-title { color: var(--p4-yellow); }
-  .card-subtitle { font-size: 10px; font-family:'JetBrains Mono',monospace; color: #666; text-transform: uppercase; margin-bottom: 12px; }
-  .card-desc { font-size: 13px; color: #aaa; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .card-meta { border-top: 1px solid #333; padding-top: 10px; margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
-  .card-meta-row { display: flex; align-items: center; gap: 6px; font-size: 11px; font-family:'JetBrains Mono',monospace; color: #666; }
-  .card-footer { background: #000; padding: 8px 12px; text-align: center; border-top: 2px solid #000; font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p4-light); transition: all 0.2s; }
-  .resource-card:hover .card-footer { background: var(--p4-yellow); color: #000; }
-  
-  /* --- MODAL --- */
-  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; overflow-y: auto; }
-  .modal {
-    background: #0d0d12; border: 4px solid #000; width: 100%; max-width: 900px;
-    display: flex; flex-wrap: wrap; position: relative;
-    animation: modalIn 0.3s ease;
-  }
-  @keyframes modalIn { from { transform: scale(0.9) rotate(-3deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
-  .modal-left { width: 40%; min-width: 260px; padding: 1.5rem; background: #0F0F14; border-right: 4px solid #000; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .modal-right { flex: 1; min-width: 260px; padding: 1.5rem 2rem; background: #050508; display: flex; flex-direction: column; }
-  .modal-close {
-    position: absolute; top: 12px; right: 12px;
-    background: var(--p4-yellow); border: 2px solid #000; color: #000;
-    padding: 4px; cursor: pointer; font-size: 18px; font-weight: 900; line-height: 1; z-index: 10;
-  }
-  .modal-close:hover { background: var(--p4-orange); }
-  .modal-title { font-family:'Bebas Neue',sans-serif; font-size: 3rem; color: #fff; text-transform: uppercase; line-height: 1; }
-  .info-block { border-left: 4px solid var(--p4-yellow); padding: 8px 12px; background: rgba(0,0,0,0.6); margin-bottom: 8px; }
-  .info-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; }
-  .info-value { font-size: 13px; font-weight: 700; color: #fff; }
-  .quote-block { background: var(--p4-yellow); padding: 12px; border: 2px solid #000; position: relative; transform: rotate(-2deg); margin-top: 1rem; }
-  .quote-block::before { content: 'CAMPUS ADVISOR NOTE'; position: absolute; top: -10px; left: 12px; background: #000; color: var(--p4-yellow); font-size: 8px; font-family:'JetBrains Mono',monospace; padding: 2px 8px; }
-  .services-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 1rem 0; }
-  .services-list li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: #0d0d12; border-left: 2px solid var(--p4-yellow); font-size: 13px; color: #ddd; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0; }
-  .contact-item { background: #000; padding: 10px 12px; border: 2px solid #222; }
-  .contact-item-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; display: block; }
-  .contact-item-value { font-size: 11px; font-family:'JetBrains Mono',monospace; color: var(--p4-orange); font-weight: 700; word-break: break-all; }
-  .contact-item-value a { color: inherit; text-decoration: none; }
-  .contact-item-value a:hover { text-decoration: underline; }
-  .booking-form { background: #000; border: 2px solid #000; padding: 1rem; position: relative; margin-top: auto; }
-  .booking-label { font-size: 9px; font-family:'JetBrains Mono',monospace; color: #555; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .booking-input, .booking-textarea {
-    width: 100%; background: #111; border: 2px solid #333; color: #fff;
-    padding: 8px 10px; font-size: 11px; outline: none; font-family:'JetBrains Mono',monospace;
-    text-transform: uppercase;
-  }
-  .booking-input:focus, .booking-textarea:focus { border-color: var(--p4-yellow); }
-  .booking-textarea { resize: none; }
-  .booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-  .booking-submit {
-    width: 100%; background: var(--p4-yellow); color: #000; border: 2px solid #000;
-    padding: 12px; font-family:'Bebas Neue',sans-serif; font-size: 1.3rem;
-    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background 0.2s;
-  }
-  .booking-submit:hover { background: var(--p4-orange); }
-  .booking-success { text-align: center; padding: 1.5rem; background: #0d0d12; border: 1px dashed rgba(253,241,0,0.3); }
-  .booking-form-tag { position: absolute; top: -10px; left: 16px; background: var(--p4-yellow); color: #000; font-size: 9px; font-family:'JetBrains Mono',monospace; font-weight: 900; text-transform: uppercase; padding: 2px 10px; border: 1px solid #000; }
-  
-  /* --- LOST & FOUND --- */
-  .lf-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 2px solid #333; padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
-  .lf-post-btn {
-    background: var(--p4-yellow); color: #000; border: 2px solid #000; padding: 12px 24px;
-    font-family:'Bebas Neue',sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; text-transform: uppercase;
-    cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;
-    transform: rotate(1deg); clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%);
-  }
-  .lf-post-btn:hover { background: var(--p4-orange); transform: rotate(0deg); }
-  
-  .filter-bar { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; align-items: center; background: var(--p4-card); padding: 1rem; border: 2px solid #333; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .search-wrap { position: relative; }
-  .search-input { width: 100%; background: #0a0a0f; border: 2px solid #333; color: #fff; padding: 10px 10px 10px 36px; font-size: 11px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none; }
-  .search-input:focus { border-color: var(--p4-yellow); }
-  .filter-select { background: #0a0a0f; border: 2px solid #333; color: #aaa; padding: 10px; font-size: 10px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none; cursor: pointer; }
-  .filter-select:focus { border-color: var(--p4-yellow); }
-  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-tag {
-    padding: 6px 12px; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700;
-    text-transform: uppercase; cursor: pointer; border: 1px solid #333; background: #0a0a0f; color: #666;
-    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
-    transition: all 0.15s;
-  }
-  .filter-tag:hover { color: #fff; }
-  .filter-tag.active-all { background: var(--p4-cyan); color: #000; border-color: transparent; }
-  .filter-tag.active-lost { background: var(--p4-orange); color: #000; border-color: transparent; }
-  .filter-tag.active-found { background: var(--p4-yellow); color: #000; border-color: transparent; }
-  .filter-tag.active-reclaimed { background: #16a34a; color: #fff; border-color: transparent; }
-  
-  .lf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  
-  .lf-card { background: var(--p4-card); border: 2px solid #333; display: flex; flex-direction: column; transition: all 0.2s; overflow: hidden; }
-  .lf-card:hover { border-color: var(--p4-yellow); filter: drop-shadow(0 0 12px rgba(253,241,0,0.3)); }
-  .lf-img-wrap { height: 176px; position: relative; overflow: hidden; }
-  .lf-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-  .lf-card:hover .lf-img { transform: scale(1.05); }
-  .lf-type-badge {
-    position: absolute; top: 0; left: 0; font-family:'Bebas Neue',sans-serif;
-    font-size: 1rem; letter-spacing: 0.1em; padding: 4px 14px; border: 1px solid #000; color: #000;
-    transform: rotate(-4deg) translate(-2px, 6px);
-  }
-  .lf-reclaimed-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; }
-  .reclaimed-stamp { border: 3px dashed #16a34a; color: #4ade80; font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; padding: 8px 16px; transform: rotate(-15deg); background: rgba(0,0,0,0.8); text-align: center; }
-  
-  .lf-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .lf-meta { display: flex; justify-content: space-between; font-size: 10px; font-family:'JetBrains Mono',monospace; color: #555; margin-bottom: 6px; }
-  .lf-title { font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; text-transform: uppercase; color: #fff; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lf-cat { font-size: 10px; font-family:'JetBrains Mono',monospace; color: #555; background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 2px 8px; display: inline-block; margin-bottom: 8px; }
-  .lf-desc { font-size: 12px; color: #888; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 12px; }
-  .lf-reporter { border-top: 1px solid #222; padding-top: 10px; display: flex; flex-direction: column; gap: 4px; }
-  .lf-reporter-row { display: flex; justify-content: space-between; font-size: 11px; font-family:'JetBrains Mono',monospace; }
-  .lf-reporter-label { color: #555; text-transform: uppercase; }
-  .lf-reporter-value { color: #fff; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .lf-contact-value { color: var(--p4-orange); font-weight: 700; font-size: 10px; }
-  .lf-reward { background: rgba(255,144,0,0.15); border: 1px dashed rgba(255,144,0,0.4); padding: 6px 10px; font-size: 10px; color: var(--p4-orange); font-weight: 700; text-transform: uppercase; margin-top: 6px; }
-  
-  .lf-actions { background: #000; padding: 10px; display: flex; gap: 8px; border-top: 1px solid #222; }
-  .btn-reclaim {
-    flex: 1; background: #15803d; color: #fff; border: 1px solid #16a34a;
-    font-family:'Bebas Neue',sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.2s;
-  }
-  .btn-reclaim:hover { background: #16a34a; }
-  .btn-delete { background: transparent; border: 1px solid #333; color: #666; padding: 8px 12px; cursor: pointer; transition: all 0.2s; }
-  .btn-delete:hover { border-color: var(--p4-magenta); color: var(--p4-magenta); }
-  
-  .reclaimed-label { width: 100%; text-align: center; padding: 8px; font-size: 10px; font-family:'JetBrains Mono',monospace; color: #4ade80; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
-  
-  /* Match banner */
-  .match-banner { border: 4px solid #000; background: var(--p4-yellow); color: #000; padding: 1rem; position: relative; overflow: hidden; margin-bottom: 1.5rem; }
-  .match-banner-top { height: 8px; position: absolute; top: 0; left: 0; right: 0; }
-  .match-pair { background: #050508; border: 2px solid #333; padding: 10px; font-size: 12px; transition: border-color 0.2s; }
-  .match-pair:hover { border-color: var(--p4-yellow); }
-  .match-pairs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-  
-  /* Success banner */
-  .success-banner { background: var(--p4-yellow); color: #000; padding: 10px; text-align: center; font-family:'Bebas Neue',sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; border: 2px solid #000; transform: rotate(-1deg); margin-bottom: 1rem; }
-  
-  /* Form Panel */
-  .form-panel { background: var(--p4-card); border: 4px solid #000; padding: 1.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
-  .form-panel::after { content: ''; position: absolute; right: -32px; top: 0; bottom: 0; width: 128px; background: rgba(253,241,0,0.05); transform: skewX(12deg); pointer-events: none; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .form-group { margin-bottom: 1rem; }
-  .form-label { font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: block; }
-  .label-yellow { color: var(--p4-yellow); }
-  .label-orange { color: var(--p4-orange); }
-  .label-gray { color: #888; }
-  .form-input, .form-select, .form-textarea {
-    width: 100%; background: #050508; border: 2px solid #333; color: #fff;
-    padding: 10px 12px; font-size: 11px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; outline: none;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--p4-yellow); }
-  .form-textarea { resize: none; }
-  .form-type-toggle { display: flex; background: #000; border: 2px solid #444; padding: 4px; }
-  .type-btn { font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; padding: 6px 16px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; border: none; background: transparent; color: #666; transition: all 0.15s; }
-  .type-btn.active-lost { background: var(--p4-orange); color: #000; font-weight: 900; }
-  .type-btn.active-found { background: var(--p4-yellow); color: #000; font-weight: 900; }
-  
-  .img-drop-zone { border: 2px dashed #444; display: flex; align-items: center; justify-content: center; min-height: 160px; flex-direction: column; gap: 8px; cursor: pointer; transition: all 0.2s; padding: 1rem; text-align: center; background: #050508; }
-  .img-drop-zone:hover, .img-drop-zone.drag-over { border-color: var(--p4-yellow); background: rgba(253,241,0,0.05); }
-  .img-drop-zone img { max-height: 120px; object-fit: contain; }
-  .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
-  .preset-img-btn { height: 48px; overflow: hidden; border: 2px solid #333; cursor: pointer; transition: border-color 0.2s; background: none; }
-  .preset-img-btn:hover, .preset-img-btn.selected { border-color: var(--p4-yellow); }
-  .preset-img-btn img { width: 100%; height: 100%; object-fit: cover; }
-  .form-actions { border-top: 1px solid #333; padding-top: 1rem; display: flex; justify-content: flex-end; gap: 12px; }
-  .form-cancel { background: transparent; border: none; color: #666; font-family:'Bebas Neue',sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; padding: 8px 16px; transition: color 0.2s; }
-  .form-cancel:hover { color: #fff; }
-  .form-submit { background: var(--p4-yellow); color: #000; border: 2px solid #000; padding: 12px 32px; font-family:'Bebas Neue',sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; clip-path: polygon(1.5% 0, 100% 0%, 98.5% 100%, 0% 100%); transition: background 0.2s; }
-  .form-submit:hover { background: var(--p4-orange); }
-  
-  /* Footer */
-  footer { margin-top: 5rem; border-top: 4px solid #000; padding: 2rem; text-align: center; background: #000; position: relative; overflow: hidden; }
-  
-  /* No results */
-  .no-results { grid-column: 1/-1; border: 2px dashed #333; padding: 4rem; text-align: center; }
-  
-  /* Section header */
-  .section-header { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #222; padding-bottom: 12px; margin-bottom: 1.5rem; }
-  .section-badge { padding: 4px 14px; background: var(--p4-yellow); color: #000; font-size: 10px; font-family:'JetBrains Mono',monospace; font-weight: 900; text-transform: uppercase; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); transform: rotate(-2deg); border: 1px solid #000; }
-  
-  /* Responsive */
-  @media (max-width: 640px) {
-    .hero-sidebar { width: 100%; }
-    .modal-left { width: 100%; border-right: none; border-bottom: 4px solid #000; }
-    .form-row, .form-row-3, .booking-row { grid-template-columns: 1fr; }
-    .filter-bar { grid-template-columns: 1fr; }
-    .match-pairs-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-  }
-</style>
+    /* Hero */
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin: 20px 0 30px 0;
+    }
+    
+    @media (min-width: 992px) {
+      header {
+        flex-direction: row;
+      }
+    }
+
+    .hero-main {
+      flex: 1;
+      background: var(--p4-yellow);
+      border: 4px solid var(--p4-pure);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--p4-pure);
+      color: var(--p4-yellow);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: bold;
+      padding: 4px 12px;
+      text-transform: uppercase;
+      border-left: 2px solid var(--p4-pure);
+      border-bottom: 2px solid var(--p4-pure);
+      z-index: 10;
+    }
+
+    .hero-title-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 576px) {
+      .hero-title-box {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .hero-icon {
+      background: var(--p4-pure);
+      padding: 12px;
+      border: 2px solid var(--p4-yellow);
+      transform: rotate(-3deg);
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    .hero-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--p4-yellow);
+    }
+
+    .hero-meta-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--p4-pure);
+      background: #000;
+      color: var(--p4-yellow);
+      padding: 2px 8px;
+      display: inline-block;
+      margin-bottom: 4px;
+      border: 1px solid var(--p4-pure);
+    }
+
+    .hero-main h1 {
+      font-size: 2.8rem;
+      color: var(--p4-pure);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 576px) {
+      .hero-main h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    .hero-main p {
+      font-weight: 700;
+      color: var(--p4-pure);
+      font-size: 13px;
+      max-width: 650px;
+      line-height: 1.6;
+    }
+
+    /* Quote Widget Sidebar */
+    .hero-sidebar {
+      width: 100%;
+      background: var(--p4-gray);
+      border: 4px solid var(--p4-pure);
+      padding: 20px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (min-width: 992px) {
+      .hero-sidebar {
+        width: 320px;
+      }
+    }
+
+    .sidebar-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: bold;
+      color: var(--p4-yellow);
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-bottom: 8px;
+    }
+
+    .status-online {
+      color: var(--p4-magenta);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-indicator {
+      width: 6px;
+      height: 6px;
+      background-color: var(--p4-magenta);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--p4-magenta);
+    }
+
+    .status-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border: 1px solid var(--p4-pure);
+    }
+
+    .status-label {
+      color: rgba(242, 242, 247, 0.4);
+    }
+
+    .quote-box {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      padding: 12px;
+      border: 2px solid var(--p4-pure);
+      cursor: pointer;
+      box-shadow: 3px 3px 0 rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+
+    .quote-box:hover {
+      background: var(--p4-yellow-pale);
+    }
+
+    .quote-text {
+      font-size: 10px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .quote-action {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: var(--p4-magenta);
+      font-weight: 900;
+      text-align: right;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Emergency Hotlines Row */
+    .link-section {
+      background: var(--p4-card);
+      border: 4px solid var(--p4-pure);
+      padding: 16px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .link-section {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .link-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .link-badge {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      padding: 4px 12px;
+      border: 2px solid var(--p4-pure);
+      transform: rotate(-1deg);
+      font-weight: bold;
+    }
+
+    .link-title h3 {
+      font-size: 1.5rem;
+      line-height: 1.1;
+      color: var(--p4-light);
+      text-transform: uppercase;
+    }
+
+    .link-title p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .link-buttons {
+        width: auto;
+      }
+    }
+
+    .portal-btn {
+      flex: 1;
+      text-align: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      padding: 8px 24px;
+      border: 2px solid var(--p4-pure);
+      text-decoration: none;
+      box-shadow: 3px 3px 0 rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+
+    .portal-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-mytime {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+    }
+    .btn-mytime:hover { background: var(--p4-yellow-pale); }
+
+    .btn-powerschool {
+      background: var(--p4-cyan);
+      color: var(--p4-pure);
+    }
+    .btn-powerschool:hover { background: #5ed6ff; }
+
+    /* Tabs Bar */
+    .tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .tabs {
+        flex-direction: row;
+      }
+    }
+
+    .tab-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid var(--p4-gray);
+      background: var(--p4-card);
+      color: rgba(242, 242, 247, 0.6);
+      transition: all 0.2s;
+    }
+
+    .tab-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--p4-yellow);
+      color: var(--p4-light);
+    }
+
+    .tab-btn.active {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      font-weight: 900;
+      border-color: var(--p4-pure);
+      transform: translateY(-4px);
+      box-shadow: 4px 4px 0 rgba(0,0,0,1);
+    }
+
+    /* Subsections Headers */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-bottom: 2px solid var(--p4-gray);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .section-header {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .section-badge {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 6px 16px;
+      transform: rotate(-1deg);
+      border: 1px solid var(--p4-pure);
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    /* Notification */
+    .success-banner {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      border: 4px solid var(--p4-pure);
+      padding: 12px;
+      text-align: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 rgba(0,0,0,1);
+      margin-bottom: 24px;
+    }
+
+    /* Forms */
+    .form-panel {
+      background: var(--p4-card);
+      border: 4px solid var(--p4-pure);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .form-header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .form-toggle {
+      display: flex;
+      background: var(--p4-pure);
+      padding: 4px;
+    }
+
+    .form-toggle-btn {
+      background: none;
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      padding: 6px 16px;
+      color: rgba(242, 242, 247, 0.6);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .form-toggle-btn.active {
+      background: var(--p4-orange);
+      color: var(--p4-pure);
+      font-weight: 955;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--p4-yellow);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .form-input {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: var(--p4-light);
+      padding: 10px;
+      font-size: 13px;
+      outline: none;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--p4-yellow);
+    }
+
+    .form-select {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: var(--p4-light);
+      padding: 10px;
+      font-size: 13px;
+      outline: none;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .form-textarea {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: var(--p4-light);
+      padding: 10px;
+      font-size: 13px;
+      outline: none;
+      font-family: 'JetBrains Mono', monospace;
+      resize: vertical;
+    }
+
+    .form-textarea:focus {
+      border-color: var(--p4-yellow);
+    }
+
+    .preset-photos {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .preset-img-btn {
+      height: 48px;
+      border: 2px solid var(--p4-gray);
+      cursor: pointer;
+      overflow: hidden;
+      background: none;
+      padding: 0;
+    }
+
+    .preset-img-btn.active {
+      border-color: var(--p4-yellow);
+    }
+
+    .preset-img-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    .cancel-btn {
+      background: none;
+      border: none;
+      color: rgba(242, 242, 247, 0.5);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.25rem;
+      padding: 8px 24px;
+      border: 2px solid var(--p4-pure);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Filter Grid */
+    .filter-bar {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      background: var(--p4-card);
+      padding: 16px;
+      border: 2px solid var(--p4-pure);
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .filter-bar {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 10px 10px 10px 32px;
+      outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 12px;
+      width: 14px;
+      height: 14px;
+      stroke: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Cards Layout */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .grid-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .grid-cards {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .c-card {
+      background: var(--p4-card);
+      border: 2px solid var(--p4-pure);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 4px 4px 0 rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+
+    .c-card:hover {
+      border-color: var(--p4-yellow);
+      transform: scale(1.01) rotate(-0.5deg);
+    }
+
+    .c-header {
+      background: var(--p4-pure);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--p4-pure);
+    }
+
+    .category-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 2px 8px;
+    }
+
+    .badge-counseling { background: var(--p4-yellow); color: var(--p4-pure); }
+    .badge-library { background: var(--p4-orange); color: white; }
+    .badge-tech { background: var(--p4-cyan); color: var(--p4-pure); }
+    .badge-service { background: var(--p4-magenta); color: white; }
+    .badge-community { background: var(--p4-gray); color: white; }
+
+    .c-id-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+    }
+
+    .c-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .c-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      color: var(--p4-light);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .c-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+      text-transform: uppercase;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .c-desc {
+      font-size: 12px;
+      color: rgba(242, 242, 247, 0.7);
+      line-height: 1.5;
+    }
+
+    .c-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(242, 242, 247, 0.5);
+    }
+
+    .card-action-btn {
+      width: 100%;
+      background: var(--p4-pure);
+      border: none;
+      color: rgba(242, 242, 247, 0.8);
+      padding: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .c-card:hover .card-action-btn {
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+    }
+
+    /* Lost & Found Item Card specific styling */
+    .lf-card {
+      background: var(--p4-card);
+      border: 2px solid var(--p4-pure);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 4px 4px 0 rgba(0,0,0,1);
+    }
+
+    .lf-card:hover {
+      border-color: var(--p4-yellow);
+    }
+
+    .lf-img-wrap {
+      height: 160px;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .lf-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.2s;
+    }
+
+    .lf-card:hover .lf-img {
+      transform: scale(1.03);
+    }
+
+    .lf-type-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      padding: 2px 8px;
+      border: 1px solid var(--p4-pure);
+      color: var(--p4-pure);
+    }
+    
+    .badge-lost { background: var(--p4-orange); }
+    .badge-found { background: var(--p4-yellow); }
+
+    .reclaimed-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reclaimed-stamp {
+      border: 2px solid var(--p4-cyan);
+      color: var(--p4-cyan);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      padding: 4px 16px;
+      transform: rotate(-12deg);
+    }
+
+    .lf-meta-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+      margin-bottom: 6px;
+    }
+
+    .reward-box {
+      background: rgba(255, 144, 0, 0.1);
+      border: 1px dashed rgba(255, 144, 0, 0.3);
+      padding: 6px;
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--p4-orange);
+    }
+
+    .lf-actions {
+      background: var(--p4-pure);
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .reclaim-btn {
+      flex: 1;
+      background: var(--p4-cyan);
+      color: var(--p4-pure);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .reclaim-btn:hover {
+      background: var(--p4-yellow);
+    }
+
+    .delete-btn {
+      background: var(--p4-gray);
+      border: none;
+      color: var(--p4-magenta);
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .delete-btn:hover {
+      background: var(--p4-magenta);
+      color: var(--p4-pure);
+    }
+    
+    .delete-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* Collision Match Widget */
+    .match-widget {
+      border: 4px solid var(--p4-pure);
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      padding: 16px;
+      position: relative;
+      margin-bottom: 24px;
+      box-shadow: 6px 6px 0 rgba(0,0,0,1);
+    }
+
+    .match-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .match-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .match-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .match-icon-box {
+      background: var(--p4-pure);
+      padding: 8px;
+      border: 1px solid var(--p4-pure);
+      display: flex;
+    }
+
+    .match-icon-box svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--p4-yellow);
+    }
+
+    .match-grid-list {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .match-grid-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .match-tag-card {
+      background: var(--p4-pure);
+      color: var(--p4-light);
+      border: 2px solid var(--p4-gray);
+      padding: 12px;
+    }
+
+    /* Volunteering Elements */
+    .v-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 992px) {
+      .v-grid {
+        grid-template-columns: 2fr 1.1fr;
+      }
+    }
+
+    .v-cards-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .v-cards-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .v-card {
+      background: var(--p4-card);
+      border: 2px solid var(--p4-pure);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: 4px 4px 0 rgba(0,0,0,1);
+      transition: all 0.2s;
+    }
+
+    .v-card:hover {
+      border-color: var(--p4-cyan);
+    }
+
+    .v-pfp-box {
+      height: 120px;
+      position: relative;
+    }
+
+    .v-pfp-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .v-body-box {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .v-title-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .v-coordinator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--p4-magenta);
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .v-sub-desc {
+      font-size: 12px;
+      color: rgba(242, 242, 247, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .v-footer-stats {
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(242, 242, 247, 0.5);
+    }
+
+    .v-select-btn {
+      width: 100%;
+      background: var(--p4-pure);
+      border: none;
+      color: var(--p4-cyan);
+      padding: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-top: 1px solid var(--p4-pure);
+    }
+
+    .v-card:hover .v-select-btn {
+      background: var(--p4-cyan);
+      color: var(--p4-pure);
+    }
+
+    /* Volunteering Application lists */
+    .reg-work-box {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .reg-item {
+      background: var(--p4-card);
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 8px;
+    }
+
+    .reg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .reg-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .reg-cancel {
+      background: none;
+      border: none;
+      color: var(--p4-magenta);
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+    .reg-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--p4-dark);
+      border: 4px solid var(--p4-pure);
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .modal-card {
+        flex-direction: row;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--p4-yellow);
+      color: var(--p4-pure);
+      border: 2px solid var(--p4-pure);
+      padding: 4px 8px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .modal-sidebar {
+      background: var(--p4-pure);
+      padding: 24px;
+      border-right: 2px solid var(--p4-pure);
+    }
+
+    @media (min-width: 768px) {
+      .modal-sidebar {
+        width: 35%;
+      }
+    }
+
+    .modal-content {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Footer styling */
+    footer {
+      margin-top: 80px;
+      border-top: 4px solid var(--p4-pure);
+      padding: 32px 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .footer-hazard {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--p4-pure) 0,
+        var(--p4-pure) 10px,
+        var(--p4-yellow) 10px,
+        var(--p4-yellow) 20px
+      );
+    }
+  </style>
 </head>
 <body>
 
-<div class="bg-danger-stripes top-stripe"></div>
+  <!-- Top Hazard Boundary -->
+  <div class="hazard-header bg-danger-stripes animate-pulse"></div>
 
-<div class="max-w" style="padding-top:1.5rem; padding-bottom:5rem;">
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-main">
-      <div class="hero-badge">★ WAB PORTAL INDEX ★</div>
-      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
-        <div style="background:#000; padding:12px; border:2px solid var(--p4-yellow); transform:rotate(-4deg); flex-shrink:0;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FDF100" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
-        <div>
-          <div style="font-size:10px; font-family:'JetBrains Mono',monospace; font-weight:700; text-transform:uppercase; background:#000; color:var(--p4-yellow); padding:2px 8px; display:inline-block; margin-bottom:4px;">Beijing WAB Academy ★ DIRECTORY &amp; RECOVERY</div>
-          <h1 class="hero-title">WAB CAMPUS <span>RECOVERY</span> &amp; RESOURCE HUB</h1>
-        </div>
-      </div>
-      <p style="font-size:12px; color:rgba(0,0,0,0.75); font-weight:600; max-width:640px; line-height:1.6;">Welcome to the centralized community directory for the Western Academy of Beijing. This platform connects students to counselors, tech support, library resources, CAS initiatives, and a lost-and-found registry.</p>
-      <div class="hero-rainbow bg-rainbow-stripes"></div>
-    </div>
+  <div class="container">
     
-    <div class="hero-sidebar">
-      <div class="bg-scanlines" style="position:absolute;inset:0;opacity:0.2;pointer-events:none;"></div>
-      <div style="position:absolute;right:-20px;bottom:-20px;color:var(--p4-yellow);opacity:0.08;font-size:8rem;font-weight:900;line-height:1;pointer-events:none;">★</div>
-      <div style="position:relative;z-index:1;">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--p4-yellow);border-bottom:1px solid #444;padding-bottom:8px;margin-bottom:10px;">
-          <span>WAB CAMPUS STATUS</span>
-          <span style="color:var(--p4-magenta);">● <span class="status-dot" style="width:6px;height:6px;display:inline-block;background:var(--p4-magenta);border-radius:50%;"></span> ONLINE</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:700;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Student Safety Index:</span>
-            <span style="background:var(--p4-yellow);color:#000;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">100% SECURE</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Support Desks:</span>
-            <span style="background:var(--p4-cyan);color:#000;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">5 DEPARTMENTS</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:#ccc;">Match Algorithm:</span>
-            <span style="background:var(--p4-magenta);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;font-weight:900;">★ ACTIVE READY</span>
-          </div>
-        </div>
-      </div>
-      <div class="quote-box" id="quoteBox" onclick="rotateQuote()" style="position:relative;z-index:1;">
-        <p id="quoteText" style="font-size:10px;line-height:1.5;"></p>
-        <p style="font-size:8px;font-family:'JetBrains Mono',monospace;color:var(--p4-magenta);text-align:right;margin-top:6px;font-weight:900;">CLICK TO ROTATE CAMPUS QUOTES</p>
-      </div>
-    </div>
-  </header>
-
-  <!-- IMPORTANT INTEGRATED LOGIN LINKS -->
-  <section class="portal-section">
-    <div class="bg-scanlines" style="position:absolute;inset:0;opacity:0.1;pointer-events:none;"></div>
-    <div style="display:flex; align-items:center; gap:12px; z-index:1;">
-      <div style="background:var(--p4-yellow); color:#000; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; padding:6px 12px; border:2px solid #000; transform:rotate(-2deg); font-weight:bold;">
-        ⚡ PORTALS
-      </div>
-      <div>
-        <h3 class="bebas" style="font-size:1.6rem; color:#fff; text-transform:uppercase; line-height:1.1;">WAB Student Integrated Channels</h3>
-        <p style="font-size:9px; font-family:'JetBrains Mono',monospace; color:#888; text-transform:uppercase;">Instant login links for high school schedulers and grade management systems</p>
-      </div>
-    </div>
-    <div style="display:flex; gap:12px; z-index:1;">
-      <a href="https://mytime.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn">
-        ★ MYTIME LOGIN ↗
-      </a>
-      <a href="https://powerschool.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn powerschool">
-        ★ POWERSCHOOL LOGIN ↗
-      </a>
-    </div>
-  </section>
-
-  <!-- EMERGENCY CARD -->
-  <div class="emergency-card">
-    <div class="bg-danger-stripes emergency-stripe-l"></div>
-    <div class="bg-danger-stripes emergency-stripe-r"></div>
-    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
-      <div style="background:var(--p4-yellow);color:#000;font-weight:900;font-family:'Bebas Neue',sans-serif;font-size:1rem;padding:6px 14px;border:1px solid #000;text-transform:uppercase;transform:rotate(-2deg);">★ BROADCAST HOTLINES ★</div>
-      <div>
-        <div class="bebas" style="font-size:1.4rem;color:#fff;text-transform:uppercase;">HIGH-STRESS EMERGENCY CALLING CARD</div>
-        <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">Centralized quick dial ports for diverse community onboarding</div>
-      </div>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;">
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-yellow)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div><span class="ec-label">CAMPUS CLINIC</span><span class="ec-number">+86 (10) 8456-4155 ext. 100</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-cyan)" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
-        <div><span class="ec-label">BUS TRANSIT UNIT</span><span class="ec-number">+86 (10) 8456-4155 ext. 200</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-      <a href="tel:+861084564155" class="emergency-contact">
-        <div style="padding:6px;background:#000;border:1px solid #333;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p4-magenta)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div><span class="ec-label">HS CORE OFFICE</span><span class="ec-number">+86 (10) 8456-4155 ext. 331</span></div>
-        <div class="ec-dial">DIAL</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-      ★ CAMPUS RESOURCE DIRECTORY ★
-    </button>
-    <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-      ☆ STUDENT LOST &amp; FOUND BULLETINS ☆
-    </button>
-  </div>
-
-  <!-- TAB CONTENT -->
-  <main style="margin-top:2rem;">
-    <div id="panel-directory">
-      <div class="section-header">
-        <div class="section-badge">★ DEPARTMENTS ACTIVE ★</div>
-        <h2 class="bebas" style="font-size:2rem;color:#fff;text-transform:uppercase;">Centralized Alliance Resources</h2>
-      </div>
-      <p style="font-size:13px;color:#888;max-width:700px;margin-bottom:2rem;line-height:1.7;">Click on any service card below to summon detailed dossiers. Each hub block provides immediate hotlines, location tracking, and an interactive booking system.</p>
-      <div class="cards-grid" id="cardsGrid"></div>
-    </div>
-    
-    <div id="panel-lostfound" style="display:none;">
-      <div id="matchBanner" style="display:none;" class="match-banner">
-        <div class="match-banner-top bg-danger-stripes"></div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding-top:8px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <div style="background:#000;color:var(--p4-yellow);padding:8px;border:1px solid #000;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </div>
-            <div>
-              <h4 class="bebas" style="font-size:1.4rem;color:#000;text-transform:uppercase;">★ BULLETIN MATCH DETECTOR: POTENTIAL ACTIVE MATCH IDENTIFIED ★</h4>
-              <p style="font-size:11px;font-weight:600;color:rgba(0,0,0,0.75);">Our directory has cross-referenced active lost &amp; found tags. Check matching criteria below.</p>
-            </div>
-          </div>
-          <div id="matchCount" style="background:#000;color:var(--p4-yellow);font-family:'Bebas Neue',sans-serif;padding:4px 12px;font-weight:900;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;"></div>
-        </div>
-        <div class="match-pairs-grid" id="matchPairs"></div>
-      </div>
-      
-      <div id="successBanner" style="display:none;" class="success-banner"></div>
-      
-      <div class="lf-header">
-        <div>
-          <h2 class="bebas" style="font-size:2.5rem;color:#fff;text-transform:uppercase;">★ WAB High School Bulletins ★</h2>
-          <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">RECOVER PROPERTY, EXPEDITE SECURITY, CONNECT TEAMMATES</p>
-        </div>
-        <button class="lf-post-btn" id="postBtn" onclick="toggleForm()">★ POST NEW ITEM CASE ★ <span id="postBtnIcon" style="font-size:1.2rem;">+</span></button>
-      </div>
-      
-      <div id="formPanel" style="display:none;" class="form-panel">
-        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid #333;padding-bottom:1rem;margin-bottom:1.5rem;">
-          <h3 class="bebas" style="font-size:2rem;color:#fff;text-transform:uppercase;">Submit New School Lost or Found Post</h3>
-          <div class="form-type-toggle">
-            <button class="type-btn active-lost" id="typeLost" onclick="setFormType('lost')">★ I LOST SOMETHING</button>
-            <button class="type-btn" id="typeFound" onclick="setFormType('found')">☆ I FOUND SOMETHING</button>
-          </div>
-        </div>
+    <!-- Hero Main Header -->
+    <header>
+      <div class="hero-main shadow-black">
+        <div class="hero-tag">★ WAB PORTAL INDEX ★</div>
         
-        <div style="display:grid;grid-template-columns:2fr 1fr;gap:2rem;align-items:start;">
+        <div class="hero-title-box">
+          <div class="hero-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
           <div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Item Headline</label>
-                <input type="text" id="fTitle" class="form-input" placeholder="BE PRECISE & BRIEF" />
+            <div class="hero-meta-title">Beijing WAB Academy ★ SERVICE & COMMUNITY PORTAL</div>
+            <h1>WAB CAMPUS <span style="color:var(--p4-magenta)">RECOVERY</span> & RESOURCE HUB</h1>
+          </div>
+        </div>
+        <p>
+          Welcome to the centralized community directory for the Western Academy of Beijing. Connect securely with peer counselors, support teams, libraries, and Angelia Crouch's volunteering program.
+        </p>
+      </div>
+
+      <!-- Quick status sidebar -->
+      <div class="hero-sidebar shadow-black">
+        <div>
+          <div class="sidebar-status">
+            <span>WAB CAMPUS STATUS</span>
+            <span class="status-online">
+              <span class="status-indicator"></span> ONLINE
+            </span>
+          </div>
+          <div class="status-grid">
+            <div class="status-row">
+              <span class="status-label">Student Welfare:</span>
+              <span style="color:var(--p4-yellow);">100% SECURE</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Service Coord:</span>
+              <span style="color:var(--p4-cyan);">A. CROUCH</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-box" onclick="rotateQuote()">
+          <p id="quoteParagraph" class="quote-text">"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged and your heart helpful!" — HS Office Advisor</p>
+          <div class="quote-action">⚡ ROTATE CAMPUS QUOTES</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Unified Login Portals -->
+    <section class="link-section shadow-black">
+      <div class="link-meta">
+        <div class="link-badge">⚡ PORTALS</div>
+        <div class="link-title">
+          <h3>WAB Student Integrated Channels</h3>
+          <p>Instant login links for high school schedulers and grade management systems</p>
+        </div>
+      </div>
+      <div class="link-buttons">
+        <a href="https://mytime.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-mytime">★ MYTIME LOGIN ↗</a>
+        <a href="https://powerschool.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-powerschool">★ POWERSCHOOL LOGIN ↗</a>
+      </div>
+    </section>
+
+    <!-- Primary Tabs Buttons -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        ★ CAMPUS RESOURCE DIRECTORY ★
+      </button>
+      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"><path d="M22 10v6M2 10v6M12 2l10 5-10 5L2 7z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+        ★ TIGER VOLUNTEERING HUB ★
+      </button>
+      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        ☆ STUDENT LOST &amp; FOUND bulletins ☆
+      </button>
+    </div>
+
+    <!-- MAIN INTERACTIVE SECTION -->
+    <main>
+      
+      <!-- ================= TAB 1: CAMPUS DIRECTORY ================= -->
+      <div id="panel-directory">
+        <div class="section-header">
+          <div class="section-badge">★ DEPARTMENTS ACTIVE ★</div>
+          <div>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">CENTRALIZED DIRECTORY</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Immediate hotlines, location tracks, and booking ports for high schoolers.</p>
+          </div>
+        </div>
+
+        <div class="grid-cards" id="resourcesGrid"></div>
+      </div>
+
+      <!-- ================= TAB 2: TIGER VOLUNTEERING HUB ================= -->
+      <div id="panel-volunteering" style="display: none;">
+        <div class="section-header">
+          <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure)">★ ANGELIA CROUCH SECTOR ★</div>
+          <div>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">STUDENT SERVICE &amp; VOLUNTEERING</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Explore verified school slots, file registration rosters, and accrue CAS hours seamlessly.</p>
+          </div>
+        </div>
+
+        <div id="volSuccessBanner" class="success-banner" style="display: none; background:var(--p4-cyan); color:#000;"></div>
+
+        <div class="v-grid">
+          <!-- Left Column Opportunities -->
+          <div>
+            <h3 class="bebas" style="font-size: 1.6rem; color: #fff; margin-bottom: 16px; border-bottom: 2px solid var(--p4-gray); padding-bottom: 4px;">⚡ Verified Opportunities</h3>
+            <div class="v-cards-col" id="volOpportunitiesGrid"></div>
+          </div>
+
+          <!-- Right Column Submission -->
+          <div>
+            <div class="form-panel" style="position: relative; border-color: var(--p4-pure);">
+              <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure); position: absolute; top:-12px; left:16px;">DIRECT APPLICATION PORT</div>
+              
+              <form id="volunteerForm" onsubmit="submitVolunteerApp(event)" style="margin-top: 12px; display: flex; flex-direction: column; gap:12px;">
+                <div class="form-group">
+                  <label class="form-label" style="color:var(--p4-cyan)">Select Target Role</label>
+                  <select id="vApplyRole" class="form-select">
+                    <option value="v-001">Tiger Peer Tutoring Alliance</option>
+                    <option value="v-002">Eco-Warriors Sustainability Audit</option>
+                    <option value="v-003">Primary School Literacy Buddy</option>
+                  </select>
+                </div>
+
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" id="vApplyName" required class="form-input" placeholder="LIAM WONG" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Grade</label>
+                    <select id="vApplyGrade" class="form-select">
+                      <option>Grade 9</option>
+                      <option>Grade 10</option>
+                      <option>Grade 11</option>
+                      <option>Grade 12</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="color:var(--p4-cyan)">Contact Address (Email/WeChat ID)</label>
+                  <input type="text" id="vApplyContact" required class="form-input" placeholder="angelia_crouch@wab.edu" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Core Motivation / Relevance</label>
+                  <textarea id="vApplyMsg" rows="3" class="form-textarea" placeholder="EXPLAIN REASONS FOR APPLYING..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" style="background:var(--p4-cyan); border-color: var(--p4-pure);">★ SUBMIT APPLICATION ★</button>
+              </form>
+            </div>
+
+            <!-- Active registered records -->
+            <div class="reg-work-box">
+              <h4 class="bebas" style="font-size: 1.25rem; color: var(--p4-yellow); margin-bottom: 8px;">★ Your Registered Work</h4>
+              <p class="mono" style="font-size: 8px; color:rgba(255,255,255,0.3); text-transform: uppercase;">Direct inquiries: <a href="mailto:angelia_crouch@wab.edu" style="color: var(--p4-cyan)">angelia_crouch@wab.edu</a></p>
+              
+              <div id="registrationsList" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TAB 3: LOST & FOUND ================= -->
+      <div id="panel-lostfound" style="display: none;">
+        
+        <!-- Collision notifications -->
+        <div id="collisionWidget" class="match-widget" style="display: none;">
+          <div class="match-header">
+            <div class="match-icon-title">
+              <div class="match-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Reporting Date</label>
-                <input type="date" id="fDate" class="form-input" />
+              <div>
+                <h4 class="bebas" style="font-size: 1.6rem; line-height: 1;">★ BULLETIN MATCH DETECTOR: COLLISIONS DETECTED ★</h4>
+                <p style="font-size: 11px; font-weight: bold; opacity: 0.8; margin-top:2px;">Our algorithms detected reciprocal active registrations. Please review clash.</p>
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Campus Zone</label>
-                <select id="fLocation" class="form-select">
-                  <option>Atrium</option><option>Library</option><option>Sports Pitch</option>
-                  <option>Cafeteria</option><option>HS Wing</option><option>Drama Theater</option>
-                  <option>Gym</option><option>Other</option>
+            <span class="mono" style="font-size: 10px; background: #000; color: var(--p4-yellow); padding: 4px 8px; font-weight: bold;" id="collisionCountBadge">ZONES CLASH: 0</span>
+          </div>
+
+          <div class="match-grid-list" id="collisionsList"></div>
+        </div>
+
+        <div class="section-header" style="justify-content: space-between;">
+          <div>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">★ WAB HIGH SCHOOL BULLETINS ★</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">RECOVER SECURED COMMUNITY PROPERTY</p>
+          </div>
+          <button class="submit-btn" onclick="toggleFormPanel()" id="postBtnToggle">★ POST NEW BULLETIN + ★</button>
+        </div>
+
+        <!-- Add Bulletin Form -->
+        <div class="form-panel" id="lfFormPanel" style="display: none;">
+          <div class="form-header">
+            <h3 class="bebas" style="font-size: 1.6rem;">Submit New Case</h3>
+            <div class="form-toggle">
+              <button class="form-toggle-btn active" id="btnTypeLost" onclick="setFormType('lost')">★ LOST SOMETHING</button>
+              <button class="form-toggle-btn" id="btnTypeFound" onclick="setFormType('found')">☆ FOUND SOMETHING</button>
+            </div>
+          </div>
+
+          <form id="lfForm" onsubmit="submitLfItem(event)">
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Item Headline</label>
+                <input type="text" id="lfTitle" required class="form-input" placeholder="BE CEAR & PRECISE" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reporting Date</label>
+                <input type="date" id="lfDate" required class="form-input" />
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Campus Zone Location</label>
+                <select id="lfLocation" class="form-select">
+                  <option>Atrium</option>
+                  <option>Library</option>
+                  <option>Sports Pitch</option>
+                  <option>Cafeteria</option>
+                  <option>HS Wing</option>
+                  <option>Other</option>
                 </select>
               </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-gray">Category</label>
-                <select id="fCategory" class="form-select">
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="lfCategory" class="form-select">
                   <option value="Clothing/Blazer">Clothing/Blazer</option>
                   <option value="Electronics">Electronics</option>
                   <option value="ID/Card">ID Card</option>
@@ -561,469 +1501,693 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label label-gray">Full Description (marks, serial numbers, labels)</label>
-              <textarea id="fDesc" class="form-textarea" rows="3" placeholder="E.G. SCANS ON INNER FABRIC READS SIZE M, FEATURES MASCOT BADGE..."></textarea>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label class="form-label">Details & Marks</label>
+              <textarea id="lfDesc" rows="2" class="form-textarea" placeholder="DESCRIBE THE MARKS..."></textarea>
             </div>
-            <div class="form-row">
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Your Full Name</label>
-                <input type="text" id="fName" class="form-input" placeholder="E.G. MICHAEL CHEN" />
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Filer Student Name</label>
+                <input type="text" id="lfName" required class="form-input" placeholder="E.G. JULIAN SONG" />
               </div>
-              <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label label-yellow">Contact (WeChat or Email)</label>
-                <input type="text" id="fContact" class="form-input" placeholder="WECHAT ID OR SCHOOL EMAIL" />
+              <div class="form-group">
+                <label class="form-label">Contact Details (Email / WeChat)</label>
+                <input type="text" id="lfContact" required class="form-input" placeholder="E.G. EMAIL OR PHONE" />
               </div>
             </div>
-            <div class="form-group" id="rewardGroup">
-              <label class="form-label label-orange">Incentive Reward (Optional)</label>
-              <input type="text" id="fReward" class="form-input" placeholder="E.G. FREE BOBA STUDY TREAT AT CAFETERIA!" />
+
+            <div class="form-group" id="rewardGroup" style="margin-top: 16px;">
+              <label class="form-label" style="color:var(--p4-orange)">Incentive Reward (Optional)</label>
+              <input type="text" id="lfReward" class="form-input" placeholder="E.G. A SLICE OF CAKE!" />
+            </div>
+
+            <div class="form-group" style="margin-top: 16px;">
+              <label class="form-label">Item Placeholder Photo</label>
+              <div class="preset-photos" id="presetPhotos"></div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="cancel-btn" onclick="toggleFormPanel()">CANCEL</button>
+              <button type="submit" class="submit-btn" id="btnPublishLabel">★ PUBLISH BULLETIN ★</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="filterSearch" class="search-input" placeholder="Search bulletins..." oninput="renderLF()" />
+          </div>
+          <div>
+            <select id="filterType" class="form-select animate-pulse" style="width: 100%; border-color:var(--p4-pure);" onchange="renderLF()">
+              <option value="all">ALL BULLETINS</option>
+              <option value="lost">LOST ONLY</option>
+              <option value="found">FOUND ONLY</option>
+              <option value="reclaimed">RECLAIMED ONLY</option>
+            </select>
+          </div>
+          <div>
+            <select id="filterLoc" class="form-select" style="width: 100%;" onchange="renderLF()">
+              <option value="all">ALL LOCATIONS</option>
+              <option>Atrium</option>
+              <option>Library</option>
+              <option>Sports Pitch</option>
+              <option>Cafeteria</option>
+              <option>HS Wing</option>
+            </select>
+          </div>
+          <div>
+            <select id="filterCat" class="form-select" style="width: 100%;" onchange="renderLF()">
+              <option value="all">ALL CATEGORIES</option>
+              <option value="Clothing/Blazer">CLOTHING</option>
+              <option value="Electronics">ELECTRONICS</option>
+              <option value="ID/Card">ID CARD</option>
+              <option value="Bottle/Flask">WATER BOTTLE</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Dynamic list of bulletins -->
+        <div id="lfItemsGrid" class="grid-cards"></div>
+        
+      </div>
+
+    </main>
+
+    <!-- Modal Box for Directory Bookings details -->
+    <div class="modal-overlay" id="detailModal" style="display: none;" onclick="closeModal()">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        
+        <div class="modal-sidebar">
+          <span class="category-badge" id="modalBadge">counseling</span>
+          <h3 class="bebas" id="modalTitle" style="font-size: 1.85rem; color:#fff; line-height:1; margin-top: 12px; text-transform: uppercase;"></h3>
+          
+          <div style="margin-top: 24px; display: flex; flex-direction: column; gap:12px;">
+            <div style="border-left: 3px solid var(--p4-yellow); padding-left: 8px;">
+              <span class="mono" style="font-size: 8px; color:rgba(255,255,255,0.4); display: block;">LEAD DIRECTOR</span>
+              <strong id="modalLead" style="font-size: 12px; color:#fff;"></strong>
+            </div>
+            <div style="border-left: 3px solid var(--p4-light); padding-left: 8px;">
+              <span class="mono" style="font-size: 8px; color:rgba(255,255,255,0.4); display: block;">HEADQUARTERS</span>
+              <strong id="modalLocation" style="font-size: 12px; color:#fff;"></strong>
+            </div>
+          </div>
+
+          <div style="background:var(--p4-yellow); color:var(--p4-pure); padding: 12px; margin-top: 24px; transform: rotate(-1deg); border: 1px solid #000;">
+            <p id="modalQuote" style="font-size: 10px; font-weight: bold; font-style: italic;"></p>
+          </div>
+        </div>
+
+        <div class="modal-content">
+          <div>
+            <h4 class="bebas" style="font-size: 1.5rem; color:var(--p4-yellow); border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 4px; margin-bottom: 12px;">★ Key Support Actions ★</h4>
+            <p id="modalDescription" style="font-size: 12px; color:rgba(255,255,255,0.8); line-height:1.6; margin-bottom: 16px;"></p>
+            
+            <p class="mono" style="font-size: 9px; color:var(--p4-yellow); font-weight: bold; margin-bottom: 6px;">SERVICES OFFERED:</p>
+            <ul id="modalServices" style="list-style-type: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px;"></ul>
+          </div>
+
+          <!-- Appointment Inquiry Sub-Form -->
+          <div style="background:#000; border: 1px solid var(--p4-gray); padding: 16px; position: relative;">
+            <div class="mono" style="background: var(--p4-yellow); color: var(--p4-pure); font-size: 9px; font-weight: bold; padding: 2px 8px; position: absolute; top:-10px; left:16px;">BOOK RESUME / ASK STAFF</div>
+            
+            <div id="bookingResultMsg" style="display: none; text-align: center; padding: 12px 0;">
+              <h5 class="bebas" style="color:var(--p4-yellow); font-size:1.2rem;">★ INQUIRY RECEIVED ★</h5>
+              <p class="mono" style="font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 4px;">Staff will touch base with you within standard school sessions.</p>
+            </div>
+
+            <form id="bookingForm" onsubmit="confirmBooking(event)" style="margin-top: 8px; display: flex; flex-direction: column; gap:10px;">
+              <div class="grid-2">
+                <input type="text" id="bookName" class="form-input" required placeholder="YOUR NAME" style="font-size: 11px;" />
+                <input type="text" id="bookTime" class="form-input" required placeholder="PREFER TIMING" style="font-size: 11px;" />
+              </div>
+              <button type="submit" class="submit-btn" style="width: 100%; font-size: 1.1rem; padding: 6px;">CONFIRM INQUIRY REQUEST</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Retro Footer Slanted Block -->
+    <footer class="shadow-black" style="background-color: rgba(0,0,0,0.4); border-color: var(--p4-pure); padding: 24px;">
+      <div class="footer-hazard"></div>
+      <h4 class="bebas" style="font-size: 1.8rem; color:var(--p4-yellow); letter-spacing: 0.05em;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
+      <p class="mono" style="font-size: 9px; color:rgba(255,255,255,0.3); max-width: 500px; margin: 12px auto 0 auto; line-height:1.6;">
+        Western Academy of Beijing. This platform operates independently in service of high school community safety and onboarding convenience. Direct inquiries to <span style="color: var(--p4-cyan)">angelia_crouch@wab.edu</span>.
+      </p>
+      <p style="font-size: 10px; color:rgba(255,255,255,0.15); margin-top: 24px;" class="mono">© 2026 WAB Directory Portal. Retro Pop Yellow Edition.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Asset presets
+    const presetImages = [
+      { name: 'Navy Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Headphones', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Calculator', url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Water Flask', url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Keychain', url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Backpack', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
+    ];
+
+    // Directories dossiers dataset
+    const resources = [
+      { 
+        id: 'res-counseling-1', 
+        category: 'counseling', 
+        title: 'High School Support & Wellbeing', 
+        subtitle: 'Confidential Guidance & Emotional Counseling', 
+        lead: 'Ms. Sarah Martinez & Mr. Alan Vance', 
+        location: 'HS Admin Block, 2nd Floor', 
+        hours: 'Monday – Friday, 08:00 – 16:30', 
+        description: 'Providing a safe harbor for personal, academic, and mental health challenges. Whether you are battling workload stress, social pressure, or just need an attentive listener, our certified counselors are here to help.', 
+        keyServices: [
+          'Individual Mental Health Chats', 
+          'Stress & Time-Management Masterclasses', 
+          'Crisis Response & Safety Support', 
+          'Peer Support Network Facilitation'
+        ], 
+        contactInfo: { email: 'hscounseling@wab.edu', phone: '+86 (10) 8456-4155 ext. 201' }, 
+        p5Quote: 'You dont have to carry academic or personal stress alone. A single constructive conversation can help clear your path.' 
+      },
+      { 
+        id: 'res-library-1', 
+        category: 'library', 
+        title: 'The Hub: Library & Research Center', 
+        subtitle: 'Inquiry, Research Databases, and Literary Aid', 
+        lead: 'Dr. Timothy Cole (Head Librarian)', 
+        location: 'The HUB Atrium, Central Wing', 
+        hours: 'Monday – Friday, 07:30 – 18:00', 
+        description: 'A cutting-edge collaborative space with thousands of physical texts, digital database subscriptions (JSTOR, EBSCO), private group study rooms, and individual research mentorship for IB Extended Essays.', 
+        keyServices: [
+          'IB EE Research Mentorship', 
+          'Advanced Citation & Academic Integrity Audits', 
+          'Silent Study Booth Private Bookings'
+        ], 
+        contactInfo: { email: 'hub_library@wab.edu', phone: '+86 (10) 8456-4155 ext. 330' }, 
+        p5Quote: 'Knowledge is built on curious, exhaustive inquiry. Arm your research with robust academic databases.' 
+      },
+      { 
+        id: 'res-tech-1', 
+        category: 'tech', 
+        title: 'WAB TigerTech Support Center', 
+        subtitle: 'MacBook Diagnostic, Network, and Software Help', 
+        lead: 'Mr. David Wu (IT Operations Lead)', 
+        location: 'Information Technology Bar, Ground Floor', 
+        hours: 'Monday – Friday, 08:00 – 17:00', 
+        description: 'The core repair and support branch for school-issued MacBooks, institutional login/VPN troubleshooting, software updates, printer configurations, and server/Wi-Fi authentication glitches.', 
+        keyServices: [
+          'MacBook Broken Screen & Battery Replacements', 
+          'Institutional Wi-Fi & VPN Configuration Support', 
+          'Loaner MacBook Sign-outs'
+        ], 
+        contactInfo: { email: 'support@wab.edu', phone: '+86 (10) 8456-4155 ext. 500' }, 
+        p5Quote: 'Technical glitches are temporary. Let our IT operations support team configure your digital tools.' 
+      },
+      { 
+        id: 'res-service-1', 
+        category: 'service', 
+        title: 'High School Service & Outreach Groups', 
+        subtitle: 'Engaging Community Action & Global Projects', 
+        lead: 'Mrs. Cynthia Zhang (CAS Coordinator)', 
+        location: 'Global Citizens Studio', 
+        hours: 'CAS Advisory: Tues/Thurs 15:05 – 16:30', 
+        description: 'Central community link coordinating WAB students with local and international service groups. Build friendships, orchestrate events, and construct your global action initiatives.', 
+        keyServices: [
+          'Local Volunteering Placement', 
+          'CAS Project Approval Assistance', 
+          'Outreach Liaison Connectivity'
+        ], 
+        contactInfo: { email: 'cas_outreach@wab.edu' }, 
+        p5Quote: 'Meaningful communal impact comes from active, reliable participation. Connect your skills with our charity partners.' 
+      }
+    ];
+
+    // Volunteering Opportunities
+    const volunteeringOpportunities = [
+      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', level: 'Grades 11-12', description: 'Coaching and tutoring middle school peers during specified study halls. Ideal for high school CAS portfolio compilation.', vacancies: 4, image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400' },
+      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds & Center', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', level: 'All Grades', description: 'Monitor campus room recycling, audit institutional plastic caps consumption, and coordinate early years waste campaigns.', vacancies: 8, image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400' },
+      { id: 'v-003', title: 'Primary School Literacy Buddy', area: 'Elementary Library Level 1', lead: 'Dr. Angelia Crouch', hours: '1.5 Hours/Session', level: 'Grades 9-12', description: 'Read illustrative story books and lead mini group comprehension exercises for grades 1-3 children on Friday afternoons.', vacancies: 3, image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400' }
+    ];
+
+    const quotes = [
+      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged and your heart helpful!" — HS Office Advisor',
+      '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering opportunities under angelia_crouch@wab.edu on school logs weekly." — Cap Captain',
+      '"If you are feeling overwhelmed by classes or deadlines, our certified counselor Sarah maintains private slots." — Wellbeing Club',
+      '"Found my MacBook charger in the IT Hub Room Level 1 in under ten minutes! Unmatched student rescue." — Aaron K. (Grade 11)'
+    ];
+
+    // Initial Bulletins
+    const initialLostFound = [
+      { id: 'lf-001', type: 'found', title: 'High School Blazer (Size M)', description: 'Official navy blue jacket with school stitching. Left on a chair in the cafeteria during lunchtime. Inner label has "J.C." on tag.', category: 'Clothing/Blazer', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400', date: '2026-06-03', location: 'Cafeteria', studentName: 'Alex Mercer (Grade 12)', contactDetails: 'amercer@wab.edu', status: 'active' },
+      { id: 'lf-002', type: 'lost', title: 'Beats Studio Pro (Navy)', description: 'Navy blue over-ear headphones in a black protective zip pouch. Probably lost near Turf Sports Pitch or Bleachers.', category: 'Electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400', date: '2026-06-05', location: 'Sports Pitch', studentName: 'Chloe Henderson (Grade 11)', contactDetails: 'WeChat: ChloeH_Beijing', status: 'active', rewardInfo: 'A plate of home-baked cookies & eternal gratitude!' }
+    ];
+
+    // STATE INITIALIZERS
+    let currentTab = 'directory';
+    let quoteIndex = 0;
+    let selectedImagePreset = presetImages[0].url;
+    let activeFormType = 'lost';
+    
+    let lfItems = JSON.parse(localStorage.getItem('wab_lf_items')) || initialLostFound;
+    let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
+
+    // ONBOARDING MOUNT
+    window.onload = function() {
+      // Set current date on form
+      document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
+      
+      renderResources();
+      renderVolunteering();
+      renderLF();
+      detectMatches();
+      renderPhotoPresets();
+    };
+
+    // QUOTE ROTATOR
+    function rotateQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
+    }
+
+    // TAB TOGGLE
+    function switchTab(tabName) {
+      currentTab = tabName;
+      
+      const panels = ['directory', 'volunteering', 'lostfound'];
+      panels.forEach(p => {
+        document.getElementById('panel-' + p).style.display = p === tabName ? 'block' : 'none';
+        document.getElementById('tab-' + p).classList.toggle('active', p === tabName);
+      });
+      
+      if (tabName === 'lostfound') {
+        renderLF();
+        detectMatches();
+      }
+    }
+
+    // TAB 1: RENDER DIRECTORY
+    function renderResources() {
+      const g = document.getElementById('resourcesGrid');
+      g.innerHTML = resources.map(r => `
+        <div class="c-card" onclick="openModal('${r.id}')">
+          <div class="c-header">
+            <span class="category-badge badge-${r.category}">${r.category}</span>
+            <span class="c-id-tag">★ DEPT</span>
+          </div>
+          <div class="c-body">
+            <div>
+              <h3 class="c-title">${r.title}</h3>
+              <div class="c-subtitle">${r.subtitle}</div>
+              <p class="c-desc">${r.description.substring(0, 100)}...</p>
+            </div>
+            <div class="c-meta">
+              <div>📍 LOC: ${r.location}</div>
+              <div>⏱ HRS: ${r.hours}</div>
+            </div>
+          </div>
+          <button class="card-action-btn">★ ${r.actionLabel} ★</button>
+        </div>
+      `).join('');
+    }
+
+    // DIRECTORY DETAILS MODAL & INQUIRY BOOKINGS
+    let activeModalResourceId = null;
+    function openModal(id) {
+      const r = resources.find(item => item.id === id);
+      if(!r) return;
+      
+      activeModalResourceId = id;
+      
+      document.getElementById('modalBadge').className = 'category-badge badge-' + r.category;
+      document.getElementById('modalBadge').innerText = r.category;
+      document.getElementById('modalTitle').innerText = r.title;
+      document.getElementById('modalLead').innerText = r.lead;
+      document.getElementById('modalLocation').innerText = r.location;
+      document.getElementById('modalQuote').innerText = `"${r.p5Quote}"`;
+      document.getElementById('modalDescription').innerText = r.description;
+      
+      document.getElementById('modalServices').innerHTML = r.keyServices.map(s => `
+        <li style="background:rgba(0,0,0,0.3); border-left: 2px solid var(--p4-yellow); padding:6px; font-size:12px; color:#f2f2f7;">★ ${s}</li>
+      `).join('');
+
+      document.getElementById('bookingResultMsg').style.display = 'none';
+      document.getElementById('bookingForm').style.display = 'flex';
+      
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    function confirmBooking(e) {
+      e.preventDefault();
+      const name = document.getElementById('bookName').value;
+      if (!name) return;
+      
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('bookingResultMsg').style.display = 'block';
+      
+      document.getElementById('bookName').value = '';
+      document.getElementById('bookTime').value = '';
+    }
+
+    // TAB 2: RENDER VOLUNTEERING HUB
+    function renderVolunteering() {
+      const container = document.getElementById('volOpportunitiesGrid');
+      container.innerHTML = volunteeringOpportunities.map(o => `
+        <div class="v-card">
+          <div class="v-pfp-box">
+            <img src="${o.image}" alt="${o.title}" referrerpolicy="no-referrer" />
+            <span class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure); position:absolute; top:8px; left:8px; font-size:9px;">★ ROLE</span>
+          </div>
+          <div class="v-body-box">
+            <div>
+              <h4 class="v-title-name">${o.title}</h4>
+              <p class="v-coordinator">Lead: ${o.lead} (${o.hours})</p>
+              <p class="v-sub-desc">${o.description}</p>
+            </div>
+            <div class="v-footer-stats">
+              <div>📍 AREA: ${o.area}</div>
+              <div>🚀 LEVEL: ${o.level}</div>
+              <div>⏳ ESTIMATE: ${o.hours}</div>
+              <div>👥 SLOTS: ${o.vacancies} SEATS</div>
+            </div>
+          </div>
+          <button class="v-select-btn" onclick="selectVolRole('${o.id}')">★ Apply For Role ★</button>
+        </div>
+      `).join('');
+
+      renderRegList();
+    }
+
+    function selectVolRole(id) {
+      const sel = document.getElementById('vApplyRole');
+      sel.value = id;
+      sel.scrollIntoView({ behavior: 'smooth' });
+      sel.style.borderColor = 'var(--p4-cyan)';
+      setTimeout(() => sel.style.borderColor = 'var(--p4-gray)', 1500);
+    }
+
+    function submitVolunteerApp(e) {
+      e.preventDefault();
+      const roleId = document.getElementById('vApplyRole').value;
+      const name = document.getElementById('vApplyName').value.trim();
+      const grade = document.getElementById('vApplyGrade').value;
+      const contact = document.getElementById('vApplyContact').value.trim();
+      const msg = document.getElementById('vApplyMsg').value.trim();
+
+      if (!name || !contact) return;
+
+      const newApp = {
+        roleId,
+        name,
+        grade,
+        contact,
+        msg,
+        timestamp: Date.now()
+      };
+
+      registrations.unshift(newApp);
+      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
+
+      // Reset
+      document.getElementById('vApplyName').value = '';
+      document.getElementById('vApplyMsg').value = '';
+
+      // Banner
+      const opp = volunteeringOpportunities.find(o => o.id === roleId);
+      const sb = document.getElementById('volSuccessBanner');
+      sb.innerHTML = `★ APPLICATION LOGGED ★ Applied for <strong>${opp.title}</strong> under coordinator <strong>Dr. Angelia Crouch</strong>! Direct inquiries sent to WAB Core Office.`;
+      sb.style.display = 'block';
+      setTimeout(() => sb.style.display = 'none', 8000);
+
+      renderRegList();
+    }
+
+    function renderRegList() {
+      const container = document.getElementById('registrationsList');
+      if (registrations.length === 0) {
+        container.innerHTML = `<p class="mono" style="font-size:10px; color:rgba(255,255,255,0.2); text-align:center; padding:12px 0;">NO SUBMITTED APPLICATIONS.</p>`;
+        return;
+      }
+
+      container.innerHTML = registrations.map((r, i) => {
+        const opp = volunteeringOpportunities.find(o => o.id === r.roleId) || { title: 'General Service', hours: 'N/A' };
+        return `
+          <div class="reg-item">
+            <div class="reg-header">
+              <span class="reg-title">${opp.title}</span>
+              <button class="reg-cancel" onclick="cancelRegistration(${i})">✕ CANCEL</button>
+            </div>
+            <div class="reg-meta">
+              <span>Name: ${r.name} (${r.grade})</span>
+              <span style="color:var(--p4-cyan); font-weight:bold;">PENDING REVIEW</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function cancelRegistration(index) {
+      registrations.splice(index, 1);
+      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
+      renderRegList();
+    }
+
+    // TAB 3: LOST & FOUND RENDER & COLLISION ALGORITHM
+    function renderLF() {
+      const grid = document.getElementById('lfItemsGrid');
+      
+      const q = document.getElementById('filterSearch').value.toLowerCase();
+      const type = document.getElementById('filterType').value;
+      const loc = document.getElementById('filterLoc').value;
+      const cat = document.getElementById('filterCat').value;
+
+      const filtered = lfItems.filter(item => {
+        const matchQ = !q || item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.studentName.toLowerCase().includes(q);
+        
+        let matchType = true;
+        if (type !== 'all') {
+          if (type === 'reclaimed') {
+            matchType = item.status === 'reclaimed';
+          } else {
+            matchType = item.type === type && item.status === 'active';
+          }
+        }
+
+        const matchLoc = loc === 'all' || item.location === loc;
+        const matchCat = cat === 'all' || item.category === cat;
+
+        return matchQ && matchType && matchLoc && matchCat;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.3); font-family:'JetBrains Mono', monospace;">NO ACTIVE BULLETINS MATCH CRITERIA.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="lf-card">
+          <div class="lf-img-wrap">
+            <img class="lf-img" src="${item.image}" alt="${item.title}" referrerpolicy="no-referrer" />
+            <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">
+              ${item.type === 'lost' ? '★ LOST' : '☆ FOUND'}
+            </div>
+            ${item.status === 'reclaimed' ? `
+              <div class="reclaimed-overlay">
+                <span class="reclaimed-stamp">★ RECLAIMED ★</span>
+              </div>
+            ` : ''}
+          </div>
+          <div class="c-body" style="gap:10px;">
+            <div>
+              <div class="lf-meta-header">
+                <span>📍 LOC: ${item.location}</span>
+                <span>📅 ${item.date}</span>
+              </div>
+              <h4 class="c-title" style="font-size:1.3rem;">${item.title}</h4>
+              <p class="c-desc" style="font-size:11.5px;">${item.description}</p>
+              ${item.rewardInfo ? `<div class="reward-box">🏆 Reward Incentive: ${item.rewardInfo}</div>` : ''}
+            </div>
+            <div class="c-meta" style="font-size:9.5px;">
+              <div>REPORTED BY: <strong style="color:#fff;">${item.studentName}</strong></div>
+              <div style="margin-top:2px;">CONTACT: <span style="color:var(--p4-orange); font-weight:bold;">${item.contactDetails}</span></div>
             </div>
           </div>
           
-          <div>
-            <label class="form-label" style="color:#fff;margin-bottom:8px;display:block;">Item Visual Proof (Image)</label>
-            <div class="img-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)">
-              <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleFile(event)" />
-              <div id="dropContent">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" style="margin:0 auto 8px;display:block;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                <p class="bebas" style="font-size:1.1rem;color:#fff;">Drag &amp; drop item photo</p>
-                <p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;">OR CLICK TO BROWSE FILES</p>
+          <div class="lf-actions">
+            ${item.status === 'active' ? `
+              <button class="reclaim-btn" onclick="resolveProperty('${item.id}')">★ Resolve &amp; Reclaim ★</button>
+              <button class="delete-btn" onclick="archiveProperty('${item.id}')" title="Archive Bulletin">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              </button>
+            ` : `
+              <div style="width:100%; text-align:center; padding:10px; font-size:10px; font-family:'JetBrains Mono',monospace; color:var(--p4-cyan);">PROPERTY COMPLETED &amp; ARCHIVED</div>
+            `}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // RESOLVE & ARCHIVE HANDLERS
+    function resolveProperty(id) {
+      lfItems = lfItems.map(item => item.id === id ? { ...item, status: 'reclaimed' } : item);
+      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
+      renderLF();
+      detectMatches();
+    }
+
+    function archiveProperty(id) {
+      lfItems = lfItems.filter(item => item.id !== id);
+      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
+      renderLF();
+      detectMatches();
+    }
+
+    // COLLISION MATCH ENGINE
+    function detectMatches() {
+      const activeItems = lfItems.filter(i => i.status === 'active');
+      const losts = activeItems.filter(i => i.type === 'lost');
+      const founds = activeItems.filter(i => i.type === 'found');
+      
+      const results = [];
+      losts.forEach(l => {
+        founds.forEach(f => {
+          let score = 0;
+          if (l.category.toLowerCase() === f.category.toLowerCase()) score += 2;
+          if (l.location.toLowerCase() === f.location.toLowerCase()) score += 2;
+          
+          const lostWords = l.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+          lostWords.forEach(word => {
+            if (f.title.toLowerCase().includes(word) || f.description.toLowerCase().includes(word)) {
+              score += 3;
+            }
+          });
+
+          if (score >= 4) {
+            results.push({ lost: l, found: f });
+          }
+        });
+      });
+
+      const elementWidget = document.getElementById('collisionWidget');
+      if (results.length > 0) {
+        elementWidget.style.display = 'block';
+        document.getElementById('collisionCountBadge').innerText = `ZONES CLASH: ${results.length}`;
+        
+        document.getElementById('collisionsList').innerHTML = results.slice(0, 2).map(match => `
+          <div class="match-tag-card">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:rgba(255,255,255,0.4); border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:4px; margin-bottom:8px; display:flex; justify-content:space-between;">
+              <span>MATCH AT: ${match.lost.location}</span>
+              <span style="color:var(--p4-magenta); font-weight:bold;">★ CLASH COLLISION DETECTED</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div>
+                <span style="font-size:8px; color:var(--p4-orange); font-family:'JetBrains Mono'; font-weight:bold; display:block; text-transform:uppercase;">Lost Entry</span>
+                <strong style="font-size:12px; color:#fff;">${match.lost.title}</strong> (Owner: ${match.lost.studentName})
+              </div>
+              <div style="border-top:1px dashed rgba(255,255,255,0.08); padding-top:6px; margin-top:4px;">
+                <span style="font-size:8px; color:var(--p4-yellow); font-family:'JetBrains Mono'; font-weight:bold; display:block; text-transform:uppercase;">Found Counterpart</span>
+                <strong style="font-size:12px; color:#fff;">${match.found.title}</strong> (Reporter: ${match.found.studentName})
               </div>
             </div>
-            <div style="margin-top:8px;">
-              <span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;display:block;margin-bottom:6px;">Or select a template:</span>
-              <div class="preset-grid" id="presetGrid"></div>
-            </div>
           </div>
-        </div>
-        
-        <div class="form-actions">
-          <button class="form-cancel" onclick="toggleForm()">CANCEL</button>
-          <button class="form-submit" onclick="submitItem()">★ SUBMIT ITEM BULLETIN ★</button>
-        </div>
-      </div>
-      
-      <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;background:var(--p4-card);padding:1rem;border:2px solid #333;margin-bottom:1.5rem;flex-wrap:wrap;" id="filterBar">
-        <div class="search-wrap">
-          <input type="text" class="search-input" id="searchInput" placeholder="Search bulletins..." oninput="renderLF()" />
-          <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="filter-tag active-all" id="ftAll" onclick="setTypeFilter('all')">ALL</button>
-          <button class="filter-tag" id="ftLost" onclick="setTypeFilter('lost')">★ LOST</button>
-          <button class="filter-tag" id="ftFound" onclick="setTypeFilter('found')">☆ FOUND</button>
-          <button class="filter-tag" id="ftReclaimed" onclick="setTypeFilter('reclaimed')">RECLAIMED</button>
-        </div>
-        <select class="filter-select" id="locFilter" onchange="renderLF()">
-          <option value="all">ALL LOCATIONS</option>
-          <option>Atrium</option><option>Library</option><option>Sports Pitch</option>
-          <option>Cafeteria</option><option>HS Wing</option><option>Drama Theater</option>
-          <option>Gym</option><option>Other</option>
-        </select>
-        <select class="filter-select" id="catFilter" onchange="renderLF()">
-          <option value="all">ALL CATEGORIES</option>
-          <option value="Clothing/Blazer">Clothing</option>
-          <option value="Electronics">Electronics</option>
-          <option value="ID/Card">ID Card</option>
-          <option value="Bottle/Flask">Flask</option>
-          <option value="Keys/Fobs">Keys</option>
-          <option value="Bags/Books">Bags</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      
-      <div class="lf-grid" id="lfGrid"></div>
-    </div>
-  </main>
+        `).join('');
+      } else {
+        elementWidget.style.display = 'none';
+      }
+    }
 
-  <footer>
-    <div style="position:absolute;top:0;left:0;right:0;height:4px;" class="bg-rainbow-stripes"></div>
-    <div style="position:relative;z-index:1;">
-      <h4 class="bebas" style="font-size:2rem;color:var(--p4-yellow);text-transform:uppercase;-webkit-text-stroke:1px #000;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
-      <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;letter-spacing:0.1em;margin-top:8px;line-height:1.7;">Western Academy of Beijing. This platform operates independently in service of high school onboarding convenience, seamless property recovery and digital happiness.</p>
-      <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:12px;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--p4-orange);font-weight:700;">
-        <span><span>★ SYSTEM SECURITY VERIFIED ★</span></span>
-        <span>☆ DIRECTORY RESOLUTION ☆</span>
-      </div>
-      <p style="font-size:10px;color:#444;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;border-top:1px solid #222;padding-top:1rem;">© 2026 WAB Directory Portal. Styled with retro yellow pop aesthetic.</p>
-    </div>
-  </footer>
-</div>
+    // FORM PANEL VISIBILITY & SWITCHES
+    function toggleFormPanel() {
+      const panel = document.getElementById('lfFormPanel');
+      const btn = document.getElementById('postBtnToggle');
+      if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        btn.innerText = '★ CLOSE CASE PANEL ✕ ★';
+      } else {
+        panel.style.display = 'none';
+        btn.innerText = '★ POST NEW BULLETIN + ★';
+      }
+    }
 
-<!-- MODAL -->
-<div id="modal" class="modal-backdrop" style="display:none;" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-left bg-dots" id="modalLeft"></div>
-    <div class="modal-right" id="modalRight"></div>
-  </div>
-</div>
+    function setFormType(type) {
+      activeFormType = type;
+      document.getElementById('btnTypeLost').classList.toggle('active', type === 'lost');
+      document.getElementById('btnTypeFound').classList.toggle('active', type === 'found');
+      document.getElementById('rewardGroup').style.display = type === 'lost' ? 'block' : 'none';
+      document.getElementById('btnPublishLabel').innerText = type === 'lost' ? '★ PUBLISH LOST BULLETIN ★' : '★ PUBLISH FOUND BULLETIN ★';
+    }
 
-<script>
-// DATA
-const quotes = [
-  '"A diverse campus thrives on collaboration. Keep your belongings secured and your heart open!" — Grade 12 Advisor',
-  '"Found my lost Math calculator in Room H304 in just 10 minutes. This portal is absolute magic!" — Emily W. (Grade 10)',
-  '"If you are feeling overwhelmed by classes or IB deadlines, Counselor Sarah has the ultimate dialogue tree." — Anon Tiger',
-  '"Service CAS groups meet every Tuesday in the Global citizens lounge. Join the alliance today!" — CAS Liaison'
-];
-let quoteIdx = 0;
-function rotateQuote() {
-  quoteIdx = (quoteIdx + 1) % quotes.length;
-  document.getElementById('quoteText').textContent = quotes[quoteIdx];
-}
-document.getElementById('quoteText').textContent = quotes[0];
-
-const resources = [
-  { id:'res-counseling-1', category:'counseling', title:'High School Support & Wellbeing', subtitle:'Confidential Guidance & Emotional Counseling', lead:'Ms. Sarah Martinez & Mr. Alan Vance', location:'HS Admin Block, 2nd Floor', hours:'Monday – Friday, 08:00 – 16:30', description:'Providing a safe harbor for personal, academic, and mental health challenges. Whether you are battling workload stress, social pressure, or just need an attentive listener, our certified counselors are here to help.', keyServices:['Individual Mental Health Chats','Stress & Time-Management Masterclasses','Crisis Response & Safety Support','Peer Support Network Facilitation','University Transition Guidance Sessions'], contactInfo:{ email:'hscounseling@wab.edu', phone:'+86 (10) 8456-4155 ext. 201', wechat:'WAB_HS_Wellbeing', room:'Room H214' }, p5Quote:'"You don\'t have to carry academic or personal stress alone. A single constructive conversation can help clear your path and restore balance."', actionLabel:'Reserve Chat Session' },
-  { id:'res-library-1', category:'library', title:'The Hub: Library & Research Center', subtitle:'Inquiry, Research Databases, and Literary Aid', lead:'Dr. Timothy Cole (Head Librarian)', location:'The HUB Atrium, Central Wing', hours:'Monday – Friday, 07:30 – 18:00', description:'A cutting-edge collaborative space with thousands of physical texts, digital database subscriptions (JSTOR, EBSCO), private group study rooms, and individual research mentorship for IB Extended Essays.', keyServices:['IB EE Research Mentorship','Advanced Citation & Academic Integrity Audits','Audiobox Equipment & VR Sandbox Checkouts','Overdrive & Libby Digital Audiobooks Access','Silent Study Booth Private Bookings'], contactInfo:{ email:'hub_library@wab.edu', phone:'+86 (10) 8456-4155 ext. 330', website:'https://hub.wab.edu', room:'Levels 1 & 2, HUB' }, p5Quote:'"Knowledge is built on curious, exhaustive inquiry. Arm your research with robust academic databases."', actionLabel:'Book Research Booth' },
-  { id:'res-tech-1', category:'tech', title:'WAB TigerTech Support Center', subtitle:'MacBook Diagnostic, Network, and Software Help', lead:'Mr. David Wu (IT Operations Lead)', location:'Information Technology Bar, Ground Floor', hours:'Monday – Friday, 08:00 – 17:00', description:'The core repair and support branch for school-issued MacBooks, institutional login/VPN troubleshooting, software updates, printer configurations, and server/Wi-Fi authentication glitches.', keyServices:['MacBook Broken Screen & Battery Replacements','Institutional Wi-Fi & VPN Configuration Support','Dual-factor Authentication & Reset Support','Adobe Creative Cloud & Office Licensing','Loaner MacBook Sign-outs'], contactInfo:{ email:'support@wab.edu', phone:'+86 (10) 8456-4155 ext. 500', wechat:'WAB_TigerTech_Quick', room:'TechBar Level 1' }, p5Quote:'"Technical and network glitches are just temporary hurdles. Let our IT operations support team configure your digital tools."', actionLabel:'Submit IT Ticket' },
-  { id:'res-service-1', category:'service', title:'High School Service & Outreach Groups', subtitle:'Engaging Community Action & Global Projects', lead:'Mrs. Cynthia Zhang (CAS Coordinator)', location:'Global Citizens Studio', hours:'CAS Advisory: Tues/Thurs 15:05 – 16:30', description:'Central community link coordinating WAB students with local and international service groups. Build friendships and construct sustainable CAS projects.', keyServices:['Local Community Volunteering Placement','CAS Portfolio Idea Incubation & Approval','Environmental Recycling & Upcycling Campaigns','Service Event Funding Proposals','Student Service Council Liaison'], contactInfo:{ email:'cas_outreach@wab.edu', website:'https://cas.wab.edu', room:'Studio G10' }, p5Quote:'"Meaningful communal impact comes from dedication. Connect your skills and passion with our charity partnerships."', actionLabel:'Explore CAS Partners' },
-  { id:'res-community-1', category:'community', title:'WAB Parent-Teacher & Administrative Council', subtitle:'Core Contacts & Crisis Community Lines', lead:'Dr. Sandra Vance (Director of Communications)', location:'Main Administrative Center', hours:'Monday – Friday, 08:00 – 17:00 (Emergency: 24/7)', description:'Connecting our diverse global community. The immediate bridge for family logistics, high school athletic councils, campus safety coordinators, and public announcement updates.', keyServices:['Bus Transport Hotline & Dynamic Delays','Parent Association (WABPA) Join Portal','Main Clinic Coordination & Emergency Dispatch','Off-campus Student Activities Registry','Cross-Cultural Community Translators'], contactInfo:{ phone:'+86 (10) 8456-4155 ext. 100', email:'directorate@wab.edu', wechat:'WAB_Official_Public' }, p5Quote:'"We thrive on creating a close-knit educational ecosystem where every student feels secure and supported."', actionLabel:'Contact Main Office' }
-];
-
-const presetImages = [
-  { name:'Navy Blazer', url:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
-  { name:'Headphones', url:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400' },
-  { name:'Calculator', url:'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400' },
-  { name:'Water Flask', url:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400' },
-  { name:'Keychain', url:'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400' },
-  { name:'Backpack', url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
-];
-
-const initialItems = [
-  { id:'lf-001', type:'found', title:'High School Blazer (Size M)', description:'Official navy blue jacket with school stitching. Left on a chair in the cafeteria during lunchtime. The label has a faded hand-written "J.C." on the inside tag.', category:'Clothing/Blazer', image:'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400', date:'2026-06-03', location:'Cafeteria', studentName:'Alex Mercer (Grade 12)', contactDetails:'amercer@wab.edu', status:'active' },
-  { id:'lf-002', type:'lost', title:'Beats Studio Pro (Navy)', description:'Navy blue over-ear headphones in a black protective zip pouch. Probably lost near the main Turf Sports Pitch or the Bleachers during Track practice. High sentimental value!', category:'Electronics', image:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400', date:'2026-06-05', location:'Sports Pitch', studentName:'Chloe Henderson (Grade 11)', contactDetails:'WeChat: ChloeH_Beijing', status:'active', rewardInfo:'A box of cupcakes & huge eternal gratitude!' },
-  { id:'lf-003', type:'found', title:'TI-84 Plus CE Graphing Calculator', description:'Stylized black graphic calculator with "WAB Tiger Mascot" sticker on the back cover. Display battery level is low. Picked up from Room H304 (Math Wing).', category:'Electronics', image:'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400', date:'2026-06-06', location:'HS Wing', studentName:'Julian Song (Grade 10)', contactDetails:'jsong28@wab.edu', status:'active' },
-  { id:'lf-004', type:'found', title:'Yeti Rambler Sage Water Bottle', description:'Sage Green 26 oz bottle. Covered in various outdoor stickers. Found under table #4 in the Secondary Library ground floor quiet zone.', category:'Bottle/Flask', image:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400', date:'2026-06-07', location:'Library', studentName:'Lucas Zhang (Grade 11)', contactDetails:'lucas_zg_pku', status:'active' },
-  { id:'lf-005', type:'lost', title:'House Keys on Red Lanyard', description:'Set of 3 keys (one silver, two brassy) on a red fabric lanyard with a cute cat plushie chain keyring. Fell out of sports bag on the Atrium stairs.', category:'Keys/Fobs', image:'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400', date:'2026-06-07', location:'Atrium', studentName:'Emma Watson (Grade 10)', contactDetails:'ewatson@wab.edu', status:'active' }
-];
-
-// STATE
-let items = JSON.parse(localStorage.getItem('wab_lf') || 'null') || initialItems;
-let typeFilter = 'all', selectedImage = '', formType = 'lost', formOpen = false;
-
-function saveItems() { localStorage.setItem('wab_lf', JSON.stringify(items)); }
-
-// TAB SWITCHING
-function switchTab(tab) {
-  document.getElementById('panel-directory').style.display = tab === 'directory' ? '' : 'none';
-  document.getElementById('panel-lostfound').style.display = tab === 'lostfound' ? '' : 'none';
-  document.getElementById('tab-directory').className = 'tab-btn' + (tab === 'directory' ? ' active' : '');
-  document.getElementById('tab-lostfound').className = 'tab-btn' + (tab === 'lostfound' ? ' active' : '');
-  if (tab === 'lostfound') { renderLF(); detectMatches(); }
-}
-
-// RESOURCE CARDS IN DIRECTORY
-function badgeClass(cat) { return 'card-cat-badge badge-' + cat; }
-function renderCards() {
-  const grid = document.getElementById('cardsGrid');
-  grid.innerHTML = resources.map(r => `
-    <div class="resource-card" onclick="openModal('${r.id}')">
-      <div class="card-header">
-        <span class="${badgeClass(r.category)}">${r.category}</span>
-        <span style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;text-transform:uppercase;">★ DEPT ID // ${r.id.split('-')[2]||'CODE'}</span>
-      </div>
-      <div class="card-body">
-        <div>
-          <h3 class="card-title">${r.title}</h3>
-          ${r.subtitle ? `<p class="card-subtitle">${r.subtitle}</p>` : ''}
-          <p class="card-desc">${r.description}</p>
-        </div>
-        <div class="card-meta">
-          <div class="card-meta-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--p4-orange)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> LOC: ${r.location}</div>
-          <div class="card-meta-row"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> HRS: ${r.hours}</div>
-        </div>
-      </div>
-      <div class="card-footer">★ ${r.actionLabel} ★</div>
-    </div>
-  `).join('');
-}
-
-// MODAL CONTROLS
-let currentBookingResource = null;
-function openModal(id) {
-  const r = resources.find(x => x.id === id);
-  if (!r) return;
-  currentBookingResource = r;
-  
-  const colorMap = { counseling:'var(--p4-yellow)', library:'var(--p4-orange)', tech:'var(--p4-cyan)', service:'var(--p4-magenta)', community:'#888' };
-  const c = colorMap[r.category] || 'var(--p4-yellow)';
-  
-  document.getElementById('modalLeft').innerHTML = `
-    <div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;">
-        <span style="padding:8px;background:${c};color:#000;border:2px solid #000;font-weight:900;font-size:10px;text-transform:uppercase;">${r.category}</span>
-        <span class="bebas" style="font-size:1.4rem;color:#fff;text-transform:uppercase;">${r.category}</span>
-      </div>
-      <h2 class="modal-title">${r.title}</h2>
-      <p style="color:var(--p4-yellow);font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;margin:6px 0 1.5rem;font-weight:700;">★ OFFICIAL DIRECTORY INFO ★</p>
-      <div class="info-block" style="border-left-color:var(--p4-yellow);margin-bottom:8px;"><div class="info-label">LEAD DIRECTOR</div><div class="info-value">${r.lead}</div></div>
-      <div class="info-block" style="border-left-color:#fff;margin-bottom:8px;"><div class="info-label">HEADQUARTERS</div><div class="info-value">${r.location}</div></div>
-      <div class="info-block" style="border-left-color:var(--p4-orange);"><div class="info-label">ACTIVE TIMINGS</div><div class="info-value">${r.hours}</div></div>
-    </div>
-    ${r.p5Quote ? `<div class="quote-block"><p style="font-size:12px;color:#000;font-style:italic;font-weight:700;line-height:1.6;">${r.p5Quote}</p></div>` : ''}
-  `;
-  
-  const contacts = Object.entries(r.contactInfo).map(([k,v]) => {
-    const labels = {email:'OFFICIAL EMAIL', phone:'DIRECT DIAL', wechat:'WECHAT CHANNEL', website:'OFFICIAL WEBSITE', room:'ROOM NUMBER'};
-    const href = k==='email' ? `mailto:${v}` : k==='phone' ? `tel:${v}` : k==='website' ? v : null;
-    return `<div class="contact-item"><span class="contact-item-label">${labels[k]||k.toUpperCase()}</span><span class="contact-item-value">${href ? `<a href="${href}" target="_blank">${v}</a>` : v}</span></div>`;
-  }).join('');
-  
-  document.getElementById('modalRight').innerHTML = `
-    <button class="modal-close" onclick="closeModal()" style="position:absolute;top:12px;right:12px;">✕</button>
-    <h3 class="bebas" style="font-size:2rem;color:var(--p4-yellow);text-transform:uppercase;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:1rem;">★ Key Support Actions ★</h3>
-    <p style="font-size:13px;color:#aaa;line-height:1.7;margin-bottom:1.5rem;">${r.description}</p>
-    <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--p4-yellow);font-weight:700;text-transform:uppercase;margin-bottom:8px;">Services Offered:</p>
-    <ul class="services-list">${r.keyServices.map(s => `<li><span style="color:var(--p4-yellow);font-weight:700;">★</span> ${s}</li>`).join('')}</ul>
-    <div class="contact-grid">${contacts}</div>
-    <div class="booking-form" id="bookingForm">
-      <div class="booking-form-tag">BOOK APPOINTMENT / SUBMIT INQUIRY</div>
-      <div id="bookingContent">
-        <div class="booking-row" style="margin-top:8px;">
-          <div><label class="booking-label">Your Full Name</label><input type="text" id="bkName" class="booking-input" placeholder="E.G. LIAM WONG" /></div>
-          <div><label class="booking-label">Preferred Time</label><input type="text" id="bkTime" class="booking-input" placeholder="E.G. AFTER SCHOOL" /></div>
-        </div>
-        <div style="margin-bottom:10px;"><label class="booking-label">Brief Description of Need</label><textarea id="bkDetail" class="booking-textarea" rows="2" placeholder="E.G. INQUIRING REGARDING EXAM STRESS RELIEF..."></textarea></div>
-        <button class="booking-submit" onclick="submitBooking()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          CONFIRM INQUIRY REQUEST
+    function renderPhotoPresets() {
+      const container = document.getElementById('presetPhotos');
+      container.innerHTML = presetImages.map(p => `
+        <button type="button" class="preset-img-btn ${p.url === selectedImagePreset ? 'active' : ''}" onclick="selectPresetImage('${p.url}')">
+          <img src="${p.url}" alt="${p.name}" />
         </button>
-      </div>
-    </div>
-  `;
-  
-  document.getElementById('modal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
+      `).join('');
+    }
 
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-  document.body.style.overflow = '';
-}
+    function selectPresetImage(url) {
+      selectedImagePreset = url;
+      const btns = document.querySelectorAll('.preset-img-btn');
+      btns.forEach((btn, i) => {
+        btn.classList.toggle('active', presetImages[i].url === url);
+      });
+    }
 
-function submitBooking() {
-  const name = document.getElementById('bkName').value.trim();
-  if (!name) { document.getElementById('bkName').style.borderColor = 'var(--p4-magenta)'; return; }
-  document.getElementById('bookingContent').innerHTML = `
-    <div class="booking-success">
-      <div style="background:var(--p4-yellow);color:#000;padding:8px;display:inline-flex;border:2px solid #000;margin-bottom:12px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      </div>
-      <h4 class="bebas" style="font-size:1.8rem;color:var(--p4-yellow);text-transform:uppercase;">★ INQUIRY RECEIVED SUCCESSFULLY ★</h4>
-      <p style="font-size:11px;font-family:'JetBrains Mono',monospace;color:#aaa;margin-top:8px;">Reservation Secured for: <strong style="color:#fff;">${name}</strong></p>
-      <p style="font-size:12px;color:#ccc;margin-top:6px;line-height:1.6;">WAB HS staff will reach out to you within standard school sessions.</p>
-      <button onclick="document.getElementById('bookingContent').innerHTML=''" style="margin-top:12px;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--p4-yellow);border:1px solid rgba(253,241,0,0.3);background:transparent;padding:4px 12px;cursor:pointer;text-transform:uppercase;">Request Another Booking</button>
-    </div>
-  `;
-}
+    // SUBMIT LF PROPERTY
+    function submitLfItem(e) {
+      e.preventDefault();
+      
+      const title = document.getElementById('lfTitle').value.trim();
+      const date = document.getElementById('lfDate').value;
+      const location = document.getElementById('lfLocation').value;
+      const category = document.getElementById('lfCategory').value;
+      const desc = document.getElementById('lfDesc').value.trim();
+      const studentName = document.getElementById('lfName').value.trim();
+      const contactDetails = document.getElementById('lfContact').value.trim();
+      const rewardInfo = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
 
-// LOST & FOUND RENDER FILTERING
-function setTypeFilter(f) {
-  typeFilter = f;
-  ['all','lost','found','reclaimed'].forEach(t => {
-    const el = document.getElementById('ft' + t.charAt(0).toUpperCase() + t.slice(1));
-    if (el) el.className = 'filter-tag' + (t === f ? ' active-' + t : '');
-  });
-  renderLF();
-}
+      if (!title || !studentName || !contactDetails) return;
 
-function renderLF() {
-  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
-  const loc = document.getElementById('locFilter')?.value || 'all';
-  const cat = document.getElementById('catFilter')?.value || 'all';
-  
-  const filtered = items.filter(item => {
-    const matchQ = !q || item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.studentName.toLowerCase().includes(q);
-    const matchType = typeFilter === 'all' ? true : typeFilter === 'reclaimed' ? item.status === 'reclaimed' : item.type === typeFilter && item.status === 'active';
-    const matchLoc = loc === 'all' || item.location === loc;
-    const matchCat = cat === 'all' || item.category === cat;
-    return matchQ && matchType && matchLoc && matchCat;
-  });
-  
-  const grid = document.getElementById('lfGrid');
-  if (!grid) return;
-  
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="no-results"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" style="margin:0 auto 12px;display:block;"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><h4 class="bebas" style="font-size:1.5rem;color:var(--p4-yellow);">★ NO BULLETINS MATCH APPLIED FILTERS ★</h4><p style="font-size:12px;color:#555;margin-top:6px;">Try resetting search or filter parameters.</p></div>`;
-    return;
-  }
-  
-  grid.innerHTML = filtered.map(item => `
-    <div class="lf-card">
-      <div class="lf-img-wrap">
-        <img class="lf-img" src="${item.image}" alt="${item.title}" referrerpolicy="no-referrer" />
-        <div class="lf-type-badge" style="background:${item.type==='lost' ? 'var(--p4-orange)' : 'var(--p4-yellow)'};">
-          ${item.type === 'lost' ? '★ LOST AT WAB' : '☆ DETECTED / FOUND'}
-        </div>
-        ${item.status === 'reclaimed' ? `<div class="lf-reclaimed-overlay"><div class="reclaimed-stamp">★ SECURED &amp; RESTORED ★</div></div>` : ''}
-      </div>
-      <div class="lf-body">
-        <div>
-          <div class="lf-meta">
-            <span>📍 ${item.location}</span>
-            <span>📅 ${item.date}</span>
-          </div>
-          <h3 class="lf-title">${item.title}</h3>
-          <span class="lf-cat">TAG: ${item.category}</span>
-          <p class="lf-desc">${item.description}</p>
-        </div>
-        <div class="lf-reporter">
-          <div class="lf-reporter-row"><span class="lf-reporter-label">REPORTER:</span><span class="lf-reporter-value">${item.studentName}</span></div>
-          <div class="lf-reporter-row"><span class="lf-reporter-label">CONTACT:</span><span class="lf-contact-value">${item.contactDetails}</span></div>
-          ${item.rewardInfo ? `<div class="lf-reward">★ INCENTIVE: ${item.rewardInfo}</div>` : ''}
-        </div>
-      </div>
-      <div class="lf-actions">
-        ${item.status === 'active' ? `
-          <button class="btn-reclaim" onclick="reclaimItem('${item.id}')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            RECLAIM / RESOLVED
-          </button>
-          <button class="btn-delete" onclick="deleteItem('${item.id}')" title="Remove Post">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-          </button>
-        ` : `<div class="reclaimed-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> PROPERTY RECLAIMED &amp; RESOLVED</div>`}
-      </div>
-    </div>
-  `).join('');
-  
-  detectMatches();
-}
+      const newItem = {
+        id: 'lf-custom-' + Date.now(),
+        type: activeFormType,
+        title,
+        description: desc,
+        category,
+        image: selectedImagePreset,
+        date,
+        location,
+        studentName,
+        contactDetails,
+        status: 'active',
+        rewardInfo: rewardInfo || undefined
+      };
 
-function reclaimItem(id) {
-  items = items.map(i => i.id === id ? {...i, status:'reclaimed'} : i);
-  saveItems(); renderLF();
-}
-function deleteItem(id) {
-  items = items.filter(i => i.id !== id);
-  saveItems(); renderLF();
-}
+      lfItems.unshift(newItem);
+      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
 
-// MATCHING ALGORITHM INTERSECTIONS
-function detectMatches() {
-  const actives = items.filter(i => i.status === 'active');
-  const losts = actives.filter(i => i.type === 'lost');
-  const founds = actives.filter(i => i.type === 'found');
-  const matches = [];
-  losts.forEach(lost => {
-    founds.forEach(found => {
-      let score = 0;
-      if (lost.category.toLowerCase() === found.category.toLowerCase()) score += 2;
-      if (lost.location.toLowerCase() === found.location.toLowerCase()) score += 2;
-      const lw = lost.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-      lw.forEach(w => { if (found.title.toLowerCase().includes(w) || found.description.toLowerCase().includes(w)) score += 3; });
-      if (score >= 4) matches.push({lost, found, score});
-    });
-  });
-  matches.sort((a,b) => b.score - a.score);
-  const banner = document.getElementById('matchBanner');
-  if (!banner) return;
-  if (matches.length === 0) { banner.style.display = 'none'; return; }
-  banner.style.display = '';
-  document.getElementById('matchCount').textContent = `ACTIVE SUGGESTED PAIRS: ${matches.length}`;
-  document.getElementById('matchPairs').innerHTML = matches.slice(0,2).map(m => `
-    <div class="match-pair">
-      <p style="color:var(--p4-orange);font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px;">LOST: <span style="color:#fff;">${m.lost.title}</span> (by ${m.lost.studentName})</p>
-      <p style="color:#4ade80;font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px;">FOUND: <span style="color:#fff;">${m.found.title}</span> (at ${m.found.location})</p>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <p style="font-size:10px;font-family:'JetBrains Mono',monospace;color:#555;">Location: <span style="color:var(--p4-magenta);font-weight:600;">${m.lost.location}</span></p>
-        <span style="font-size:9px;font-family:'JetBrains Mono',monospace;background:rgba(255,144,0,0.2);color:var(--p4-orange);font-weight:700;padding:2px 8px;border:1px solid var(--p4-orange);">${Math.min(95,60+m.score*8)}% MATCH</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-// TOGGLE BULLETIN CASE CONTROLLER
-function toggleForm() {
-  formOpen = !formOpen;
-  document.getElementById('formPanel').style.display = formOpen ? '' : 'none';
-  const btn = document.getElementById('postBtn');
-  btn.textContent = formOpen ? 'CLOSE CASE PANEL' : '★ POST NEW ITEM CASE ★';
-  btn.innerHTML += ` <span id="postBtnIcon">${formOpen ? '✕' : '+'}</span>`;
-  if (formOpen) {
-    document.getElementById('fDate').value = new Date().toISOString().split('T')[0];
-    renderPresets();
-  }
-}
-
-function renderPresets() {
-  const grid = document.getElementById('presetGrid');
-  if (!grid) return;
-  grid.innerHTML = presetImages.map((p,i) => `
-    <button class="preset-img-btn ${selectedImage===p.url?'selected':''}" onclick="selectPreset('${p.url}')" type="button">
-      <img src="${p.url}" alt="${p.name}" referrerpolicy="no-referrer" />
-    </button>
-  `).join('');
-}
-function selectPreset(url) {
-  selectedImage = url;
-  document.getElementById('dropContent').innerHTML = `<img src="${url}" alt="preview" style="max-height:100px;object-fit:contain;margin-bottom:6px;" referrerpolicy="no-referrer"><p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">IMAGE SELECTED — CLICK TO CHANGE</p>`;
-  renderPresets();
-}
-function handleFile(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    selectedImage = ev.target.result;
-    document.getElementById('dropContent').innerHTML = `<img src="${selectedImage}" alt="preview" style="max-height:100px;object-fit:contain;margin-bottom:6px;"><p style="font-size:9px;font-family:'JetBrains Mono',monospace;color:#888;">PREVIEW READY</p>`;
-  };
-  reader.readAsDataURL(file);
-}
-function handleDrop(e) {
-  e.preventDefault(); document.getElementById('dropZone').classList.remove('drag-over');
-  const file = e.dataTransfer.files[0]; if (!file) return;
-  const inp = document.getElementById('fileInput');
-  const dt = new DataTransfer(); dt.items.add(file); inp.files = dt.files;
-  handleFile({target:{files:[file]}});
-}
-
-function setFormType(t) {
-  formType = t;
-  document.getElementById('typeLost').className = 'type-btn' + (t==='lost'?' active-lost':'');
-  document.getElementById('typeFound').className = 'type-btn' + (t==='found'?' active-found':'');
-  document.getElementById('rewardGroup').style.display = t==='lost' ? '' : 'none';
-}
-
-function submitItem() {
-  const title = document.getElementById('fTitle').value.trim();
-  const name = document.getElementById('fName').value.trim();
-  const contact = document.getElementById('fContact').value.trim();
-  if (!title || !name || !contact) {
-    if (!title) document.getElementById('fTitle').style.borderColor = 'var(--p4-magenta)';
-    if (!name) document.getElementById('fName').style.borderColor = 'var(--p4-magenta)';
-    if (!contact) document.getElementById('fContact').style.borderColor = 'var(--p4-magenta)';
-    return;
-  }
-  const newItem = {
-    id: 'lf-custom-' + Date.now(),
-    type: formType,
-    title,
-    description: document.getElementById('fDesc').value,
-    category: document.getElementById('fCategory').value,
-    image: selectedImage || presetImages[5].url,
-    date: document.getElementById('fDate').value,
-    location: document.getElementById('fLocation').value,
-    studentName: name,
-    contactDetails: contact,
-    status: 'active',
-    rewardInfo: formType==='lost' ? document.getElementById('fReward').value || undefined : undefined
-  };
-  items = [newItem, ...items];
-  saveItems();
-  toggleForm();
-  selectedImage = '';
-  const sb = document.getElementById('successBanner');
-  sb.textContent = `★ NEW ITEM POSTED ★ Bulletin posted successfully: ${newItem.title}`;
-  sb.style.display = '';
-  setTimeout(() => sb.style.display = 'none', 8000);
-  renderLF();
-}
-
-// SETUP INIT
-renderCards();
-</script>
+      // Reset Form fields
+      document.getElementById('lfTitle').value = '';
+      document.getElementById('lfDesc').value = '';
+      document.getElementById('lfName').value = '';
+      document.getElementById('lfContact').value = '';
+      document.getElementById('lfReward').value = '';
+      
+      toggleFormPanel();
+      renderLF();
+      detectMatches();
+    }
+  </script>
 </body>
 </html>

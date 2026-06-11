@@ -1,3 +1,5 @@
+--- START OF FILE Paste June 11, 2026 - 9:36AM ---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,9 @@
   <!-- Fonts Integration -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     :root {
       --p4-yellow: #FDF100;
@@ -1646,6 +1651,12 @@
   </div>
 
   <script>
+    // --- SUPABASE CONFIGURATION ---
+    const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const TABLE_NAME = 'bulletins'; // 请确保你的 Supabase 表名正确
+
     // Asset presets
     const presetImages = [
       { name: 'Navy Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
@@ -1743,32 +1754,43 @@
       '"Found my MacBook charger in the IT Hub Room Level 1 in under ten minutes! Unmatched student rescue." — Aaron K. (Grade 11)'
     ];
 
-    // Initial Bulletins
-    const initialLostFound = [
-      { id: 'lf-001', type: 'found', title: 'High School Blazer (Size M)', description: 'Official navy blue jacket with school stitching. Left on a chair in the cafeteria during lunchtime. Inner label has "J.C." on tag.', category: 'Clothing/Blazer', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400', date: '2026-06-03', location: 'Cafeteria', studentName: 'Alex Mercer (Grade 12)', contactDetails: 'amercer@wab.edu', status: 'active' },
-      { id: 'lf-002', type: 'lost', title: 'Beats Studio Pro (Navy)', description: 'Navy blue over-ear headphones in a black protective zip pouch. Probably lost near Turf Sports Pitch or Bleachers.', category: 'Electronics', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400', date: '2026-06-05', location: 'Sports Pitch', studentName: 'Chloe Henderson (Grade 11)', contactDetails: 'WeChat: ChloeH_Beijing', status: 'active', rewardInfo: 'A plate of home-baked cookies & eternal gratitude!' }
-    ];
-
     // STATE INITIALIZERS
     let currentTab = 'directory';
     let quoteIndex = 0;
     let selectedImagePreset = presetImages[0].url;
     let activeFormType = 'lost';
     
-    let lfItems = JSON.parse(localStorage.getItem('wab_lf_items')) || initialLostFound;
+    let lfItems = []; // 改为从 Supabase 加载
     let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
 
     // ONBOARDING MOUNT
-    window.onload = function() {
+    window.onload = async function() {
       // Set current date on form
       document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
       
       renderResources();
       renderVolunteering();
-      renderLF();
-      detectMatches();
       renderPhotoPresets();
+      
+      // 首次加载 Supabase 数据
+      await fetchBulletins();
     };
+
+    // --- SUPABASE DATA FETCH ---
+    async function fetchBulletins() {
+      const { data, error } = await _supabase
+        .from(TABLE_NAME)
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching Supabase data:', error);
+      } else {
+        lfItems = data || [];
+        renderLF();
+        detectMatches();
+      }
+    }
 
     // QUOTE ROTATOR
     function rotateQuote() {
@@ -1787,8 +1809,7 @@
       });
       
       if (tabName === 'lostfound') {
-        renderLF();
-        detectMatches();
+        fetchBulletins(); // 切换时刷新数据
       }
     }
 
@@ -1812,7 +1833,7 @@
               <div>⏱ HRS: ${r.hours}</div>
             </div>
           </div>
-          <button class="card-action-btn">★ ${r.actionLabel} ★</button>
+          <button class="card-action-btn">★ VIEW DETAILS ★</button>
         </div>
       `).join('');
     }
@@ -1977,9 +1998,9 @@
         let matchType = true;
         if (type !== 'all') {
           if (type === 'reclaimed') {
-            matchType = item.status === 'reclaimed';
+            matchType = item.Status === 'reclaimed';
           } else {
-            matchType = item.type === type && item.status === 'active';
+            matchType = item.type === type && item.Status === 'active';
           }
         }
 
@@ -2001,7 +2022,7 @@
             <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">
               ${item.type === 'lost' ? '★ LOST' : '☆ FOUND'}
             </div>
-            ${item.status === 'reclaimed' ? `
+            ${item.Status === 'reclaimed' ? `
               <div class="reclaimed-overlay">
                 <span class="reclaimed-stamp">★ RECLAIMED ★</span>
               </div>
@@ -2015,7 +2036,7 @@
               </div>
               <h4 class="c-title" style="font-size:1.3rem;">${item.title}</h4>
               <p class="c-desc" style="font-size:11.5px;">${item.description}</p>
-              ${item.rewardInfo ? `<div class="reward-box">🏆 Reward Incentive: ${item.rewardInfo}</div>` : ''}
+              ${item.RewardInfo ? `<div class="reward-box">🏆 Reward Incentive: ${item.RewardInfo}</div>` : ''}
             </div>
             <div class="c-meta" style="font-size:9.5px;">
               <div>REPORTED BY: <strong style="color:#fff;">${item.studentName}</strong></div>
@@ -2024,7 +2045,7 @@
           </div>
           
           <div class="lf-actions">
-            ${item.status === 'active' ? `
+            ${item.Status === 'active' ? `
               <button class="reclaim-btn" onclick="resolveProperty('${item.id}')">★ Resolve &amp; Reclaim ★</button>
               <button class="delete-btn" onclick="archiveProperty('${item.id}')" title="Archive Bulletin">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
@@ -2038,23 +2059,29 @@
     }
 
     // RESOLVE & ARCHIVE HANDLERS
-    function resolveProperty(id) {
-      lfItems = lfItems.map(item => item.id === id ? { ...item, status: 'reclaimed' } : item);
-      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
-      renderLF();
-      detectMatches();
+    async function resolveProperty(id) {
+      const { error } = await _supabase
+        .from(TABLE_NAME)
+        .update({ Status: 'reclaimed' })
+        .eq('id', id);
+
+      if (error) console.error('Error resolving:', error);
+      fetchBulletins();
     }
 
-    function archiveProperty(id) {
-      lfItems = lfItems.filter(item => item.id !== id);
-      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
-      renderLF();
-      detectMatches();
+    async function archiveProperty(id) {
+      const { error } = await _supabase
+        .from(TABLE_NAME)
+        .delete()
+        .eq('id', id);
+
+      if (error) console.error('Error deleting:', error);
+      fetchBulletins();
     }
 
     // COLLISION MATCH ENGINE
     function detectMatches() {
-      const activeItems = lfItems.filter(i => i.status === 'active');
+      const activeItems = lfItems.filter(i => i.Status === 'active');
       const losts = activeItems.filter(i => i.type === 'lost');
       const founds = activeItems.filter(i => i.type === 'found');
       
@@ -2144,8 +2171,8 @@
       });
     }
 
-    // SUBMIT LF PROPERTY
-    function submitLfItem(e) {
+    // SUBMIT LF PROPERTY TO SUPABASE
+    async function submitLfItem(e) {
       e.preventDefault();
       
       const title = document.getElementById('lfTitle').value.trim();
@@ -2155,12 +2182,11 @@
       const desc = document.getElementById('lfDesc').value.trim();
       const studentName = document.getElementById('lfName').value.trim();
       const contactDetails = document.getElementById('lfContact').value.trim();
-      const rewardInfo = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
+      const RewardInfo = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
 
       if (!title || !studentName || !contactDetails) return;
 
       const newItem = {
-        id: 'lf-custom-' + Date.now(),
         type: activeFormType,
         title,
         description: desc,
@@ -2170,23 +2196,28 @@
         location,
         studentName,
         contactDetails,
-        status: 'active',
-        rewardInfo: rewardInfo || undefined
+        Status: 'active',
+        RewardInfo: RewardInfo || null
       };
 
-      lfItems.unshift(newItem);
-      localStorage.setItem('wab_lf_items', JSON.stringify(lfItems));
+      const { data, error } = await _supabase
+        .from(TABLE_NAME)
+        .insert([newItem]);
 
-      // Reset Form fields
-      document.getElementById('lfTitle').value = '';
-      document.getElementById('lfDesc').value = '';
-      document.getElementById('lfName').value = '';
-      document.getElementById('lfContact').value = '';
-      document.getElementById('lfReward').value = '';
-      
-      toggleFormPanel();
-      renderLF();
-      detectMatches();
+      if (error) {
+        console.error('Error inserting to Supabase:', error);
+        alert('Upload Failed! Please check console for details.');
+      } else {
+        // Reset Form fields
+        document.getElementById('lfTitle').value = '';
+        document.getElementById('lfDesc').value = '';
+        document.getElementById('lfName').value = '';
+        document.getElementById('lfContact').value = '';
+        document.getElementById('lfReward').value = '';
+        
+        toggleFormPanel();
+        await fetchBulletins(); // 重新加载云端数据
+      }
     }
   </script>
 </body>

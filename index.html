@@ -458,7 +458,7 @@
       align-self: flex-start;
     }
 
-    /* Success Banner */
+    /* Notification */
     .success-banner {
       background: var(--p4-yellow);
       color: var(--p4-pure);
@@ -548,7 +548,33 @@
       text-transform: uppercase;
     }
 
-    .form-input, .form-select, .form-textarea {
+    .form-input {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: var(--p4-light);
+      padding: 10px;
+      font-size: 13px;
+      outline: none;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--p4-yellow);
+    }
+
+    .form-select {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      color: var(--p4-light);
+      padding: 10px;
+      font-size: 13px;
+      outline: none;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .form-textarea {
       background: var(--p4-pure);
       border: 2px solid var(--p4-gray);
       color: var(--p4-light);
@@ -556,10 +582,10 @@
       font-size: 13px;
       outline: none;
       font-family: 'JetBrains Mono', monospace;
-      transition: border-color 0.2s;
+      resize: vertical;
     }
 
-    .form-input:focus, .form-textarea:focus {
+    .form-textarea:focus {
       border-color: var(--p4-yellow);
     }
 
@@ -618,7 +644,7 @@
       font-weight: bold;
     }
 
-    /* Filter Bar */
+    /* Filter Grid */
     .filter-bar {
       display: grid;
       grid-template-columns: 1fr;
@@ -684,7 +710,6 @@
       }
     }
 
-    /* Directory Card */
     .c-card {
       background: var(--p4-card);
       border: 2px solid var(--p4-pure);
@@ -694,7 +719,6 @@
       overflow: hidden;
       box-shadow: 4px 4px 0 rgba(0,0,0,1);
       transition: all 0.2s;
-      cursor: pointer;
     }
 
     .c-card:hover {
@@ -708,6 +732,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid var(--p4-pure);
     }
 
     .category-badge {
@@ -722,6 +747,13 @@
     .badge-library { background: var(--p4-orange); color: white; }
     .badge-tech { background: var(--p4-cyan); color: var(--p4-pure); }
     .badge-service { background: var(--p4-magenta); color: white; }
+    .badge-community { background: var(--p4-gray); color: white; }
+
+    .c-id-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+    }
 
     .c-body {
       padding: 16px;
@@ -738,12 +770,31 @@
       text-transform: uppercase;
       color: var(--p4-light);
       line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .c-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+      text-transform: uppercase;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .c-desc {
       font-size: 12px;
       color: rgba(242, 242, 247, 0.7);
       line-height: 1.5;
+    }
+
+    .c-meta {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(242, 242, 247, 0.5);
     }
 
     .card-action-btn {
@@ -756,6 +807,7 @@
       font-size: 1.1rem;
       text-transform: uppercase;
       cursor: pointer;
+      transition: all 0.2s;
     }
 
     .c-card:hover .card-action-btn {
@@ -763,16 +815,16 @@
       color: var(--p4-pure);
     }
 
-    /* Lost & Found Item Card */
+    /* Lost & Found Item Card specific styling */
     .lf-card {
       background: var(--p4-card);
       border: 2px solid var(--p4-pure);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       overflow: hidden;
       box-shadow: 4px 4px 0 rgba(0,0,0,1);
       cursor: pointer;
-      transition: all 0.2s;
     }
 
     .lf-card:hover {
@@ -793,6 +845,10 @@
       transition: transform 0.2s;
     }
 
+    .lf-card:hover .lf-img {
+      transform: scale(1.03);
+    }
+
     .lf-type-badge {
       position: absolute;
       top: 8px;
@@ -804,8 +860,8 @@
       color: var(--p4-pure);
     }
     
-    .badge-lost { background: var(--p4-orange); color: #000; }
-    .badge-found { background: var(--p4-yellow); color: #000; }
+    .badge-lost { background: var(--p4-orange); }
+    .badge-found { background: var(--p4-yellow); }
 
     .reclaimed-overlay {
       position: absolute;
@@ -823,6 +879,24 @@
       font-size: 1.5rem;
       padding: 4px 16px;
       transform: rotate(-12deg);
+    }
+
+    .lf-meta-header {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+      margin-bottom: 6px;
+    }
+
+    .reward-box {
+      background: rgba(255, 144, 0, 0.1);
+      border: 1px dashed rgba(255, 144, 0, 0.3);
+      padding: 6px;
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--p4-orange);
     }
 
     .lf-actions {
@@ -845,6 +919,10 @@
       text-transform: uppercase;
     }
 
+    .reclaim-btn:hover {
+      background: var(--p4-yellow);
+    }
+
     .delete-btn {
       background: var(--p4-gray);
       border: none;
@@ -855,6 +933,11 @@
       align-items: center;
       justify-content: center;
     }
+
+    .delete-btn:hover {
+      background: var(--p4-magenta);
+      color: var(--p4-pure);
+    }
     
     .delete-btn svg {
       width: 16px;
@@ -862,7 +945,7 @@
       stroke: currentColor;
     }
 
-    /* Match Widget */
+    /* Collision Match Widget */
     .match-widget {
       border: 4px solid var(--p4-pure);
       background: var(--p4-yellow);
@@ -873,15 +956,60 @@
       box-shadow: 6px 6px 0 rgba(0,0,0,1);
     }
 
+    .match-header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .match-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .match-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .match-icon-box {
+      background: var(--p4-pure);
+      padding: 8px;
+      border: 1px solid var(--p4-pure);
+      display: flex;
+    }
+
+    .match-icon-box svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--p4-yellow);
+    }
+
+    .match-grid-list {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .match-grid-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .match-tag-card {
       background: var(--p4-pure);
       color: var(--p4-light);
       border: 2px solid var(--p4-gray);
       padding: 12px;
-      margin-top: 10px;
     }
 
-    /* Volunteering */
+    /* Volunteering Elements */
     .v-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -894,19 +1022,151 @@
       }
     }
 
+    .v-cards-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .v-cards-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .v-card {
       background: var(--p4-card);
       border: 2px solid var(--p4-pure);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       overflow: hidden;
       box-shadow: 4px 4px 0 rgba(0,0,0,1);
-      margin-bottom: 20px;
+      transition: all 0.2s;
     }
 
-    .v-pfp-box { height: 140px; }
-    .v-pfp-box img { width: 100%; height: 100%; object-fit: cover; }
-    .v-body-box { padding: 16px; }
+    .v-card:hover {
+      border-color: var(--p4-cyan);
+    }
+
+    .v-pfp-box {
+      height: 120px;
+      position: relative;
+    }
+
+    .v-pfp-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .v-body-box {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .v-title-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .v-coordinator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--p4-magenta);
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .v-sub-desc {
+      font-size: 12px;
+      color: rgba(242, 242, 247, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .v-footer-stats {
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(242, 242, 247, 0.5);
+    }
+
+    .v-select-btn {
+      width: 100%;
+      background: var(--p4-pure);
+      border: none;
+      color: var(--p4-cyan);
+      padding: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-top: 1px solid var(--p4-pure);
+    }
+
+    .v-card:hover .v-select-btn {
+      background: var(--p4-cyan);
+      color: var(--p4-pure);
+    }
+
+    /* Volunteering Application lists */
+    .reg-work-box {
+      background: var(--p4-pure);
+      border: 2px solid var(--p4-gray);
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .reg-item {
+      background: var(--p4-card);
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 8px;
+    }
+
+    .reg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .reg-title {
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    .reg-cancel {
+      background: none;
+      border: none;
+      color: var(--p4-magenta);
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+    .reg-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(242, 242, 247, 0.4);
+    }
 
     /* Modal Styles */
     .modal-overlay {
@@ -925,7 +1185,7 @@
       background: var(--p4-dark);
       border: 4px solid var(--p4-pure);
       width: 100%;
-      max-width: 850px;
+      max-width: 800px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -954,7 +1214,6 @@
       background: var(--p4-pure);
       padding: 24px;
       border-right: 2px solid var(--p4-pure);
-      width: 100%;
     }
 
     @media (min-width: 768px) {
@@ -966,24 +1225,33 @@
     .modal-content {
       flex: 1;
       padding: 24px;
-      overflow-y: auto;
-      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Footer */
+    /* Footer styling */
     footer {
       margin-top: 80px;
       border-top: 4px solid var(--p4-pure);
       padding: 32px 16px;
       text-align: center;
       position: relative;
-      background-color: rgba(0,0,0,0.4);
     }
 
     .footer-hazard {
       position: absolute;
-      top: 0; left: 0; right: 0; height: 6px;
-      background: repeating-linear-gradient(-45deg, var(--p4-pure) 0, var(--p4-pure) 10px, var(--p4-yellow) 10px, var(--p4-yellow) 20px);
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--p4-pure) 0,
+        var(--p4-pure) 10px,
+        var(--p4-yellow) 10px,
+        var(--p4-yellow) 20px
+      );
     }
   </style>
 </head>
@@ -998,6 +1266,7 @@
     <header>
       <div class="hero-main shadow-black">
         <div class="hero-tag">★ WAB PORTAL INDEX ★</div>
+        
         <div class="hero-title-box">
           <div class="hero-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
@@ -1012,17 +1281,27 @@
         </p>
       </div>
 
+      <!-- Quick status sidebar -->
       <div class="hero-sidebar shadow-black">
         <div>
           <div class="sidebar-status">
             <span>WAB CAMPUS STATUS</span>
-            <span class="status-online"><span class="status-indicator"></span> ONLINE</span>
+            <span class="status-online">
+              <span class="status-indicator"></span> ONLINE
+            </span>
           </div>
           <div class="status-grid">
-            <div class="status-row"><span>Student Welfare:</span> <span style="color:var(--p4-yellow);">100% SECURE</span></div>
-            <div class="status-row"><span>Service Coord:</span> <span style="color:var(--p4-cyan);">A. CROUCH</span></div>
+            <div class="status-row">
+              <span class="status-label">Student Welfare:</span>
+              <span style="color:var(--p4-yellow);">100% SECURE</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">Service Coord:</span>
+              <span style="color:var(--p4-cyan);">A. CROUCH</span>
+            </div>
           </div>
         </div>
+
         <div class="quote-box" onclick="rotateQuote()">
           <p id="quoteParagraph" class="quote-text">"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged and your heart helpful!" — HS Office Advisor</p>
           <div class="quote-action">⚡ ROTATE CAMPUS QUOTES</div>
@@ -1040,27 +1319,40 @@
         </div>
       </div>
       <div class="link-buttons">
-        <a href="https://mytime.wab-edu.cn/" target="_blank" class="portal-btn btn-mytime">★ MYTIME LOGIN ↗</a>
-        <a href="https://powerschool.wab-edu.cn/" target="_blank" class="portal-btn btn-powerschool">★ POWERSCHOOL LOGIN ↗</a>
+        <a href="https://mytime.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-mytime">★ MYTIME LOGIN ↗</a>
+        <a href="https://powerschool.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-powerschool">★ POWERSCHOOL LOGIN ↗</a>
       </div>
     </section>
 
-    <!-- Tabs Bar -->
+    <!-- Primary Tabs Buttons -->
     <div class="tabs">
-      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">★ CAMPUS DIRECTORY ★</button>
-      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">★ TIGER VOLUNTEERING ★</button>
-      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">☆ STUDENT LOST &amp; FOUND ☆</button>
+      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        ★ CAMPUS RESOURCE DIRECTORY ★
+      </button>
+      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"><path d="M22 10v6M2 10v6M12 2l10 5-10 5L2 7z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+        ★ TIGER VOLUNTEERING HUB ★
+      </button>
+      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        ☆ STUDENT LOST &amp; FOUND bulletins ☆
+      </button>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN INTERACTIVE SECTION -->
     <main>
       
       <!-- ================= TAB 1: CAMPUS DIRECTORY ================= -->
       <div id="panel-directory">
         <div class="section-header">
           <div class="section-badge">★ DEPARTMENTS ACTIVE ★</div>
-          <h2 class="bebas" style="font-size: 2rem; margin-left: 15px;">CENTRALIZED DIRECTORY</h2>
+          <div>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">CENTRALIZED DIRECTORY</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Immediate hotlines, location tracks, and booking ports for high schoolers.</p>
+          </div>
         </div>
+
         <div class="grid-cards" id="resourcesGrid"></div>
       </div>
 
@@ -1068,65 +1360,180 @@
       <div id="panel-volunteering" style="display: none;">
         <div class="section-header">
           <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure)">★ ANGELIA CROUCH SECTOR ★</div>
-          <h2 class="bebas" style="font-size: 2rem; margin-left: 15px;">STUDENT SERVICE HUB</h2>
-        </div>
-        <div class="v-grid">
-          <div id="volOpportunitiesGrid"></div>
           <div>
-            <div class="form-panel">
-              <h3 class="bebas">Direct Application Port</h3>
-              <form id="volunteerForm" onsubmit="submitVolunteerApp(event)" style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
-                <input type="text" id="vApplyName" placeholder="YOUR NAME" class="form-input" required />
-                <select id="vApplyRole" class="form-select">
-                  <option value="v-001">Tiger Peer Tutoring Alliance</option>
-                  <option value="v-002">Eco-Warriors Audit</option>
-                  <option value="v-003">Primary School Literacy Buddy</option>
-                </select>
-                <button type="submit" class="submit-btn" style="background:var(--p4-cyan);">★ SUBMIT APPLICATION ★</button>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">STUDENT SERVICE &amp; VOLUNTEERING</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Explore verified school slots, file registration rosters, and accrue CAS hours seamlessly.</p>
+          </div>
+        </div>
+
+        <div id="volSuccessBanner" class="success-banner" style="display: none; background:var(--p4-cyan); color:#000;"></div>
+
+        <div class="v-grid">
+          <!-- Left Column Opportunities -->
+          <div>
+            <h3 class="bebas" style="font-size: 1.6rem; color: #fff; margin-bottom: 16px; border-bottom: 2px solid var(--p4-gray); padding-bottom: 4px;">⚡ Verified Opportunities</h3>
+            <div class="v-cards-col" id="volOpportunitiesGrid"></div>
+          </div>
+
+          <!-- Right Column Submission -->
+          <div>
+            <div class="form-panel" style="position: relative; border-color: var(--p4-pure);">
+              <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure); position: absolute; top:-12px; left:16px;">DIRECT APPLICATION PORT</div>
+              
+              <form id="volunteerForm" onsubmit="submitVolunteerApp(event)" style="margin-top: 12px; display: flex; flex-direction: column; gap:12px;">
+                <div class="form-group">
+                  <label class="form-label" style="color:var(--p4-cyan)">Select Target Role</label>
+                  <select id="vApplyRole" class="form-select">
+                    <option value="v-001">Tiger Peer Tutoring Alliance</option>
+                    <option value="v-002">Eco-Warriors Sustainability Audit</option>
+                    <option value="v-003">Primary School Literacy Buddy</option>
+                  </select>
+                </div>
+
+                <div class="grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Your Name</label>
+                    <input type="text" id="vApplyName" required class="form-input" placeholder="LIAM WONG" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Grade</label>
+                    <select id="vApplyGrade" class="form-select">
+                      <option>Grade 9</option>
+                      <option>Grade 10</option>
+                      <option>Grade 11</option>
+                      <option>Grade 12</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="color:var(--p4-cyan)">Contact Address (Email/WeChat ID)</label>
+                  <input type="text" id="vApplyContact" required class="form-input" placeholder="angelia_crouch@wab.edu" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Core Motivation / Relevance</label>
+                  <textarea id="vApplyMsg" rows="3" class="form-textarea" placeholder="EXPLAIN REASONS FOR APPLYING..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" style="background:var(--p4-cyan); border-color: var(--p4-pure);">★ SUBMIT APPLICATION ★</button>
               </form>
             </div>
-            <div id="registrationsList"></div>
+
+            <!-- Active registered records -->
+            <div class="reg-work-box">
+              <h4 class="bebas" style="font-size: 1.25rem; color: var(--p4-yellow); margin-bottom: 8px;">★ Your Registered Work</h4>
+              <p class="mono" style="font-size: 8px; color:rgba(255,255,255,0.3); text-transform: uppercase;">Direct inquiries: <a href="mailto:angelia_crouch@wab.edu" style="color: var(--p4-cyan)">angelia_crouch@wab.edu</a></p>
+              
+              <div id="registrationsList" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- ================= TAB 3: LOST & FOUND ================= -->
       <div id="panel-lostfound" style="display: none;">
+        
+        <!-- Collision notifications -->
         <div id="collisionWidget" class="match-widget" style="display: none;">
-          <h4 class="bebas" style="font-size: 1.5rem;">★ BULLETIN MATCH DETECTOR: COLLISIONS DETECTED ★</h4>
-          <div id="collisionsList"></div>
+          <div class="match-header">
+            <div class="match-icon-title">
+              <div class="match-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div>
+                <h4 class="bebas" style="font-size: 1.6rem; line-height: 1;">★ BULLETIN MATCH DETECTOR: COLLISIONS DETECTED ★</h4>
+                <p style="font-size: 11px; font-weight: bold; opacity: 0.8; margin-top:2px;">Our algorithms detected reciprocal active registrations. Please review clash.</p>
+              </div>
+            </div>
+            <span class="mono" style="font-size: 10px; background: #000; color: var(--p4-yellow); padding: 4px 8px; font-weight: bold;" id="collisionCountBadge">ZONES CLASH: 0</span>
+          </div>
+
+          <div class="match-grid-list" id="collisionsList"></div>
         </div>
 
         <div class="section-header" style="justify-content: space-between;">
-          <h2 class="bebas" style="font-size: 2rem;">★ WAB HIGH SCHOOL BULLETINS ★</h2>
+          <div>
+            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">★ WAB HIGH SCHOOL BULLETINS ★</h2>
+            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">RECOVER SECURED COMMUNITY PROPERTY</p>
+          </div>
           <button class="submit-btn" onclick="toggleFormPanel()" id="postBtnToggle">★ POST NEW BULLETIN + ★</button>
         </div>
 
         <!-- Add Bulletin Form -->
         <div class="form-panel" id="lfFormPanel" style="display: none;">
           <div class="form-header">
-            <h3 class="bebas">Submit New Case</h3>
+            <h3 class="bebas" style="font-size: 1.6rem;">Submit New Case</h3>
             <div class="form-toggle">
-              <button class="form-toggle-btn active" id="btnTypeLost" onclick="setFormType('lost')">LOST</button>
-              <button class="form-toggle-btn" id="btnTypeFound" onclick="setFormType('found')">FOUND</button>
+              <button class="form-toggle-btn active" id="btnTypeLost" onclick="setFormType('lost')">★ LOST SOMETHING</button>
+              <button class="form-toggle-btn" id="btnTypeFound" onclick="setFormType('found')">☆ FOUND SOMETHING</button>
             </div>
           </div>
+
           <form id="lfForm" onsubmit="submitLfItem(event)">
             <div class="grid-2">
-              <div class="form-group"><label class="form-label">Item Headline</label><input type="text" id="lfTitle" required class="form-input" placeholder="BLUE BOTTLE" /></div>
-              <div class="form-group"><label class="form-label">Date</label><input type="date" id="lfDate" required class="form-input" /></div>
+              <div class="form-group">
+                <label class="form-label">Item Headline</label>
+                <input type="text" id="lfTitle" required class="form-input" placeholder="BE CEAR & PRECISE" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reporting Date</label>
+                <input type="date" id="lfDate" required class="form-input" />
+              </div>
             </div>
+
             <div class="grid-2">
-              <div class="form-group"><label class="form-label">Location</label><select id="lfLocation" class="form-select"><option>Atrium</option><option>Library</option><option>Sports Pitch</option><option>Cafeteria</option><option>HS Wing</option></select></div>
-              <div class="form-group"><label class="form-label">Category</label><select id="lfCategory" class="form-select"><option>Clothing/Blazer</option><option>Electronics</option><option>ID/Card</option><option>Bottle/Flask</option></select></div>
+              <div class="form-group">
+                <label class="form-label">Campus Zone Location</label>
+                <select id="lfLocation" class="form-select">
+                  <option>Atrium</option>
+                  <option>Library</option>
+                  <option>Sports Pitch</option>
+                  <option>Cafeteria</option>
+                  <option>HS Wing</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="lfCategory" class="form-select">
+                  <option value="Clothing/Blazer">Clothing/Blazer</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="ID/Card">ID Card</option>
+                  <option value="Bottle/Flask">Water Flask</option>
+                  <option value="Keys/Fobs">Keys/Fobs</option>
+                  <option value="Bags/Books">Bags/Books</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group"><label class="form-label">Details</label><textarea id="lfDesc" rows="2" class="form-textarea" placeholder="DESCRIBE THE ITEM..."></textarea></div>
-            <div class="grid-2" style="margin-top:16px;">
-              <div class="form-group"><label class="form-label">Your Name</label><input type="text" id="lfName" required class="form-input" /></div>
-              <div class="form-group"><label class="form-label">Contact Details</label><input type="text" id="lfContact" required class="form-input" /></div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label class="form-label">Details & Marks</label>
+              <textarea id="lfDesc" rows="2" class="form-textarea" placeholder="DESCRIBE THE MARKS..."></textarea>
             </div>
-            <div id="rewardGroup" class="form-group" style="margin-top:16px;"><label class="form-label" style="color:var(--p4-orange)">Reward (Optional)</label><input type="text" id="lfReward" class="form-input" /></div>
-            <div class="form-group" style="margin-top:16px;"><div class="preset-photos" id="presetPhotos"></div></div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Filer Student Name</label>
+                <input type="text" id="lfName" required class="form-input" placeholder="E.G. JULIAN SONG" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Contact Details (Email / WeChat)</label>
+                <input type="text" id="lfContact" required class="form-input" placeholder="E.G. EMAIL OR PHONE" />
+              </div>
+            </div>
+
+            <div class="form-group" id="rewardGroup" style="margin-top: 16px;">
+              <label class="form-label" style="color:var(--p4-orange)">Incentive Reward (Optional)</label>
+              <input type="text" id="lfReward" class="form-input" placeholder="E.G. A SLICE OF CAKE!" />
+            </div>
+
+            <div class="form-group" style="margin-top: 16px;">
+              <label class="form-label">Item Placeholder Photo</label>
+              <div class="preset-photos" id="presetPhotos"></div>
+            </div>
+
             <div class="form-actions">
               <button type="button" class="cancel-btn" onclick="toggleFormPanel()">CANCEL</button>
               <button type="submit" class="submit-btn" id="btnPublishLabel">★ PUBLISH BULLETIN ★</button>
@@ -1134,45 +1541,87 @@
           </form>
         </div>
 
-        <!-- Filters -->
+        <!-- Filters Bar -->
         <div class="filter-bar">
           <div class="search-wrap">
             <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <input type="text" id="filterSearch" class="search-input" placeholder="Search bulletins..." oninput="renderLF()" />
           </div>
-          <select id="filterType" class="form-select" onchange="renderLF()"><option value="all">ALL BULLETINS</option><option value="lost">LOST</option><option value="found">FOUND</option><option value="reclaimed">RECLAIMED</option></select>
-          <select id="filterLoc" class="form-select" onchange="renderLF()"><option value="all">ALL LOCATIONS</option><option>Atrium</option><option>Library</option><option>Cafeteria</option></select>
+          <div>
+            <select id="filterType" class="form-select animate-pulse" style="width: 100%; border-color:var(--p4-pure);" onchange="renderLF()">
+              <option value="all">ALL BULLETINS</option>
+              <option value="lost">LOST ONLY</option>
+              <option value="found">FOUND ONLY</option>
+              <option value="reclaimed">RECLAIMED ONLY</option>
+            </select>
+          </div>
+          <div>
+            <select id="filterLoc" class="form-select" style="width: 100%;" onchange="renderLF()">
+              <option value="all">ALL LOCATIONS</option>
+              <option>Atrium</option>
+              <option>Library</option>
+              <option>Sports Pitch</option>
+              <option>Cafeteria</option>
+              <option>HS Wing</option>
+            </select>
+          </div>
+          <div>
+            <select id="filterCat" class="form-select" style="width: 100%;" onchange="renderLF()">
+              <option value="all">ALL CATEGORIES</option>
+              <option value="Clothing/Blazer">CLOTHING</option>
+              <option value="Electronics">ELECTRONICS</option>
+              <option value="ID/Card">ID CARD</option>
+              <option value="Bottle/Flask">WATER BOTTLE</option>
+            </select>
+          </div>
         </div>
 
+        <!-- Dynamic list of bulletins -->
         <div id="lfItemsGrid" class="grid-cards"></div>
+        
       </div>
 
     </main>
 
-    <!-- Detailed Modal Box -->
+    <!-- Modal Box for Details (Shared for Directory & L&F) -->
     <div class="modal-overlay" id="detailModal" style="display: none;" onclick="closeModal()">
       <div class="modal-card" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal()">✕</button>
+        
         <div class="modal-sidebar" id="modalSidebar">
-          <span class="category-badge" id="modalBadge"></span>
-          <h3 class="bebas" id="modalTitle" style="font-size: 1.85rem; line-height:1; margin-top: 12px;"></h3>
-          <div id="modalMeta" style="margin-top: 24px; display: flex; flex-direction: column; gap:12px;"></div>
+          <span class="category-badge" id="modalBadge">counseling</span>
+          <h3 class="bebas" id="modalTitle" style="font-size: 1.85rem; color:#fff; line-height:1; margin-top: 12px; text-transform: uppercase;"></h3>
+          
+          <div id="modalMetaInfo" style="margin-top: 24px; display: flex; flex-direction: column; gap:12px;">
+            <!-- Dynamic Meta -->
+          </div>
+
+          <div id="modalQuoteBox" style="background:var(--p4-yellow); color:var(--p4-pure); padding: 12px; margin-top: 24px; transform: rotate(-1deg); border: 1px solid #000;">
+            <p id="modalQuote" style="font-size: 10px; font-weight: bold; font-style: italic;"></p>
+          </div>
         </div>
-        <div class="modal-content" id="modalContent"></div>
+
+        <div class="modal-content" id="modalContent">
+          <!-- Dynamic Content -->
+        </div>
+
       </div>
     </div>
 
     <!-- Retro Footer -->
-    <footer>
+    <footer class="shadow-black" style="background-color: rgba(0,0,0,0.4); border-color: var(--p4-pure); padding: 24px;">
       <div class="footer-hazard"></div>
-      <h4 class="bebas" style="font-size: 1.8rem; color:var(--p4-yellow);">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
-      <p class="mono" style="font-size: 9px; color:rgba(255,255,255,0.3); margin-top: 12px;">Western Academy of Beijing Community Portal. © 2026</p>
+      <h4 class="bebas" style="font-size: 1.8rem; color:var(--p4-yellow); letter-spacing: 0.05em;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
+      <p class="mono" style="font-size: 9px; color:rgba(255,255,255,0.3); max-width: 500px; margin: 12px auto 0 auto; line-height:1.6;">
+        Western Academy of Beijing. This platform operates independently in service of high school community safety and onboarding convenience. Direct inquiries to <span style="color: var(--p4-cyan)">angelia_crouch@wab.edu</span>.
+      </p>
+      <p style="font-size: 10px; color:rgba(255,255,255,0.15); margin-top: 24px;" class="mono">© 2026 WAB Directory Portal. Retro Pop Yellow Edition.</p>
     </footer>
 
   </div>
 
   <script>
-    // --- SUPABASE INITIALIZATION ---
+    // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -1180,50 +1629,55 @@
 
     // Asset presets
     const presetImages = [
-      { name: 'Navy Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400' },
-      { name: 'Headphones', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400' },
-      { name: 'Calculator', url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?w=400' },
-      { name: 'Water Flask', url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400' },
-      { name: 'Keychain', url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=400' },
-      { name: 'Backpack', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400' }
+      { name: 'Navy Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Headphones', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Calculator', url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Water Flask', url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Keychain', url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400' },
+      { name: 'Backpack', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
     ];
 
-    // Resources Dataset
+    // Directories dossiers dataset
     const resources = [
-      { id: 'r1', category: 'counseling', title: 'High School Support & Wellbeing', lead: 'Ms. Sarah Martinez', location: 'HS Admin, 2nd Floor', description: 'Confidential Guidance & Emotional Counseling for all high schoolers.' },
-      { id: 'r2', category: 'library', title: 'The Hub: Library & Research', lead: 'Dr. Timothy Cole', location: 'HUB Atrium', description: 'Inquiry, Research Databases, and Literary Aid for IB Extended Essays.' },
-      { id: 'r3', category: 'tech', title: 'WAB TigerTech Support', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', description: 'MacBook Diagnostic, Network, and Software troubleshooting Help.' }
+      { id: 'res-counseling-1', category: 'counseling', title: 'High School Support & Wellbeing', subtitle: 'Confidential Guidance & Emotional Counseling', lead: 'Ms. Sarah Martinez', location: 'HS Admin Block, 2nd Floor', hours: 'Monday – Friday, 08:00 – 16:30', description: 'Providing a safe harbor for personal, academic, and mental health challenges.', keyServices: ['Mental Health Chats', 'Stress Masterclasses'], contactInfo: { email: 'hscounseling@wab.edu' }, p5Quote: 'You dont have to carry stress alone.' },
+      { id: 'res-library-1', category: 'library', title: 'The Hub: Library & Research Center', subtitle: 'Inquiry & Research aid', lead: 'Dr. Timothy Cole', location: 'The HUB Atrium', hours: 'Monday – Friday, 07:30 – 18:00', description: 'Cutting-edge collaborative space with thousands of physical texts.', keyServices: ['IB EE Mentorship', 'Private Study Booths'], contactInfo: { email: 'hub_library@wab.edu' }, p5Quote: 'Knowledge is built on curious inquiry.' },
+      { id: 'res-tech-1', category: 'tech', title: 'WAB TigerTech Support Center', subtitle: 'MacBook help', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', hours: 'Monday – Friday, 08:00 – 17:00', description: 'Core support for school-issued MacBooks and network glitches.', keyServices: ['Hardware Repair', 'Wi-Fi Configuration'], contactInfo: { email: 'support@wab.edu' }, p5Quote: 'Technical glitches are temporary.' }
     ];
 
     const volunteeringOpportunities = [
-      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math Wing', description: 'Coaching middle school peers during study halls.', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400' },
-      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds', description: 'Monitor campus room recycling and waste campaigns.', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400' }
+      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', description: 'Coaching middle school peers.', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400' },
+      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', description: 'Monitor campus room recycling.', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400' }
     ];
 
     const quotes = [
-      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged!" — Advisor',
-      '"Secure CAS hours early with Dr. Angelia Crouch!" — Cap Captain',
-      '"If you are feeling overwhelmed, our counselors maintain private slots." — Wellbeing Club'
+      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged!" — HS Advisor',
+      '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering." — Cap Captain'
     ];
 
-    let lfItems = []; 
+    // STATE
     let currentTab = 'directory';
+    let quoteIndex = 0;
     let selectedImagePreset = presetImages[0].url;
     let activeFormType = 'lost';
-    let quoteIndex = 0;
+    let lfItems = [];
+    let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
 
     window.onload = async function() {
       document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
       renderResources();
       renderVolunteering();
       renderPhotoPresets();
-      await fetchBulletins();
+      await fetchBulletins(); // Initial cloud load
     };
 
-    // --- SUPABASE CLOUD LOGIC ---
+    // --- CLOUD LOGIC ---
     async function fetchBulletins() {
       const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
-      if (!error) { lfItems = data || []; renderLF(); detectMatches(); }
+      if (!error) {
+        lfItems = data || [];
+        renderLF();
+        detectMatches();
+      }
     }
 
     async function submitLfItem(e) {
@@ -1241,85 +1695,135 @@
         RewardInfo: activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : null,
         image: selectedImagePreset
       };
+
       const { error } = await _supabase.from(TABLE_NAME).insert([newItem]);
-      if (error) alert("Upload Failed: " + error.message);
-      else { document.getElementById('lfForm').reset(); toggleFormPanel(); await fetchBulletins(); }
+      if (error) { alert('Upload Failed: ' + error.message); } 
+      else { 
+        document.getElementById('lfForm').reset(); 
+        toggleFormPanel(); 
+        await fetchBulletins(); 
+      }
     }
 
-    // ★ FIX: 申领功能
     async function resolveProperty(event, id) {
-      event.stopPropagation();
+      event.stopPropagation(); // Prevent opening detail modal
       const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
-      if (error) alert("Reclaim failed: " + error.message);
-      else await fetchBulletins();
+      if (error) { alert("Update failed: " + error.message); } 
+      else { await fetchBulletins(); }
     }
 
-    // ★ FIX: 删除功能
     async function archiveProperty(event, id) {
-      event.stopPropagation();
-      if (!confirm("Are you sure you want to delete this bulletin?")) return;
+      event.stopPropagation(); // Prevent opening detail modal
+      if (!confirm("Permanently delete this bulletin?")) return;
       const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
-      if (error) alert("Delete failed: " + error.message);
-      else await fetchBulletins();
+      if (error) { alert("Delete failed: " + error.message); } 
+      else { await fetchBulletins(); }
     }
 
-    // --- DETAIL MODAL SYSTEM ---
+    // --- MODAL DETAILS ---
     function openModal(type, id) {
+      const modal = document.getElementById('detailModal');
       const sidebar = document.getElementById('modalSidebar');
+      const meta = document.getElementById('modalMetaInfo');
       const content = document.getElementById('modalContent');
-      const meta = document.getElementById('modalMeta');
+      const quoteBox = document.getElementById('modalQuoteBox');
 
-      if (type === 'directory') {
+      if (type === 'res') {
         const r = resources.find(x => x.id === id);
-        document.getElementById('modalBadge').innerText = r.category.toUpperCase();
+        document.getElementById('modalBadge').className = 'category-badge badge-' + r.category;
+        document.getElementById('modalBadge').innerText = r.category;
         document.getElementById('modalTitle').innerText = r.title;
-        meta.innerHTML = `<div style="border-left:3px solid var(--p4-yellow); padding-left:8px;"><span class="mono" style="font-size:8px; opacity:0.4;">LEAD</span><br><strong>${r.lead}</strong></div>`;
-        content.innerHTML = `<p>${r.description}</p><br><p class="mono" style="font-size:10px;">LOCATION: ${r.location}</p>`;
+        document.getElementById('modalQuote').innerText = `"${r.p5Quote}"`;
+        quoteBox.style.display = 'block';
+
+        meta.innerHTML = `
+          <div style="border-left: 3px solid var(--p4-yellow); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">DIRECTOR</span><br><strong>${r.lead}</strong></div>
+          <div style="border-left: 3px solid #fff; padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">LOCATION</span><br><strong>${r.location}</strong></div>
+        `;
+
+        content.innerHTML = `
+          <h4 class="bebas" style="font-size:1.5rem; color:var(--p4-yellow);">★ Support Actions ★</h4>
+          <p style="font-size:13px; margin:12px 0;">${r.description}</p>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:20px;">
+            ${r.keyServices.map(s => `<li style="background:rgba(255,255,255,0.05); padding:10px; border-left:2px solid var(--p4-yellow);">★ ${s}</li>`).join('')}
+          </ul>
+        `;
       } 
       else if (type === 'lf') {
         const item = lfItems.find(x => x.id.toString() === id.toString());
+        document.getElementById('modalBadge').className = 'category-badge ' + (item.type === 'lost' ? 'badge-lost' : 'badge-found');
         document.getElementById('modalBadge').innerText = item.type.toUpperCase();
         document.getElementById('modalTitle').innerText = item.title;
+        quoteBox.style.display = 'none';
+
         meta.innerHTML = `
-            <div style="border-left:3px solid var(--p4-cyan); padding-left:8px;">
-                <span class="mono" style="font-size:8px; opacity:0.4;">REPORTED BY</span><br><strong>${item.studentName}</strong>
-            </div>
-            <div style="border-left:3px solid var(--p4-orange); padding-left:8px;">
-                <span class="mono" style="font-size:8px; opacity:0.4;">CONTACT</span><br><strong>${item.contactDetails}</strong>
-            </div>
+          <div style="border-left: 3px solid var(--p4-cyan); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">REPORTED BY</span><br><strong>${item.studentName}</strong></div>
+          <div style="border-left: 3px solid var(--p4-orange); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">CONTACT</span><br><strong>${item.contactDetails}</strong></div>
         `;
+
         content.innerHTML = `
-          <img src="${item.image}" style="width:100%; height:250px; object-fit:cover; border:3px solid #000; margin-bottom:16px;" />
-          <p class="mono" style="font-size:11px; margin-bottom:12px;">📍 LOCATION: ${item.location} | 📅 DATE: ${item.date}</p>
-          <div style="font-size:14px; line-height:1.6; background:rgba(255,255,255,0.05); padding:15px; border-radius:4px;">${item.description || 'No additional details provided.'}</div>
-          ${item.RewardInfo ? `<div style="background:var(--p4-orange); color:#000; padding:12px; margin-top:16px; font-weight:bold; border:2px solid #000;">🏆 INCENTIVE: ${item.RewardInfo}</div>` : ''}
-          <div style="margin-top:20px; font-size:10px; color:rgba(255,255,255,0.2);" class="mono">STATUS: ${item.Status.toUpperCase()}</div>
+          <div style="height:200px; background:#000; border:2px solid #000; overflow:hidden; margin-bottom:16px;">
+            <img src="${item.image}" style="width:100%; height:100%; object-fit:cover;" />
+          </div>
+          <p class="mono" style="font-size:10px; margin-bottom:12px;">📍 LOC: ${item.location} | 📅 DATE: ${item.date}</p>
+          <div style="background:rgba(255,255,255,0.05); padding:15px; font-size:13px; line-height:1.6; border-radius:4px;">
+            ${item.description || 'No additional details provided.'}
+          </div>
+          ${item.RewardInfo ? `<div style="background:var(--p4-orange); color:#000; padding:10px; margin-top:16px; font-weight:bold;">🏆 REWARD: ${item.RewardInfo}</div>` : ''}
+          <div style="margin-top:20px; font-size:9px; color:rgba(255,255,255,0.2);" class="mono">STATUS: ${item.Status.toUpperCase()} | ID: ${item.id}</div>
         `;
       }
-      document.getElementById('detailModal').style.display = 'flex';
+
+      modal.style.display = 'flex';
     }
 
     function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
 
-    // --- RENDERING ---
+    // --- TAB SYSTEM ---
+    function switchTab(tabName) {
+      currentTab = tabName;
+      ['directory', 'volunteering', 'lostfound'].forEach(p => {
+        document.getElementById('panel-' + p).style.display = p === tabName ? 'block' : 'none';
+        document.getElementById('tab-' + p).classList.toggle('active', p === tabName);
+      });
+      if (tabName === 'lostfound') fetchBulletins();
+    }
+
+    function rotateQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
+    }
+
+    // --- RENDERS ---
     function renderResources() {
-      document.getElementById('resourcesGrid').innerHTML = resources.map(r => `
-        <div class="c-card" onclick="openModal('directory', '${r.id}')">
+      const g = document.getElementById('resourcesGrid');
+      g.innerHTML = resources.map(r => `
+        <div class="c-card" onclick="openModal('res', '${r.id}')">
           <div class="c-header"><span class="category-badge badge-${r.category}">${r.category}</span></div>
-          <div class="c-body"><h3 class="c-title">${r.title}</h3><p class="c-desc">${r.description.substring(0, 50)}...</p></div>
-          <button class="card-action-btn">VIEW DETAILS</button>
-        </div>`).join('');
+          <div class="c-body">
+            <h3 class="c-title">${r.title}</h3>
+            <p class="c-desc">${r.description.substring(0, 50)}...</p>
+            <div class="c-meta">📍 LOC: ${r.location}</div>
+          </div>
+          <button class="card-action-btn">★ VIEW DETAILS ★</button>
+        </div>
+      `).join('');
     }
 
     function renderLF() {
+      const grid = document.getElementById('lfItemsGrid');
       const q = document.getElementById('filterSearch').value.toLowerCase();
       const type = document.getElementById('filterType').value;
-      const filtered = lfItems.filter(i => i.title.toLowerCase().includes(q) && (type === 'all' || (type === 'reclaimed' ? i.Status === 'reclaimed' : i.type === type && i.Status === 'active')));
+      const filtered = lfItems.filter(i => {
+        const matchQ = i.title.toLowerCase().includes(q);
+        const matchT = (type === 'all') || (type === 'reclaimed' ? i.Status === 'reclaimed' : i.type === type && i.Status === 'active');
+        return matchQ && matchT;
+      });
 
-      document.getElementById('lfItemsGrid').innerHTML = filtered.map(item => `
+      grid.innerHTML = filtered.map(item => `
         <div class="lf-card" onclick="openModal('lf', '${item.id}')">
           <div class="lf-img-wrap">
-            <img class="lf-img" src="${item.image}" />
+            <img class="lf-img" src="${item.image}" referrerpolicy="no-referrer" />
             <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</div>
             ${item.Status === 'reclaimed' ? '<div class="reclaimed-overlay"><span class="reclaimed-stamp">RECLAIMED</span></div>' : ''}
           </div>
@@ -1333,43 +1837,54 @@
               <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
               </button>
-            ` : '<div style="flex:1; text-align:center; font-size:10px; color:var(--p4-cyan);">PROPERTY ARCHIVED</div>'}
+            ` : '<div style="flex:1; text-align:center; padding:8px; font-size:10px; color:var(--p4-cyan);">ARCHIVED</div>'}
           </div>
-        </div>`).join('');
-    }
-
-    function detectMatches() {
-      const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
-      const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
-      const results = [];
-      lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) results.push({l, f}); })});
-      document.getElementById('collisionWidget').style.display = results.length > 0 ? 'block' : 'none';
-      if(results.length > 0) document.getElementById('collisionsList').innerHTML = results.map(m => `<div class="match-tag-card">CLASH: ${m.l.title} (Lost) matches ${m.f.title} (Found) @ ${m.l.location}</div>`).join('');
+        </div>
+      `).join('');
     }
 
     function renderVolunteering() {
       document.getElementById('volOpportunitiesGrid').innerHTML = volunteeringOpportunities.map(o => `
         <div class="v-card">
           <div class="v-pfp-box"><img src="${o.image}"/></div>
-          <div class="v-body-box"><h4 class="bebas" style="font-size:1.5rem">${o.title}</h4><p class="mono" style="font-size:10px;">📍 ${o.area}</p><p style="font-size:12px; margin-top:8px;">${o.description}</p></div>
-        </div>`).join('');
+          <div class="v-body-box">
+            <h4 class="v-title-name">${o.title}</h4>
+            <p class="v-sub-desc">${o.description}</p>
+          </div>
+          <button class="v-select-btn" onclick="document.getElementById('vApplyRole').value='${o.id}'">★ SELECT ★</button>
+        </div>
+      `).join('');
+      renderRegList();
     }
 
-    // --- UI HELPERS ---
-    function rotateQuote() {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
+    function submitVolunteerApp(e) {
+      e.preventDefault();
+      const newApp = { name: document.getElementById('vApplyName').value.trim(), timestamp: Date.now() };
+      registrations.unshift(newApp);
+      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
+      renderRegList();
     }
-    function switchTab(tab) {
-      ['directory', 'volunteering', 'lostfound'].forEach(p => document.getElementById('panel-' + p).style.display = p === tab ? 'block' : 'none');
-      ['directory', 'volunteering', 'lostfound'].forEach(t => document.getElementById('tab-' + t).classList.toggle('active', t === tab));
-      if (tab === 'lostfound') fetchBulletins();
+
+    function renderRegList() {
+      const container = document.getElementById('registrationsList');
+      container.innerHTML = registrations.map(r => `<div class="reg-item"><span class="reg-title">${r.name} - SUBMITTED</span></div>`).join('');
     }
+
+    // Matches
+    function detectMatches() {
+      const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
+      const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
+      const results = [];
+      lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) results.push({l, f}); })});
+      document.getElementById('collisionWidget').style.display = results.length > 0 ? 'block' : 'none';
+      if(results.length > 0) document.getElementById('collisionsList').innerHTML = results.map(m => `<div class="match-tag-card">Clash: ${m.l.title} & ${m.f.title} @ ${m.l.location}</div>`).join('');
+    }
+
+    // UI Switches
     function toggleFormPanel() { const p = document.getElementById('lfFormPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; }
     function setFormType(t) { activeFormType = t; document.getElementById('btnTypeLost').classList.toggle('active', t==='lost'); document.getElementById('btnTypeFound').classList.toggle('active', t==='found'); document.getElementById('rewardGroup').style.display = t==='lost' ? 'block' : 'none'; }
     function renderPhotoPresets() { document.getElementById('presetPhotos').innerHTML = presetImages.map(p => `<button type="button" class="preset-img-btn" onclick="selectPresetImage('${p.url}')"><img src="${p.url}" /></button>`).join(''); }
     function selectPresetImage(u) { selectedImagePreset = u; }
-    function submitVolunteerApp(e) { e.preventDefault(); alert("Application Logged Successfully!"); }
   </script>
 </body>
 </html>

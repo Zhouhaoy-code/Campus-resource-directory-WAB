@@ -1651,11 +1651,11 @@
   </div>
 
   <script>
-    // --- SUPABASE CONFIGURATION ---
+    // --- SUPABASE CONFIGURATION (仅针对失物招领云同步) ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const TABLE_NAME = 'bulletins'; // 请确保你的 Supabase 表名正确
+    const TABLE_NAME = 'bulletins';
 
     // Asset presets
     const presetImages = [
@@ -1669,512 +1669,56 @@
 
     // Directories dossiers dataset
     const resources = [
-      { 
-        id: 'res-counseling-1', 
-        category: 'counseling', 
-        title: 'High School Support & Wellbeing', 
-        subtitle: 'Confidential Guidance & Emotional Counseling', 
-        lead: 'Ms. Sarah Martinez & Mr. Alan Vance', 
-        location: 'HS Admin Block, 2nd Floor', 
-        hours: 'Monday – Friday, 08:00 – 16:30', 
-        description: 'Providing a safe harbor for personal, academic, and mental health challenges. Whether you are battling workload stress, social pressure, or just need an attentive listener, our certified counselors are here to help.', 
-        keyServices: [
-          'Individual Mental Health Chats', 
-          'Stress & Time-Management Masterclasses', 
-          'Crisis Response & Safety Support', 
-          'Peer Support Network Facilitation'
-        ], 
-        contactInfo: { email: 'hscounseling@wab.edu', phone: '+86 (10) 8456-4155 ext. 201' }, 
-        p5Quote: 'You dont have to carry academic or personal stress alone. A single constructive conversation can help clear your path.' 
-      },
-      { 
-        id: 'res-library-1', 
-        category: 'library', 
-        title: 'The Hub: Library & Research Center', 
-        subtitle: 'Inquiry, Research Databases, and Literary Aid', 
-        lead: 'Dr. Timothy Cole (Head Librarian)', 
-        location: 'The HUB Atrium, Central Wing', 
-        hours: 'Monday – Friday, 07:30 – 18:00', 
-        description: 'A cutting-edge collaborative space with thousands of physical texts, digital database subscriptions (JSTOR, EBSCO), private group study rooms, and individual research mentorship for IB Extended Essays.', 
-        keyServices: [
-          'IB EE Research Mentorship', 
-          'Advanced Citation & Academic Integrity Audits', 
-          'Silent Study Booth Private Bookings'
-        ], 
-        contactInfo: { email: 'hub_library@wab.edu', phone: '+86 (10) 8456-4155 ext. 330' }, 
-        p5Quote: 'Knowledge is built on curious, exhaustive inquiry. Arm your research with robust academic databases.' 
-      },
-      { 
-        id: 'res-tech-1', 
-        category: 'tech', 
-        title: 'WAB TigerTech Support Center', 
-        subtitle: 'MacBook Diagnostic, Network, and Software Help', 
-        lead: 'Mr. David Wu (IT Operations Lead)', 
-        location: 'Information Technology Bar, Ground Floor', 
-        hours: 'Monday – Friday, 08:00 – 17:00', 
-        description: 'The core repair and support branch for school-issued MacBooks, institutional login/VPN troubleshooting, software updates, printer configurations, and server/Wi-Fi authentication glitches.', 
-        keyServices: [
-          'MacBook Broken Screen & Battery Replacements', 
-          'Institutional Wi-Fi & VPN Configuration Support', 
-          'Loaner MacBook Sign-outs'
-        ], 
-        contactInfo: { email: 'support@wab.edu', phone: '+86 (10) 8456-4155 ext. 500' }, 
-        p5Quote: 'Technical glitches are temporary. Let our IT operations support team configure your digital tools.' 
-      },
-      { 
-        id: 'res-service-1', 
-        category: 'service', 
-        title: 'High School Service & Outreach Groups', 
-        subtitle: 'Engaging Community Action & Global Projects', 
-        lead: 'Mrs. Cynthia Zhang (CAS Coordinator)', 
-        location: 'Global Citizens Studio', 
-        hours: 'CAS Advisory: Tues/Thurs 15:05 – 16:30', 
-        description: 'Central community link coordinating WAB students with local and international service groups. Build friendships, orchestrate events, and construct your global action initiatives.', 
-        keyServices: [
-          'Local Volunteering Placement', 
-          'CAS Project Approval Assistance', 
-          'Outreach Liaison Connectivity'
-        ], 
-        contactInfo: { email: 'cas_outreach@wab.edu' }, 
-        p5Quote: 'Meaningful communal impact comes from active, reliable participation. Connect your skills with our charity partners.' 
-      }
+      { id: 'res-counseling-1', category: 'counseling', title: 'High School Support & Wellbeing', subtitle: 'Confidential Guidance & Emotional Counseling', lead: 'Ms. Sarah Martinez & Mr. Alan Vance', location: 'HS Admin Block, 2nd Floor', hours: 'Monday – Friday, 08:00 – 16:30', description: 'Providing a safe harbor for personal, academic, and mental health challenges.', keyServices: ['Individual Mental Health Chats', 'Stress Masterclasses'], actionLabel: 'VIEW DETAILS', p5Quote: 'You dont have to carry stress alone.' },
+      { id: 'res-library-1', category: 'library', title: 'The Hub: Library & Research Center', subtitle: 'Inquiry, Research Databases, and Literary Aid', lead: 'Dr. Timothy Cole', location: 'The HUB Atrium', hours: 'Monday – Friday, 07:30 – 18:00', description: 'Collaborative space for IB Extended Essays.', keyServices: ['IB EE Research Mentorship', 'Citation Audits'], actionLabel: 'BOOK SPACE', p5Quote: 'Knowledge is built on inquiry.' },
+      { id: 'res-tech-1', category: 'tech', title: 'WAB TigerTech Support Center', subtitle: 'MacBook Diagnostic Help', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', hours: 'Monday – Friday, 08:00 – 17:00', description: 'Repair and support for school-issued MacBooks.', keyServices: ['Hardware Repair', 'Wi-Fi Configuration'], actionLabel: 'GET SUPPORT', p5Quote: 'Technical glitches are temporary.' },
+      { id: 'res-service-1', category: 'service', title: 'High School Service & Outreach Groups', subtitle: 'Engaging Community Action', lead: 'Mrs. Cynthia Zhang', location: 'Global Citizens Studio', hours: 'CAS Advisory: Tues/Thurs 15:05', description: 'Central community link for service groups.', keyServices: ['Volunteering Placement', 'CAS Project Approval'], actionLabel: 'JOIN GROUPS', p5Quote: 'Meaningful impact comes from participation.' }
     ];
 
     // Volunteering Opportunities
     const volunteeringOpportunities = [
-      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', level: 'Grades 11-12', description: 'Coaching and tutoring middle school peers during specified study halls. Ideal for high school CAS portfolio compilation.', vacancies: 4, image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400' },
-      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds & Center', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', level: 'All Grades', description: 'Monitor campus room recycling, audit institutional plastic caps consumption, and coordinate early years waste campaigns.', vacancies: 8, image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400' },
-      { id: 'v-003', title: 'Primary School Literacy Buddy', area: 'Elementary Library Level 1', lead: 'Dr. Angelia Crouch', hours: '1.5 Hours/Session', level: 'Grades 9-12', description: 'Read illustrative story books and lead mini group comprehension exercises for grades 1-3 children on Friday afternoons.', vacancies: 3, image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400' }
+      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', level: 'Grades 11-12', description: 'Coaching and tutoring middle school peers during specified study halls.', vacancies: 4, image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400' },
+      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds & Center', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', level: 'All Grades', description: 'Monitor campus room recycling and audit consumption.', vacancies: 8, image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400' },
+      { id: 'v-003', title: 'Primary School Literacy Buddy', area: 'Elementary Library Level 1', lead: 'Dr. Angelia Crouch', hours: '1.5 Hours/Session', level: 'Grades 9-12', description: 'Read illustrative story books to grades 1-3 children.', vacancies: 3, image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400' }
     ];
 
     const quotes = [
-      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged and your heart helpful!" — HS Office Advisor',
-      '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering opportunities under angelia_crouch@wab.edu on school logs weekly." — Cap Captain',
-      '"If you are feeling overwhelmed by classes or deadlines, our certified counselor Sarah maintains private slots." — Wellbeing Club',
-      '"Found my MacBook charger in the IT Hub Room Level 1 in under ten minutes! Unmatched student rescue." — Aaron K. (Grade 11)'
+      '"A beautiful campus relies on friendly cooperation." — HS Office Advisor',
+      '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering." — Cap Captain',
+      '"If you are feeling overwhelmed, our counselors maintain private slots." — Wellbeing Club'
     ];
 
-    // STATE INITIALIZERS
     let currentTab = 'directory';
     let quoteIndex = 0;
     let selectedImagePreset = presetImages[0].url;
     let activeFormType = 'lost';
     
-    let lfItems = []; // 改为从 Supabase 加载
+    let lfItems = []; 
     let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
 
-    // ONBOARDING MOUNT
+    // --- INITIAL MOUNT ---
     window.onload = async function() {
-      // Set current date on form
       document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
-      
       renderResources();
       renderVolunteering();
       renderPhotoPresets();
-      
-      // 首次加载 Supabase 数据
-      await fetchBulletins();
+      await fetchBulletins(); // 云端获取失物招领
     };
 
-    // --- SUPABASE DATA FETCH ---
+    // --- SUPABASE: FETCH ---
     async function fetchBulletins() {
-      const { data, error } = await _supabase
-        .from(TABLE_NAME)
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching Supabase data:', error);
-      } else {
-        lfItems = data || [];
-        renderLF();
-        detectMatches();
+      const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
+      if (error) { console.error('Supabase Error:', error); } 
+      else { 
+        lfItems = data || []; 
+        renderLF(); 
+        detectMatches(); 
       }
     }
 
-    // QUOTE ROTATOR
-    function rotateQuote() {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
-    }
-
-    // TAB TOGGLE
-    function switchTab(tabName) {
-      currentTab = tabName;
-      
-      const panels = ['directory', 'volunteering', 'lostfound'];
-      panels.forEach(p => {
-        document.getElementById('panel-' + p).style.display = p === tabName ? 'block' : 'none';
-        document.getElementById('tab-' + p).classList.toggle('active', p === tabName);
-      });
-      
-      if (tabName === 'lostfound') {
-        fetchBulletins(); // 切换时刷新数据
-      }
-    }
-
-    // TAB 1: RENDER DIRECTORY
-    function renderResources() {
-      const g = document.getElementById('resourcesGrid');
-      g.innerHTML = resources.map(r => `
-        <div class="c-card" onclick="openModal('${r.id}')">
-          <div class="c-header">
-            <span class="category-badge badge-${r.category}">${r.category}</span>
-            <span class="c-id-tag">★ DEPT</span>
-          </div>
-          <div class="c-body">
-            <div>
-              <h3 class="c-title">${r.title}</h3>
-              <div class="c-subtitle">${r.subtitle}</div>
-              <p class="c-desc">${r.description.substring(0, 100)}...</p>
-            </div>
-            <div class="c-meta">
-              <div>📍 LOC: ${r.location}</div>
-              <div>⏱ HRS: ${r.hours}</div>
-            </div>
-          </div>
-          <button class="card-action-btn">★ VIEW DETAILS ★</button>
-        </div>
-      `).join('');
-    }
-
-    // DIRECTORY DETAILS MODAL & INQUIRY BOOKINGS
-    let activeModalResourceId = null;
-    function openModal(id) {
-      const r = resources.find(item => item.id === id);
-      if(!r) return;
-      
-      activeModalResourceId = id;
-      
-      document.getElementById('modalBadge').className = 'category-badge badge-' + r.category;
-      document.getElementById('modalBadge').innerText = r.category;
-      document.getElementById('modalTitle').innerText = r.title;
-      document.getElementById('modalLead').innerText = r.lead;
-      document.getElementById('modalLocation').innerText = r.location;
-      document.getElementById('modalQuote').innerText = `"${r.p5Quote}"`;
-      document.getElementById('modalDescription').innerText = r.description;
-      
-      document.getElementById('modalServices').innerHTML = r.keyServices.map(s => `
-        <li style="background:rgba(0,0,0,0.3); border-left: 2px solid var(--p4-yellow); padding:6px; font-size:12px; color:#f2f2f7;">★ ${s}</li>
-      `).join('');
-
-      document.getElementById('bookingResultMsg').style.display = 'none';
-      document.getElementById('bookingForm').style.display = 'flex';
-      
-      document.getElementById('detailModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('detailModal').style.display = 'none';
-    }
-
-    function confirmBooking(e) {
-      e.preventDefault();
-      const name = document.getElementById('bookName').value;
-      if (!name) return;
-      
-      document.getElementById('bookingForm').style.display = 'none';
-      document.getElementById('bookingResultMsg').style.display = 'block';
-      
-      document.getElementById('bookName').value = '';
-      document.getElementById('bookTime').value = '';
-    }
-
-    // TAB 2: RENDER VOLUNTEERING HUB
-    function renderVolunteering() {
-      const container = document.getElementById('volOpportunitiesGrid');
-      container.innerHTML = volunteeringOpportunities.map(o => `
-        <div class="v-card">
-          <div class="v-pfp-box">
-            <img src="${o.image}" alt="${o.title}" referrerpolicy="no-referrer" />
-            <span class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure); position:absolute; top:8px; left:8px; font-size:9px;">★ ROLE</span>
-          </div>
-          <div class="v-body-box">
-            <div>
-              <h4 class="v-title-name">${o.title}</h4>
-              <p class="v-coordinator">Lead: ${o.lead} (${o.hours})</p>
-              <p class="v-sub-desc">${o.description}</p>
-            </div>
-            <div class="v-footer-stats">
-              <div>📍 AREA: ${o.area}</div>
-              <div>🚀 LEVEL: ${o.level}</div>
-              <div>⏳ ESTIMATE: ${o.hours}</div>
-              <div>👥 SLOTS: ${o.vacancies} SEATS</div>
-            </div>
-          </div>
-          <button class="v-select-btn" onclick="selectVolRole('${o.id}')">★ Apply For Role ★</button>
-        </div>
-      `).join('');
-
-      renderRegList();
-    }
-
-    function selectVolRole(id) {
-      const sel = document.getElementById('vApplyRole');
-      sel.value = id;
-      sel.scrollIntoView({ behavior: 'smooth' });
-      sel.style.borderColor = 'var(--p4-cyan)';
-      setTimeout(() => sel.style.borderColor = 'var(--p4-gray)', 1500);
-    }
-
-    function submitVolunteerApp(e) {
-      e.preventDefault();
-      const roleId = document.getElementById('vApplyRole').value;
-      const name = document.getElementById('vApplyName').value.trim();
-      const grade = document.getElementById('vApplyGrade').value;
-      const contact = document.getElementById('vApplyContact').value.trim();
-      const msg = document.getElementById('vApplyMsg').value.trim();
-
-      if (!name || !contact) return;
-
-      const newApp = {
-        roleId,
-        name,
-        grade,
-        contact,
-        msg,
-        timestamp: Date.now()
-      };
-
-      registrations.unshift(newApp);
-      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
-
-      // Reset
-      document.getElementById('vApplyName').value = '';
-      document.getElementById('vApplyMsg').value = '';
-
-      // Banner
-      const opp = volunteeringOpportunities.find(o => o.id === roleId);
-      const sb = document.getElementById('volSuccessBanner');
-      sb.innerHTML = `★ APPLICATION LOGGED ★ Applied for <strong>${opp.title}</strong> under coordinator <strong>Dr. Angelia Crouch</strong>! Direct inquiries sent to WAB Core Office.`;
-      sb.style.display = 'block';
-      setTimeout(() => sb.style.display = 'none', 8000);
-
-      renderRegList();
-    }
-
-    function renderRegList() {
-      const container = document.getElementById('registrationsList');
-      if (registrations.length === 0) {
-        container.innerHTML = `<p class="mono" style="font-size:10px; color:rgba(255,255,255,0.2); text-align:center; padding:12px 0;">NO SUBMITTED APPLICATIONS.</p>`;
-        return;
-      }
-
-      container.innerHTML = registrations.map((r, i) => {
-        const opp = volunteeringOpportunities.find(o => o.id === r.roleId) || { title: 'General Service', hours: 'N/A' };
-        return `
-          <div class="reg-item">
-            <div class="reg-header">
-              <span class="reg-title">${opp.title}</span>
-              <button class="reg-cancel" onclick="cancelRegistration(${i})">✕ CANCEL</button>
-            </div>
-            <div class="reg-meta">
-              <span>Name: ${r.name} (${r.grade})</span>
-              <span style="color:var(--p4-cyan); font-weight:bold;">PENDING REVIEW</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function cancelRegistration(index) {
-      registrations.splice(index, 1);
-      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
-      renderRegList();
-    }
-
-    // TAB 3: LOST & FOUND RENDER & COLLISION ALGORITHM
-    function renderLF() {
-      const grid = document.getElementById('lfItemsGrid');
-      
-      const q = document.getElementById('filterSearch').value.toLowerCase();
-      const type = document.getElementById('filterType').value;
-      const loc = document.getElementById('filterLoc').value;
-      const cat = document.getElementById('filterCat').value;
-
-      const filtered = lfItems.filter(item => {
-        const matchQ = !q || item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.studentName.toLowerCase().includes(q);
-        
-        let matchType = true;
-        if (type !== 'all') {
-          if (type === 'reclaimed') {
-            matchType = item.Status === 'reclaimed';
-          } else {
-            matchType = item.type === type && item.Status === 'active';
-          }
-        }
-
-        const matchLoc = loc === 'all' || item.location === loc;
-        const matchCat = cat === 'all' || item.category === cat;
-
-        return matchQ && matchType && matchLoc && matchCat;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.3); font-family:'JetBrains Mono', monospace;">NO ACTIVE BULLETINS MATCH CRITERIA.</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(item => `
-        <div class="lf-card">
-          <div class="lf-img-wrap">
-            <img class="lf-img" src="${item.image}" alt="${item.title}" referrerpolicy="no-referrer" />
-            <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">
-              ${item.type === 'lost' ? '★ LOST' : '☆ FOUND'}
-            </div>
-            ${item.Status === 'reclaimed' ? `
-              <div class="reclaimed-overlay">
-                <span class="reclaimed-stamp">★ RECLAIMED ★</span>
-              </div>
-            ` : ''}
-          </div>
-          <div class="c-body" style="gap:10px;">
-            <div>
-              <div class="lf-meta-header">
-                <span>📍 LOC: ${item.location}</span>
-                <span>📅 ${item.date}</span>
-              </div>
-              <h4 class="c-title" style="font-size:1.3rem;">${item.title}</h4>
-              <p class="c-desc" style="font-size:11.5px;">${item.description}</p>
-              ${item.RewardInfo ? `<div class="reward-box">🏆 Reward Incentive: ${item.RewardInfo}</div>` : ''}
-            </div>
-            <div class="c-meta" style="font-size:9.5px;">
-              <div>REPORTED BY: <strong style="color:#fff;">${item.studentName}</strong></div>
-              <div style="margin-top:2px;">CONTACT: <span style="color:var(--p4-orange); font-weight:bold;">${item.contactDetails}</span></div>
-            </div>
-          </div>
-          
-          <div class="lf-actions">
-            ${item.Status === 'active' ? `
-              <button class="reclaim-btn" onclick="resolveProperty('${item.id}')">★ Resolve &amp; Reclaim ★</button>
-              <button class="delete-btn" onclick="archiveProperty('${item.id}')" title="Archive Bulletin">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-              </button>
-            ` : `
-              <div style="width:100%; text-align:center; padding:10px; font-size:10px; font-family:'JetBrains Mono',monospace; color:var(--p4-cyan);">PROPERTY COMPLETED &amp; ARCHIVED</div>
-            `}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // RESOLVE & ARCHIVE HANDLERS
-    async function resolveProperty(id) {
-      const { error } = await _supabase
-        .from(TABLE_NAME)
-        .update({ Status: 'reclaimed' })
-        .eq('id', id);
-
-      if (error) console.error('Error resolving:', error);
-      fetchBulletins();
-    }
-
-    async function archiveProperty(id) {
-      const { error } = await _supabase
-        .from(TABLE_NAME)
-        .delete()
-        .eq('id', id);
-
-      if (error) console.error('Error deleting:', error);
-      fetchBulletins();
-    }
-
-    // COLLISION MATCH ENGINE
-    function detectMatches() {
-      const activeItems = lfItems.filter(i => i.Status === 'active');
-      const losts = activeItems.filter(i => i.type === 'lost');
-      const founds = activeItems.filter(i => i.type === 'found');
-      
-      const results = [];
-      losts.forEach(l => {
-        founds.forEach(f => {
-          let score = 0;
-          if (l.category.toLowerCase() === f.category.toLowerCase()) score += 2;
-          if (l.location.toLowerCase() === f.location.toLowerCase()) score += 2;
-          
-          const lostWords = l.title.toLowerCase().split(/\s+/).filter(w => w.length > 2);
-          lostWords.forEach(word => {
-            if (f.title.toLowerCase().includes(word) || f.description.toLowerCase().includes(word)) {
-              score += 3;
-            }
-          });
-
-          if (score >= 4) {
-            results.push({ lost: l, found: f });
-          }
-        });
-      });
-
-      const elementWidget = document.getElementById('collisionWidget');
-      if (results.length > 0) {
-        elementWidget.style.display = 'block';
-        document.getElementById('collisionCountBadge').innerText = `ZONES CLASH: ${results.length}`;
-        
-        document.getElementById('collisionsList').innerHTML = results.slice(0, 2).map(match => `
-          <div class="match-tag-card">
-            <div style="font-family:'JetBrains Mono',monospace; font-size:9px; color:rgba(255,255,255,0.4); border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:4px; margin-bottom:8px; display:flex; justify-content:space-between;">
-              <span>MATCH AT: ${match.lost.location}</span>
-              <span style="color:var(--p4-magenta); font-weight:bold;">★ CLASH COLLISION DETECTED</span>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <div>
-                <span style="font-size:8px; color:var(--p4-orange); font-family:'JetBrains Mono'; font-weight:bold; display:block; text-transform:uppercase;">Lost Entry</span>
-                <strong style="font-size:12px; color:#fff;">${match.lost.title}</strong> (Owner: ${match.lost.studentName})
-              </div>
-              <div style="border-top:1px dashed rgba(255,255,255,0.08); padding-top:6px; margin-top:4px;">
-                <span style="font-size:8px; color:var(--p4-yellow); font-family:'JetBrains Mono'; font-weight:bold; display:block; text-transform:uppercase;">Found Counterpart</span>
-                <strong style="font-size:12px; color:#fff;">${match.found.title}</strong> (Reporter: ${match.found.studentName})
-              </div>
-            </div>
-          </div>
-        `).join('');
-      } else {
-        elementWidget.style.display = 'none';
-      }
-    }
-
-    // FORM PANEL VISIBILITY & SWITCHES
-    function toggleFormPanel() {
-      const panel = document.getElementById('lfFormPanel');
-      const btn = document.getElementById('postBtnToggle');
-      if (panel.style.display === 'none') {
-        panel.style.display = 'block';
-        btn.innerText = '★ CLOSE CASE PANEL ✕ ★';
-      } else {
-        panel.style.display = 'none';
-        btn.innerText = '★ POST NEW BULLETIN + ★';
-      }
-    }
-
-    function setFormType(type) {
-      activeFormType = type;
-      document.getElementById('btnTypeLost').classList.toggle('active', type === 'lost');
-      document.getElementById('btnTypeFound').classList.toggle('active', type === 'found');
-      document.getElementById('rewardGroup').style.display = type === 'lost' ? 'block' : 'none';
-      document.getElementById('btnPublishLabel').innerText = type === 'lost' ? '★ PUBLISH LOST BULLETIN ★' : '★ PUBLISH FOUND BULLETIN ★';
-    }
-
-    function renderPhotoPresets() {
-      const container = document.getElementById('presetPhotos');
-      container.innerHTML = presetImages.map(p => `
-        <button type="button" class="preset-img-btn ${p.url === selectedImagePreset ? 'active' : ''}" onclick="selectPresetImage('${p.url}')">
-          <img src="${p.url}" alt="${p.name}" />
-        </button>
-      `).join('');
-    }
-
-    function selectPresetImage(url) {
-      selectedImagePreset = url;
-      const btns = document.querySelectorAll('.preset-img-btn');
-      btns.forEach((btn, i) => {
-        btn.classList.toggle('active', presetImages[i].url === url);
-      });
-    }
-
-    // SUBMIT LF PROPERTY TO SUPABASE
+    // --- SUPABASE: SUBMIT ---
     async function submitLfItem(e) {
       e.preventDefault();
-      
       const title = document.getElementById('lfTitle').value.trim();
       const date = document.getElementById('lfDate').value;
       const location = document.getElementById('lfLocation').value;
@@ -2182,43 +1726,165 @@
       const desc = document.getElementById('lfDesc').value.trim();
       const studentName = document.getElementById('lfName').value.trim();
       const contactDetails = document.getElementById('lfContact').value.trim();
-      const RewardInfo = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
+      const reward = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
 
       if (!title || !studentName || !contactDetails) return;
 
       const newItem = {
         type: activeFormType,
-        title,
+        title: title,
         description: desc,
-        category,
+        category: category,
         image: selectedImagePreset,
-        date,
-        location,
-        studentName,
-        contactDetails,
+        date: date,
+        location: location,
+        studentName: studentName,
+        contactDetails: contactDetails,
         Status: 'active',
-        RewardInfo: RewardInfo || null
+        RewardInfo: reward || null
       };
 
-      const { data, error } = await _supabase
-        .from(TABLE_NAME)
-        .insert([newItem]);
-
-      if (error) {
-        console.error('Error inserting to Supabase:', error);
-        alert('Upload Failed! Please check console for details.');
+      const { error } = await _supabase.from(TABLE_NAME).insert([newItem]).select();
+      if (error) { 
+        alert('Upload Failed: ' + error.message); 
       } else {
-        // Reset Form fields
-        document.getElementById('lfTitle').value = '';
-        document.getElementById('lfDesc').value = '';
-        document.getElementById('lfName').value = '';
-        document.getElementById('lfContact').value = '';
-        document.getElementById('lfReward').value = '';
-        
+        document.getElementById('lfForm').reset();
         toggleFormPanel();
-        await fetchBulletins(); // 重新加载云端数据
+        await fetchBulletins();
       }
     }
+
+    // --- SUPABASE: ACTIONS ---
+    async function resolveProperty(id) {
+      const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
+      if(!error) await fetchBulletins();
+    }
+
+    async function archiveProperty(id) {
+      if(confirm("Archive this bulletin?")) {
+        const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
+        if(!error) await fetchBulletins();
+      }
+    }
+
+    // --- TAB & UI LOGIC ---
+    function rotateQuote() {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
+    }
+
+    function switchTab(tabName) {
+      currentTab = tabName;
+      ['directory', 'volunteering', 'lostfound'].forEach(p => {
+        document.getElementById('panel-' + p).style.display = p === tabName ? 'block' : 'none';
+        document.getElementById('tab-' + p).classList.toggle('active', p === tabName);
+      });
+      if (tabName === 'lostfound') fetchBulletins();
+    }
+
+    // --- DIRECTORY RENDER ---
+    function renderResources() {
+      const g = document.getElementById('resourcesGrid');
+      g.innerHTML = resources.map(r => `
+        <div class="c-card" onclick="openModal('${r.id}')">
+          <div class="c-header"><span class="category-badge badge-${r.category}">${r.category}</span><span class="c-id-tag">★ DEPT</span></div>
+          <div class="c-body">
+            <div><h3 class="c-title">${r.title}</h3><div class="c-subtitle">${r.subtitle}</div></div>
+            <div class="c-meta"><div>📍 LOC: ${r.location}</div></div>
+          </div>
+          <button class="card-action-btn">★ ${r.actionLabel} ★</button>
+        </div>
+      `).join('');
+    }
+
+    function openModal(id) {
+      const r = resources.find(item => item.id === id);
+      if(!r) return;
+      document.getElementById('modalBadge').className = 'category-badge badge-' + r.category;
+      document.getElementById('modalBadge').innerText = r.category;
+      document.getElementById('modalTitle').innerText = r.title;
+      document.getElementById('modalLead').innerText = r.lead;
+      document.getElementById('modalLocation').innerText = r.location;
+      document.getElementById('modalQuote').innerText = `"${r.p5Quote}"`;
+      document.getElementById('modalDescription').innerText = r.description;
+      document.getElementById('modalServices').innerHTML = r.keyServices.map(s => `<li>★ ${s}</li>`).join('');
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
+    function confirmBooking(e) { e.preventDefault(); alert("Inquiry Sent!"); closeModal(); }
+
+    // --- VOLUNTEERING RENDER ---
+    function renderVolunteering() {
+      const container = document.getElementById('volOpportunitiesGrid');
+      container.innerHTML = volunteeringOpportunities.map(o => `
+        <div class="v-card">
+          <div class="v-pfp-box"><img src="${o.image}" referrerpolicy="no-referrer" /></div>
+          <div class="v-body-box">
+            <h4 class="v-title-name">${o.title}</h4>
+            <p class="v-coordinator">Lead: ${o.lead}</p>
+            <p class="v-sub-desc">${o.description}</p>
+          </div>
+          <button class="v-select-btn" onclick="selectVolRole('${o.id}')">★ Apply ★</button>
+        </div>
+      `).join('');
+      renderRegList();
+    }
+
+    function selectVolRole(id) { document.getElementById('vApplyRole').value = id; }
+    
+    function submitVolunteerApp(e) {
+      e.preventDefault();
+      const newApp = { roleId: document.getElementById('vApplyRole').value, name: document.getElementById('vApplyName').value.trim(), timestamp: Date.now() };
+      registrations.unshift(newApp);
+      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
+      renderRegList();
+      alert("Application Logged Locally.");
+    }
+
+    function renderRegList() {
+      const container = document.getElementById('registrationsList');
+      container.innerHTML = registrations.map((r, i) => `<div class="reg-item"><span class="reg-title">App #${i+1}: ${r.name}</span></div>`).join('');
+    }
+
+    // --- LOST & FOUND RENDER ---
+    function renderLF() {
+      const grid = document.getElementById('lfItemsGrid');
+      const q = document.getElementById('filterSearch').value.toLowerCase();
+      const type = document.getElementById('filterType').value;
+      const filtered = lfItems.filter(i => (i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q)) && (type === 'all' || i.type === type));
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="lf-card">
+          <div class="lf-img-wrap">
+            <img class="lf-img" src="${item.image}" referrerpolicy="no-referrer" />
+            <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</div>
+            ${item.Status === 'reclaimed' ? '<div class="reclaimed-overlay"><span class="reclaimed-stamp">RECLAIMED</span></div>' : ''}
+          </div>
+          <div class="c-body">
+            <h4 class="c-title">${item.title}</h4>
+            <p class="c-desc">${item.description}</p>
+            <div class="c-meta">Reported by: ${item.studentName}</div>
+          </div>
+          <div class="lf-actions">
+            ${item.Status === 'active' ? `<button class="reclaim-btn" onclick="resolveProperty(${item.id})">★ Reclaim ★</button><button class="delete-btn" onclick="archiveProperty(${item.id})">✕</button>` : '<div style="color:var(--p4-cyan)">ARCHIVED</div>'}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function detectMatches() {
+      const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
+      const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
+      const results = [];
+      lost.forEach(l => { found.forEach(f => { if(l.category === f.category && l.location === f.location) results.push({l, f}); })});
+      document.getElementById('collisionWidget').style.display = results.length > 0 ? 'block' : 'none';
+    }
+
+    function toggleFormPanel() { const p = document.getElementById('lfFormPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; }
+    function setFormType(t) { activeFormType = t; }
+    function renderPhotoPresets() { document.getElementById('presetPhotos').innerHTML = presetImages.map(p => `<button type="button" class="preset-img-btn" onclick="selectPresetImage('${p.url}')"><img src="${p.url}" /></button>`).join(''); }
+    function selectPresetImage(u) { selectedImagePreset = u; }
   </script>
 </body>
 </html>

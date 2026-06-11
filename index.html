@@ -75,7 +75,8 @@
     .shadow-red { filter: drop-shadow(10px 10px 0 var(--wab-red)); }
     
     .glitch-text {
-      text-shadow: 2px 2px var(--wab-red), -2px -2px var(--wab-yellow);
+      /* 修复：缩小重影距离，从2px减至0.8px */
+      text-shadow: 0.8px 0.8px var(--wab-red), -0.8px -0.8px var(--wab-yellow);
     }
 
     /* ANIMATIONS */
@@ -133,6 +134,8 @@
       color: #000; line-height: 0.75;
       text-transform: uppercase; margin-bottom: 30px;
       letter-spacing: -5px;
+      /* 修复：主标题重影从6px缩减至3px，防止视觉破碎感 */
+      text-shadow: 3px 3px 0 var(--wab-magenta);
     }
 
     .hero-main p {
@@ -263,7 +266,11 @@
     
     .dossier-body { padding: 30px; }
     .dossier-id { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--wab-red); margin-bottom: 10px; display: block; font-weight: 900; }
-    .dossier-title { font-family: 'Bebas Neue'; font-size: 2.5rem; line-height: 0.9; margin-bottom: 15px; text-shadow: 3px 3px 0 #000; }
+    .dossier-title { 
+      font-family: 'Bebas Neue'; font-size: 2.5rem; line-height: 0.9; margin-bottom: 15px; 
+      /* 修复：中等字号标题重影从3px减至1.5px */
+      text-shadow: 1.5px 1.5px 0 #000; 
+    }
     .dossier-desc { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 25px; }
 
     .dossier-footer {
@@ -365,11 +372,11 @@
     ================================================================
     */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
       z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;
     }
     .modal-card {
-      background: var(--wab-dark); border: 10px solid #000; width: 100%; max-width: 1000px;
+      background: var(--wab-dark); border: 10px solid #000; width: 100%; max-width: 900px;
       display: flex; flex-direction: row; position: relative;
       animation: modalEntrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -390,6 +397,11 @@
         position: relative;
     }
     .footer-hazard { position: absolute; top: 0; left: 0; width: 100%; height: 15px; background: var(--red-hazard); }
+    
+    footer h2 {
+      /* 修复：页脚大标题重影从10px缩减至4px */
+      text-shadow: 4px 4px 0 var(--wab-red);
+    }
 
   </style>
 </head>
@@ -473,7 +485,7 @@
               <!-- Dynamically Injected Lines -->
             </div>
             <div class="application-form">
-                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 4px 4px 0 #000;">CAS_APPLICATION</h2>
+                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 2px 2px 0 #000;">CAS_APPLICATION</h2>
                 <form onsubmit="submitVolunteerApp(event)">
                     <div class="form-group">
                         <label class="form-label">Full Name</label>
@@ -628,7 +640,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-hazard"></div>
-        <h2 class="bebas" style="font-size: 5rem; color:var(--wab-yellow); text-shadow: 10px 10px 0 var(--wab-red);">★ BEIJING WAB COMMUNITY SHIELD ★</h2>
+        <h2 class="bebas" style="font-size: 5rem; color:var(--wab-yellow);">★ BEIJING WAB COMMUNITY SHIELD ★</h2>
         <div class="mono" style="margin-top:30px; font-size: 12px; color:#444;">
             VERSION: 4.0.2-RELEASE_B<br>
             CORE_ENGINE: SUPABASE_CLOUD_SYNC<br>

@@ -1651,7 +1651,7 @@
   </div>
 
   <script>
-    // --- SUPABASE CONFIGURATION (仅针对失物招领云同步) ---
+    // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -1669,21 +1669,21 @@
 
     // Directories dossiers dataset
     const resources = [
-      { id: 'res-counseling-1', category: 'counseling', title: 'High School Support & Wellbeing', subtitle: 'Confidential Guidance & Emotional Counseling', lead: 'Ms. Sarah Martinez & Mr. Alan Vance', location: 'HS Admin Block, 2nd Floor', hours: 'Monday – Friday, 08:00 – 16:30', description: 'Providing a safe harbor for personal, academic, and mental health challenges.', keyServices: ['Individual Mental Health Chats', 'Stress Masterclasses'], actionLabel: 'VIEW DETAILS', p5Quote: 'You dont have to carry stress alone.' },
-      { id: 'res-library-1', category: 'library', title: 'The Hub: Library & Research Center', subtitle: 'Inquiry, Research Databases, and Literary Aid', lead: 'Dr. Timothy Cole', location: 'The HUB Atrium', hours: 'Monday – Friday, 07:30 – 18:00', description: 'Collaborative space for IB Extended Essays.', keyServices: ['IB EE Research Mentorship', 'Citation Audits'], actionLabel: 'BOOK SPACE', p5Quote: 'Knowledge is built on inquiry.' },
-      { id: 'res-tech-1', category: 'tech', title: 'WAB TigerTech Support Center', subtitle: 'MacBook Diagnostic Help', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', hours: 'Monday – Friday, 08:00 – 17:00', description: 'Repair and support for school-issued MacBooks.', keyServices: ['Hardware Repair', 'Wi-Fi Configuration'], actionLabel: 'GET SUPPORT', p5Quote: 'Technical glitches are temporary.' },
-      { id: 'res-service-1', category: 'service', title: 'High School Service & Outreach Groups', subtitle: 'Engaging Community Action', lead: 'Mrs. Cynthia Zhang', location: 'Global Citizens Studio', hours: 'CAS Advisory: Tues/Thurs 15:05', description: 'Central community link for service groups.', keyServices: ['Volunteering Placement', 'CAS Project Approval'], actionLabel: 'JOIN GROUPS', p5Quote: 'Meaningful impact comes from participation.' }
+      { id: 'res-counseling-1', category: 'counseling', title: 'High School Support & Wellbeing', subtitle: 'Confidential Guidance & Emotional Counseling', lead: 'Ms. Sarah Martinez & Mr. Alan Vance', location: 'HS Admin Block, 2nd Floor', hours: 'Monday – Friday, 08:00 – 16:30', description: 'Providing a safe harbor for personal, academic, and mental health challenges. Whether you are battling workload stress, social pressure, or just need an attentive listener, our certified counselors are here to help.', keyServices: ['Individual Mental Health Chats', 'Stress Masterclasses', 'Crisis Response', 'Peer Support'], actionLabel: 'VIEW DETAILS', p5Quote: 'You dont have to carry academic or personal stress alone.' },
+      { id: 'res-library-1', category: 'library', title: 'The Hub: Library & Research Center', subtitle: 'Inquiry, Research Databases, and Literary Aid', lead: 'Dr. Timothy Cole', location: 'The HUB Atrium', hours: 'Monday – Friday, 07:30 – 18:00', description: 'A cutting-edge collaborative space with thousands of physical texts, digital database subscriptions, and research mentorship.', keyServices: ['IB EE Research Mentorship', 'Citation Audits', 'Silent Study Booths'], actionLabel: 'BOOK SPACE', p5Quote: 'Knowledge is built on curious, exhaustive inquiry.' },
+      { id: 'res-tech-1', category: 'tech', title: 'WAB TigerTech Support Center', subtitle: 'MacBook Diagnostic, Network, and Software Help', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', hours: 'Monday – Friday, 08:00 – 17:00', description: 'The core repair and support branch for school-issued MacBooks and institutional login troubleshooting.', keyServices: ['Hardware Replacements', 'WiFi & VPN Configuration', 'Loaner MacBooks'], actionLabel: 'GET SUPPORT', p5Quote: 'Technical glitches are temporary. Let our team configure your tools.' },
+      { id: 'res-service-1', category: 'service', title: 'High School Service & Outreach Groups', subtitle: 'Engaging Community Action & Global Projects', lead: 'Mrs. Cynthia Zhang', location: 'Global Citizens Studio', hours: 'CAS Advisory: Tues/Thurs 15:05', description: 'Central community link coordinating WAB students with local and international service groups.', keyServices: ['Local Volunteering Placement', 'CAS Project Approval', 'Outreach Liaison'], actionLabel: 'JOIN GROUPS', p5Quote: 'Meaningful communal impact comes from active participation.' }
     ];
 
     // Volunteering Opportunities
     const volunteeringOpportunities = [
       { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', level: 'Grades 11-12', description: 'Coaching and tutoring middle school peers during specified study halls.', vacancies: 4, image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=400' },
-      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds & Center', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', level: 'All Grades', description: 'Monitor campus room recycling and audit consumption.', vacancies: 8, image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400' },
-      { id: 'v-003', title: 'Primary School Literacy Buddy', area: 'Elementary Library Level 1', lead: 'Dr. Angelia Crouch', hours: '1.5 Hours/Session', level: 'Grades 9-12', description: 'Read illustrative story books to grades 1-3 children.', vacancies: 3, image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400' }
+      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds & Center', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', level: 'All Grades', description: 'Monitor campus room recycling, audit institutional plastic caps consumption, and coordinate early years waste campaigns.', vacancies: 8, image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400' },
+      { id: 'v-003', title: 'Primary School Literacy Buddy', area: 'Elementary Library Level 1', lead: 'Dr. Angelia Crouch', hours: '1.5 Hours/Session', level: 'Grades 9-12', description: 'Read illustrative story books and lead mini group comprehension exercises for grades 1-3 children.', vacancies: 3, image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400' }
     ];
 
     const quotes = [
-      '"A beautiful campus relies on friendly cooperation." — HS Office Advisor',
+      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged!" — HS Office Advisor',
       '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering." — Cap Captain',
       '"If you are feeling overwhelmed, our counselors maintain private slots." — Wellbeing Club'
     ];
@@ -1696,19 +1696,18 @@
     let lfItems = []; 
     let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
 
-    // --- INITIAL MOUNT ---
     window.onload = async function() {
       document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
       renderResources();
       renderVolunteering();
       renderPhotoPresets();
-      await fetchBulletins(); // 云端获取失物招领
+      await fetchBulletins();
     };
 
-    // --- SUPABASE: FETCH ---
+    // --- SUPABASE DATA FETCH ---
     async function fetchBulletins() {
       const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
-      if (error) { console.error('Supabase Error:', error); } 
+      if (error) { console.error('Fetch error:', error); } 
       else { 
         lfItems = data || []; 
         renderLF(); 
@@ -1716,58 +1715,7 @@
       }
     }
 
-    // --- SUPABASE: SUBMIT ---
-    async function submitLfItem(e) {
-      e.preventDefault();
-      const title = document.getElementById('lfTitle').value.trim();
-      const date = document.getElementById('lfDate').value;
-      const location = document.getElementById('lfLocation').value;
-      const category = document.getElementById('lfCategory').value;
-      const desc = document.getElementById('lfDesc').value.trim();
-      const studentName = document.getElementById('lfName').value.trim();
-      const contactDetails = document.getElementById('lfContact').value.trim();
-      const reward = activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : '';
-
-      if (!title || !studentName || !contactDetails) return;
-
-      const newItem = {
-        type: activeFormType,
-        title: title,
-        description: desc,
-        category: category,
-        image: selectedImagePreset,
-        date: date,
-        location: location,
-        studentName: studentName,
-        contactDetails: contactDetails,
-        Status: 'active',
-        RewardInfo: reward || null
-      };
-
-      const { error } = await _supabase.from(TABLE_NAME).insert([newItem]).select();
-      if (error) { 
-        alert('Upload Failed: ' + error.message); 
-      } else {
-        document.getElementById('lfForm').reset();
-        toggleFormPanel();
-        await fetchBulletins();
-      }
-    }
-
-    // --- SUPABASE: ACTIONS ---
-    async function resolveProperty(id) {
-      const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
-      if(!error) await fetchBulletins();
-    }
-
-    async function archiveProperty(id) {
-      if(confirm("Archive this bulletin?")) {
-        const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
-        if(!error) await fetchBulletins();
-      }
-    }
-
-    // --- TAB & UI LOGIC ---
+    // --- LOGIC FUNCTIONS ---
     function rotateQuote() {
       quoteIndex = (quoteIndex + 1) % quotes.length;
       document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
@@ -1790,7 +1738,7 @@
           <div class="c-header"><span class="category-badge badge-${r.category}">${r.category}</span><span class="c-id-tag">★ DEPT</span></div>
           <div class="c-body">
             <div><h3 class="c-title">${r.title}</h3><div class="c-subtitle">${r.subtitle}</div></div>
-            <div class="c-meta"><div>📍 LOC: ${r.location}</div></div>
+            <div class="c-meta">📍 LOC: ${r.location}</div>
           </div>
           <button class="card-action-btn">★ ${r.actionLabel} ★</button>
         </div>
@@ -1812,7 +1760,7 @@
     }
 
     function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
-    function confirmBooking(e) { e.preventDefault(); alert("Inquiry Sent!"); closeModal(); }
+    function confirmBooking(e) { e.preventDefault(); alert("Inquiry request received!"); closeModal(); }
 
     // --- VOLUNTEERING RENDER ---
     function renderVolunteering() {
@@ -1839,7 +1787,6 @@
       registrations.unshift(newApp);
       localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
       renderRegList();
-      alert("Application Logged Locally.");
     }
 
     function renderRegList() {
@@ -1847,7 +1794,63 @@
       container.innerHTML = registrations.map((r, i) => `<div class="reg-item"><span class="reg-title">App #${i+1}: ${r.name}</span></div>`).join('');
     }
 
-    // --- LOST & FOUND RENDER ---
+    // --- LOST & FOUND SUPABASE ACTIONS ---
+    async function submitLfItem(e) {
+      e.preventDefault();
+      const newItem = {
+        type: activeFormType,
+        title: document.getElementById('lfTitle').value.trim(),
+        date: document.getElementById('lfDate').value,
+        location: document.getElementById('lfLocation').value,
+        category: document.getElementById('lfCategory').value,
+        description: document.getElementById('lfDesc').value.trim(),
+        studentName: document.getElementById('lfName').value.trim(),
+        contactDetails: document.getElementById('lfContact').value.trim(),
+        Status: 'active',
+        RewardInfo: activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : null,
+        image: selectedImagePreset
+      };
+      const { error } = await _supabase.from(TABLE_NAME).insert([newItem]);
+      if (error) { alert('Submit Error: ' + error.message); } 
+      else { 
+        document.getElementById('lfForm').reset(); 
+        toggleFormPanel(); 
+        await fetchBulletins(); 
+      }
+    }
+
+    // ★ NEW RECLAIM FUNCTION ★
+    async function resolveProperty(id) {
+      const { error } = await _supabase
+        .from(TABLE_NAME)
+        .update({ Status: 'reclaimed' })
+        .eq('id', id);
+
+      if (error) {
+        console.error('Update Error:', error);
+        alert("Error updating property status.");
+      } else {
+        await fetchBulletins();
+      }
+    }
+
+    // ★ NEW DELETE FUNCTION ★
+    async function archiveProperty(id) {
+      if (!confirm("Are you sure you want to delete this bulletin permanently?")) return;
+
+      const { error } = await _supabase
+        .from(TABLE_NAME)
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Delete Error:', error);
+        alert("Error deleting bulletin.");
+      } else {
+        await fetchBulletins();
+      }
+    }
+
     function renderLF() {
       const grid = document.getElementById('lfItemsGrid');
       const q = document.getElementById('filterSearch').value.toLowerCase();
@@ -1867,7 +1870,10 @@
             <div class="c-meta">Reported by: ${item.studentName}</div>
           </div>
           <div class="lf-actions">
-            ${item.Status === 'active' ? `<button class="reclaim-btn" onclick="resolveProperty(${item.id})">★ Reclaim ★</button><button class="delete-btn" onclick="archiveProperty(${item.id})">✕</button>` : '<div style="color:var(--p4-cyan)">ARCHIVED</div>'}
+            ${item.Status === 'active' ? `
+              <button class="reclaim-btn" onclick="resolveProperty('${item.id}')">★ RECLAIM ★</button>
+              <button class="delete-btn" onclick="archiveProperty('${item.id}')">✕</button>
+            ` : '<div style="flex:1; text-align:center; padding:8px; font-size:10px; color:var(--p4-cyan);">PROPERTY ARCHIVED</div>'}
           </div>
         </div>
       `).join('');
@@ -1879,6 +1885,9 @@
       const results = [];
       lost.forEach(l => { found.forEach(f => { if(l.category === f.category && l.location === f.location) results.push({l, f}); })});
       document.getElementById('collisionWidget').style.display = results.length > 0 ? 'block' : 'none';
+      if(results.length > 0) {
+        document.getElementById('collisionsList').innerHTML = results.map(m => `<div class="match-tag-card">Clash: ${m.l.title} (Lost) & ${m.f.title} (Found) @ ${m.l.location}</div>`).join('');
+      }
     }
 
     function toggleFormPanel() { const p = document.getElementById('lfFormPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; }

@@ -14,9 +14,7 @@
   <style>
     /* 
     ================================================================
-    WAB ULTIMATE SYSTEM STYLESHEET
-    THEME: RED, BLACK, YELLOW (AGGRESSIVE HIGH-CONTRAST)
-    DESIGNED FOR: WESTERN ACADEMY OF BEIJING
+    WAB ULTIMATE SYSTEM STYLESHEET - SHADOW FIXED VERSION
     ================================================================
     */
 
@@ -75,8 +73,8 @@
     .shadow-red { filter: drop-shadow(10px 10px 0 var(--wab-red)); }
     
     .glitch-text {
-      /* 修复：缩小重影距离，从2px减至0.8px */
-      text-shadow: 0.8px 0.8px var(--wab-red), -0.8px -0.8px var(--wab-yellow);
+      /* 修复：将重影距离进一步缩小至 0.5px */
+      text-shadow: 0.5px 0.5px var(--wab-red), -0.5px -0.5px var(--wab-yellow);
     }
 
     /* ANIMATIONS */
@@ -134,8 +132,8 @@
       color: #000; line-height: 0.75;
       text-transform: uppercase; margin-bottom: 30px;
       letter-spacing: -5px;
-      /* 修复：主标题重影从6px缩减至3px，防止视觉破碎感 */
-      text-shadow: 3px 3px 0 var(--wab-magenta);
+      /* 修复：主标题重影距离调小 */
+      text-shadow: 1.5px 1.5px 0 var(--wab-magenta);
     }
 
     .hero-main p {
@@ -268,8 +266,8 @@
     .dossier-id { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--wab-red); margin-bottom: 10px; display: block; font-weight: 900; }
     .dossier-title { 
       font-family: 'Bebas Neue'; font-size: 2.5rem; line-height: 0.9; margin-bottom: 15px; 
-      /* 修复：中等字号标题重影从3px减至1.5px */
-      text-shadow: 1.5px 1.5px 0 #000; 
+      /* 修复：次级标题重影缩小 */
+      text-shadow: 1px 1px 0 #000; 
     }
     .dossier-desc { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 25px; }
 
@@ -352,7 +350,12 @@
     ================================================================
     */
     .form-group { margin-bottom: 25px; }
-    .form-label { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--wab-yellow); text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 8px; }
+    /* 修复：表单 Label 重影问题 */
+    .form-label { 
+      font-family: 'JetBrains Mono'; font-size: 11px; color: var(--wab-yellow); 
+      text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 8px; 
+      text-shadow: 0.5px 0.5px 0 var(--wab-red);
+    }
     .f-input {
         width: 100%; background: #000; border: none; border-bottom: 5px solid var(--wab-red);
         padding: 18px; color: #fff; font-family: 'JetBrains Mono'; transition: 0.3s;
@@ -399,8 +402,8 @@
     .footer-hazard { position: absolute; top: 0; left: 0; width: 100%; height: 15px; background: var(--red-hazard); }
     
     footer h2 {
-      /* 修复：页脚大标题重影从10px缩减至4px */
-      text-shadow: 4px 4px 0 var(--wab-red);
+      /* 修复：页脚大标题重影距离调小 */
+      text-shadow: 2.5px 2.5px 0 var(--wab-red);
     }
 
   </style>
@@ -418,12 +421,9 @@
         <div class="hero-tag">DECENTRALIZED ACCESS :: CLOUD.SYNC</div>
         <h1 class="bebas">WAB CAMPUS<br><span>RECOVERY</span> SYSTEM</h1>
         <p class="mono">> INTERNAL RESOURCE TERMINAL v4.0.2</p>
-        <div style="margin-top:40px; border-left: 10px solid #000; padding-left: 20px;">
-            <div class="mono" style="color:#000; font-size: 14px; font-weight: 900;">
-                LOCATION: BEIJING_SHUNYI_DISTRICT<br>
-                AUTH: STUDENT_BODY_VERIFIED<br>
-                UPTIME: 99.9%
-            </div>
+        <div style="margin-top:30px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="https://mytime.wab-edu.cn/" target="_blank" class="mono" style="background:#000; color:var(--wab-yellow); padding:5px 15px; text-decoration:none; font-size:12px; font-weight:900; border:2px solid #000;">★ MYTIME.WAB-EDU.CN ★</a>
+            <a href="https://powerschool.wab-edu.cn/" target="_blank" class="mono" style="background:#000; color:var(--wab-cyan); padding:5px 15px; text-decoration:none; font-size:12px; font-weight:900; border:2px solid #000;">★ PS.WAB-EDU.CN ★</a>
         </div>
       </div>
 
@@ -485,7 +485,7 @@
               <!-- Dynamically Injected Lines -->
             </div>
             <div class="application-form">
-                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 2px 2px 0 #000;">CAS_APPLICATION</h2>
+                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 1px 1px 0 #000;">CAS_APPLICATION</h2>
                 <form onsubmit="submitVolunteerApp(event)">
                     <div class="form-group">
                         <label class="form-label">Full Name</label>

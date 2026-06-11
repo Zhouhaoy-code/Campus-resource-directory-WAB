@@ -1,636 +1,938 @@
---- START OF FILE WAB_ULTIMATE_HUB.html ---
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WAB CAMPUS RECOVERY | ULTIMATE HUB</title>
+  <title>★ WAB ULTIMATE CAMPUS HUB ★</title>
   
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;700;800&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" />
   
   <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+    /* 
+    ================================================================
+    WAB ULTIMATE SYSTEM STYLESHEET
+    THEME: RED, BLACK, YELLOW (AGGRESSIVE HIGH-CONTRAST)
+    DESIGNED FOR: WESTERN ACADEMY OF BEIJING
+    ================================================================
+    */
+
     :root {
       --wab-yellow: #FDF100;
-      --wab-magenta: #FF0090;
-      --wab-cyan: #00BCFF;
-      --wab-dark: #0A0A0F;
-      --wab-ink: #000000;
-      --wab-gray: #1C1C24;
-      --danger-stripes: repeating-linear-gradient(-45deg, var(--wab-ink) 0, var(--wab-ink) 10px, var(--wab-yellow) 10px, var(--wab-yellow) 20px);
-      --magenta-stripes: repeating-linear-gradient(45deg, var(--wab-ink) 0, var(--wab-ink) 5px, var(--wab-magenta) 5px, var(--wab-magenta) 10px);
+      --wab-red: #FF0000;
+      --wab-dark: #000000;
+      --wab-ink: #111111;
+      --wab-gray: #1C1C1E;
+      --wab-white: #FFFFFF;
+      --wab-border: 6px solid #000000;
+      --skew-deg: -7deg;
+      
+      --stripes: repeating-linear-gradient(
+        -45deg,
+        #000 0, #000 15px,
+        var(--wab-yellow) 15px, var(--wab-yellow) 30px
+      );
+      
+      --red-hazard: repeating-linear-gradient(
+        45deg,
+        #000 0, #000 5px,
+        var(--wab-red) 5px, var(--wab-red) 10px
+      );
+
+      --halftone: radial-gradient(circle, rgba(255, 0, 0, 0.2) 1px, transparent 1px);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
+    /* GLOBAL RESET */
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      cursor: crosshair; 
+      outline: none;
+    }
 
     body {
       background-color: var(--wab-dark);
       background-image: 
-        radial-gradient(circle at 2px 2px, rgba(255,0,144,0.15) 1px, transparent 0);
-      background-size: 30px 30px;
-      color: #F2F2F7;
+        var(--halftone),
+        linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.8));
+      background-size: 20px 20px, 100% 100%;
+      color: var(--wab-white);
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
-      line-height: 1.4;
+      min-height: 200vh;
     }
 
-    .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
-
-    /* Utility */
+    /* UTILITIES */
     .bebas { font-family: 'Bebas Neue', sans-serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .skew-v { transform: skew(-5deg); }
-    .shadow-heavy { box-shadow: 12px 12px 0 var(--wab-ink); }
-    .shadow-magenta { box-shadow: 10px 10px 0 var(--wab-magenta); }
-
-    /* Top Hazard */
-    .hazard-header {
-      height: 24px;
-      background: var(--danger-stripes);
-      border-bottom: 4px solid var(--wab-ink);
-      position: sticky; top: 0; z-index: 1000;
+    .skew { transform: skew(var(--skew-deg)); }
+    .unskew { transform: skew(calc(var(--skew-deg) * -1)); }
+    .shadow-yellow { filter: drop-shadow(15px 15px 0 #000); }
+    .shadow-red { filter: drop-shadow(10px 10px 0 var(--wab-red)); }
+    
+    .glitch-text {
+      text-shadow: 2px 2px var(--wab-red), -2px -2px var(--wab-yellow);
     }
 
-    /* Hero Section */
-    header { display: flex; flex-direction: column; gap: 30px; margin: 40px 0; }
-    @media (min-width: 992px) { header { flex-direction: row; } }
+    /* ANIMATIONS */
+    @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+    @keyframes shake { 0% { transform: translate(0,0); } 10% { transform: translate(-2px, 2px); } 20% { transform: translate(2px, -2px); } 100% { transform: translate(0,0); } }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* LAYOUT COMPONENTS */
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; position: relative; }
+
+    /* TOP HAZARD UI */
+    .top-hazard {
+      height: 30px;
+      background: var(--stripes);
+      border-bottom: 8px solid #000;
+      position: sticky; top: 0; z-index: 9999;
+    }
+
+    .scanning-line {
+      position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+      background: rgba(255, 0, 0, 0.3);
+      z-index: 9998; pointer-events: none;
+      animation: scanline 8s linear infinite;
+    }
+
+    /* 
+    ================================================================
+    HEADER / HERO
+    ================================================================
+    */
+    header {
+      display: flex; flex-direction: column; gap: 40px; margin: 60px 0;
+    }
+    @media (min-width: 992px) { header { flex-direction: row; align-items: stretch; } }
 
     .hero-main {
       flex: 1;
       background: var(--wab-yellow);
-      border: 6px solid var(--wab-ink);
-      padding: 40px;
+      border: 10px solid #000;
+      padding: 60px;
       position: relative;
       transform: rotate(-1.5deg);
-      transition: 0.3s;
+      box-shadow: 25px 25px 0 var(--wab-red);
     }
-    .hero-main:hover { transform: rotate(0deg) scale(1.01); }
 
     .hero-tag {
-      position: absolute; top: -10px; left: 20px;
-      background: var(--wab-magenta); color: #fff;
-      font-family: 'JetBrains Mono'; font-size: 12px; padding: 5px 15px;
-      font-weight: bold; border: 3px solid var(--wab-ink);
+      position: absolute; top: -20px; left: 30px;
+      background: #000; color: var(--wab-yellow);
+      padding: 8px 25px; font-weight: 900; font-family: 'JetBrains Mono';
+      border: 4px solid #000; transform: skew(-15deg);
     }
 
-    .hero-title h1 {
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      color: var(--wab-ink);
-      line-height: 0.85;
-      text-transform: uppercase;
-      text-shadow: 6px 6px 0 var(--wab-magenta);
-      margin-bottom: 20px;
+    .hero-main h1 {
+      font-size: clamp(4rem, 12vw, 8rem);
+      color: #000; line-height: 0.75;
+      text-transform: uppercase; margin-bottom: 30px;
+      letter-spacing: -5px;
+    }
+
+    .hero-main p {
+      background: #000; color: #fff;
+      display: inline-block; padding: 10px 20px;
+      font-family: 'JetBrains Mono'; font-weight: bold;
+      transform: skew(-10deg); font-size: 1.1rem;
     }
 
     .hero-sidebar {
       width: 100%;
-      background: var(--wab-magenta);
-      border: 6px solid var(--wab-ink);
-      padding: 25px;
-      transform: rotate(1.5deg);
+      background: var(--wab-red);
+      border: 10px solid #000;
+      padding: 40px;
       display: flex; flex-direction: column; justify-content: space-between;
+      transform: rotate(1.5deg);
+      box-shadow: 20px 20px 0 var(--wab-yellow);
     }
-    @media (min-width: 992px) { .hero-sidebar { width: 340px; } }
+    @media (min-width: 992px) { .hero-sidebar { width: 400px; } }
 
-    .sidebar-status {
-      font-family: 'JetBrains Mono'; font-weight: 900; color: #fff;
-      background: #000; padding: 8px; margin-bottom: 20px;
-      display: flex; justify-content: space-between;
+    .sidebar-clock {
+      font-size: 3rem; font-family: 'Bebas Neue'; color: #000;
+      border-bottom: 5px solid #000; margin-bottom: 20px;
+    }
+
+    .status-panel {
+      background: #000; color: var(--wab-yellow);
+      padding: 20px; font-family: 'JetBrains Mono';
+      font-size: 13px; font-weight: 900;
+      line-height: 2;
     }
 
     .quote-box {
-      background: var(--wab-yellow); border: 4px solid var(--wab-ink);
-      padding: 15px; color: #000; font-weight: bold;
-      transition: 0.2s; position: relative;
+      margin-top: 30px; background: var(--wab-white); color: #000;
+      padding: 20px; border: 5px solid #000; position: relative;
+      font-weight: 800; font-size: 14px;
     }
-    .quote-box:hover { transform: translate(-5px, -5px); box-shadow: 10px 10px 0 var(--wab-ink); }
-
-    /* Portal Buttons */
-    .portal-section {
-        display: flex; gap: 20px; margin-bottom: 40px; flex-wrap: wrap;
-    }
-    .portal-btn {
-        flex: 1; min-width: 200px; padding: 20px;
-        font-family: 'Bebas Neue'; font-size: 2rem; text-align: center;
-        text-decoration: none; border: 5px solid var(--wab-ink);
-        transition: 0.2s; position: relative;
-    }
-    .btn-time { background: var(--wab-yellow); color: #000; transform: skew(-10deg); }
-    .btn-power { background: var(--wab-cyan); color: #000; transform: skew(10deg); }
-    .portal-btn:hover { filter: brightness(1.1); transform: scale(1.05) skew(0deg); z-index: 10; }
-
-    /* Tabs */
-    .tabs { display: flex; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
-    .tab-btn {
-      flex: 1; padding: 20px; font-family: 'Bebas Neue'; font-size: 1.5rem;
-      background: var(--wab-gray); color: rgba(255,255,255,0.4);
-      border: 4px solid var(--wab-ink); cursor: pointer; transition: 0.3s;
-      clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
-    }
-    .tab-btn.active {
-      background: var(--wab-yellow); color: #000;
-      transform: scale(1.1) rotate(-2deg);
-      box-shadow: 10px 10px 0 var(--wab-magenta);
+    .quote-box::after {
+      content: "REPLY_MESSAGE"; position: absolute; bottom: -12px; right: 10px;
+      background: #000; color: #fff; font-size: 8px; padding: 2px 10px;
     }
 
-    /* Section Headers */
-    .section-header { margin-bottom: 30px; position: relative; }
-    .section-badge {
-        display: inline-block; background: var(--wab-magenta); color: #fff;
-        padding: 5px 20px; font-family: 'JetBrains Mono'; font-weight: 900;
-        transform: skew(-20deg); border: 3px solid var(--wab-ink);
+    /* 
+    ================================================================
+    WAB EMERGENCY INFOGRAPHIC BAR
+    ================================================================
+    */
+    .emergency-broadcast {
+        background: var(--wab-dark);
+        border: 8px solid var(--wab-red);
+        margin-bottom: 80px;
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        position: relative;
+    }
+    .emergency-broadcast::before {
+        content: "CRITICAL_HOTLINES";
+        position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+        background: var(--wab-red); color: #fff; padding: 5px 30px;
+        font-family: 'Bebas Neue'; font-size: 1.5rem; border: 4px solid #000;
     }
 
-    /* Grid & Cards */
-    .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+    .broadcast-item {
+        background: var(--wab-ink);
+        border: 4px solid #333;
+        padding: 20px;
+        display: flex; gap: 15px; align-items: center;
+        text-decoration: none; transition: 0.3s;
+    }
+    .broadcast-item:hover { border-color: var(--wab-yellow); transform: scale(1.05) skew(-5deg); }
+    .broadcast-icon {
+        background: var(--wab-red); color: #fff;
+        width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; font-weight: 900; border: 3px solid #000;
+    }
+    .broadcast-info strong { display: block; color: var(--wab-yellow); font-size: 1.2rem; font-family: 'Bebas Neue'; }
+    .broadcast-info span { font-family: 'JetBrains Mono'; font-size: 11px; color: #888; }
+
+    /* 
+    ================================================================
+    TABS & NAVIGATION
+    ================================================================
+    */
+    .nav-tabs {
+      display: flex; gap: 20px; margin-bottom: 80px; flex-wrap: wrap;
+    }
+    .nav-tab-btn {
+      flex: 1; min-width: 250px;
+      padding: 30px; font-family: 'Bebas Neue'; font-size: 2.2rem;
+      text-transform: uppercase; border: 8px solid #000;
+      background: #111; color: #444; cursor: pointer;
+      position: relative; transition: 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+      clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+    }
+    .nav-tab-btn:hover { color: var(--wab-white); border-color: var(--wab-red); }
+    .nav-tab-btn.active {
+      background: var(--wab-yellow); color: #000; border-color: #000;
+      transform: translateY(-15px) scale(1.05) rotate(-2deg);
+      box-shadow: 20px 20px 0 var(--wab-red);
+    }
+    .nav-tab-btn span { position: absolute; top: 5px; right: 20px; font-size: 10px; font-family: 'JetBrains Mono'; }
+
+    /* 
+    ================================================================
+    DIRECTORY SYSTEM
+    ================================================================
+    */
+    .grid-deck {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 50px;
+    }
+
+    .dossier-card {
+      background: var(--wab-gray); border: 8px solid #000;
+      position: relative; transition: 0.5s;
+    }
+    .dossier-card:hover { transform: translateY(-20px) rotate(3deg); box-shadow: 25px 25px 0 var(--wab-yellow); }
     
-    .lf-card, .c-card, .v-card {
-      background: var(--wab-gray); border: 5px solid var(--wab-ink);
-      display: flex; flex-direction: column; overflow: hidden;
-      position: relative; transition: 0.3s;
+    .dossier-header {
+      height: 100px; background: var(--wab-red); border-bottom: 8px solid #000;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
     }
-    .lf-card:hover { transform: translateY(-10px) rotate(1deg); box-shadow: 15px 15px 0 var(--wab-magenta); }
-
-    .lf-img-wrap { height: 200px; position: relative; border-bottom: 5px solid var(--wab-ink); background: #000; }
-    .lf-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: 0.5s; }
-    .lf-card:hover .lf-img { filter: grayscale(0%); scale: 1.1; }
-
-    .lf-type-badge {
-      position: absolute; top: 15px; left: -10px;
-      padding: 5px 25px; font-family: 'Bebas Neue'; font-size: 1.2rem;
-      border: 3px solid var(--wab-ink); transform: rotate(-5deg);
+    .dossier-header::after {
+      content: ""; position: absolute; inset: 0; background: var(--red-hazard); opacity: 0.3;
     }
-    .badge-lost { background: var(--wab-magenta); color: #fff; }
-    .badge-found { background: var(--wab-cyan); color: #000; }
+    
+    .dossier-body { padding: 30px; }
+    .dossier-id { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--wab-red); margin-bottom: 10px; display: block; font-weight: 900; }
+    .dossier-title { font-family: 'Bebas Neue'; font-size: 2.5rem; line-height: 0.9; margin-bottom: 15px; text-shadow: 3px 3px 0 #000; }
+    .dossier-desc { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 25px; }
 
-    .lf-body { padding: 20px; flex: 1; }
-    .lf-title { font-family: 'Bebas Neue'; font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
-
-    .lf-actions { display: flex; background: var(--wab-ink); padding: 10px; gap: 10px; }
-    .reclaim-btn {
-      flex: 1; background: var(--wab-cyan); color: #000;
-      font-family: 'Bebas Neue'; font-size: 1.3rem; border: none; padding: 10px; transition: 0.2s;
+    .dossier-footer {
+      background: #000; padding: 15px; text-align: center;
+      font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--wab-yellow);
+      cursor: pointer; transition: 0.3s;
     }
-    .reclaim-btn:hover { background: var(--wab-yellow); transform: scale(1.05); }
-    .delete-btn {
-      background: #333; color: var(--wab-magenta); border: none; padding: 10px 15px; transition: 0.3s;
-    }
-    .delete-btn:hover { background: var(--wab-magenta); color: #fff; transform: rotate(90deg); }
+    .dossier-footer:hover { background: var(--wab-yellow); color: #000; }
 
-    /* Forms */
-    .form-panel { background: var(--wab-gray); border: 6px solid var(--wab-ink); padding: 30px; margin-bottom: 40px; box-shadow: 15px 15px 0 var(--wab-cyan); }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; background: #000; border: none; border-bottom: 4px solid var(--wab-magenta);
-      padding: 15px; color: #fff; font-family: 'JetBrains Mono'; margin-bottom: 20px;
+    /* 
+    ================================================================
+    LOST & FOUND ARCHITECTURE
+    ================================================================
+    */
+    .bulletin-container { display: none; }
+    .bulletin-controls {
+        display: flex; justify-content: space-between; align-items: flex-end;
+        margin-bottom: 50px; border-bottom: 10px solid var(--wab-yellow);
+        padding-bottom: 20px;
     }
-    .form-input:focus { border-bottom-color: var(--wab-yellow); background: #0a0a0f; }
 
-    /* Custom Upload */
-    .upload-area {
-      border: 4px dashed var(--wab-magenta); padding: 30px; text-align: center;
-      margin-bottom: 20px; transition: 0.3s;
+    .post-trigger {
+        background: var(--wab-red); color: #fff; border: 6px solid #000;
+        padding: 15px 40px; font-family: 'Bebas Neue'; font-size: 2rem;
+        cursor: pointer; transform: skew(-10deg); transition: 0.3s;
     }
-    .upload-area:hover { background: rgba(255, 0, 144, 0.1); border-color: var(--wab-yellow); }
+    .post-trigger:hover { background: var(--wab-yellow); color: #000; transform: skew(0deg) scale(1.1); }
 
-    /* Modal */
+    .lf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; }
+
+    .lf-item-card {
+        background: var(--wab-ink); border: 8px solid #000;
+        transition: 0.4s; position: relative;
+    }
+    .lf-item-card:hover { transform: scale(1.05); box-shadow: 20px 20px 0 var(--wab-magenta); }
+
+    .lf-photo { height: 250px; width: 100%; object-fit: cover; border-bottom: 8px solid #000; }
+    
+    .lf-badge {
+        position: absolute; top: 20px; left: -10px;
+        background: var(--wab-yellow); color: #000; padding: 5px 20px;
+        font-family: 'Bebas Neue'; font-size: 1.2rem; transform: rotate(-5deg);
+        border: 4px solid #000;
+    }
+    .badge-lost { background: var(--wab-red); color: #fff; }
+
+    .lf-info { padding: 25px; }
+    .lf-name { font-family: 'Bebas Neue'; font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+    .lf-meta-small { font-family: 'JetBrains Mono'; font-size: 11px; color: #666; margin-bottom: 15px; }
+
+    .action-row { display: flex; background: #000; padding: 10px; gap: 10px; }
+    .btn-resolve { flex: 1; background: var(--wab-cyan); border: none; padding: 12px; font-family: 'Bebas Neue'; font-size: 1.5rem; cursor: pointer; }
+    .btn-trash { background: #333; color: var(--wab-red); border: none; width: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .btn-trash:hover { background: var(--wab-red); color: #fff; transform: rotate(90deg); }
+
+    /* 
+    ================================================================
+    VOLUNTEERING HUB
+    ================================================================
+    */
+    .v-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 40px; }
+    @media (max-width: 900px) { .v-grid { grid-template-columns: 1fr; } }
+
+    .opportunity-card {
+        background: #111; border: 6px solid #000; margin-bottom: 30px;
+        display: flex; gap: 0; overflow: hidden;
+    }
+    .v-img-box { width: 150px; background: var(--wab-red); border-right: 6px solid #000; }
+    .v-details { padding: 25px; flex: 1; }
+
+    .application-form {
+        background: var(--wab-gray); border: 10px solid #000; padding: 40px;
+        box-shadow: 20px 20px 0 var(--wab-red);
+    }
+    
+    /* 
+    ================================================================
+    FORMS & INPUTS
+    ================================================================
+    */
+    .form-group { margin-bottom: 25px; }
+    .form-label { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--wab-yellow); text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 8px; }
+    .f-input {
+        width: 100%; background: #000; border: none; border-bottom: 5px solid var(--wab-red);
+        padding: 18px; color: #fff; font-family: 'JetBrains Mono'; transition: 0.3s;
+    }
+    .f-input:focus { border-bottom-color: var(--wab-yellow); background: #08080c; transform: translate(5px, -5px); box-shadow: -5px 5px 0 var(--wab-red); }
+
+    .file-upload-zone {
+        border: 4px dashed var(--wab-yellow); padding: 40px; text-align: center;
+        background: #000; color: var(--wab-yellow); font-family: 'Bebas Neue';
+        font-size: 1.5rem; cursor: pointer; transition: 0.3s;
+    }
+    .file-upload-zone:hover { background: rgba(253, 241, 0, 0.1); transform: scale(0.98); }
+
+    /* 
+    ================================================================
+    MODAL SYSTEM
+    ================================================================
+    */
     .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-      z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+      position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+      z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;
     }
     .modal-card {
-      background: var(--wab-dark); border: 8px solid var(--wab-ink);
-      width: 100%; max-width: 900px; display: flex; flex-direction: column;
-      position: relative; animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: var(--wab-dark); border: 10px solid #000; width: 100%; max-width: 1000px;
+      display: flex; flex-direction: row; position: relative;
+      animation: modalEntrance 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    @keyframes modalPop { from { transform: scale(0.5) rotate(10deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
-    
-    .modal-sidebar { background: var(--wab-magenta); color: #fff; padding: 30px; width: 35%; border-right: 8px solid var(--wab-ink); }
-    @media (max-width: 768px) { .modal-card { flex-direction: column; } .modal-sidebar { width: 100%; border-right: none; border-bottom: 8px solid var(--wab-ink); } }
-    .modal-content { flex: 1; padding: 40px; overflow-y: auto; max-height: 80vh; background-image: radial-gradient(var(--wab-gray) 1px, transparent 0); background-size: 20px 20px; }
+    @keyframes modalEntrance { from { transform: translateY(100px) scale(0.8) rotate(5deg); opacity: 0; } to { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; } }
 
-    .close-modal {
-      position: absolute; top: -20px; right: -20px;
-      background: var(--wab-yellow); border: 5px solid var(--wab-ink);
-      width: 50px; height: 50px; font-size: 2rem; font-weight: 900;
-    }
+    .modal-side { background: var(--wab-red); padding: 40px; width: 38%; border-right: 10px solid #000; }
+    .modal-content { flex: 1; padding: 50px; overflow-y: auto; max-height: 80vh; }
+    .modal-close { position: absolute; top: -30px; right: -30px; background: var(--wab-yellow); border: 6px solid #000; width: 70px; height: 70px; font-size: 2.5rem; font-weight: 900; }
 
-    /* Match Widget */
-    .match-widget {
-        background: var(--wab-magenta); border: 6px solid var(--wab-ink);
-        padding: 20px; margin-bottom: 30px; transform: skewX(-5deg);
-    }
-    .match-item { background: #000; padding: 15px; border: 2px solid var(--wab-yellow); margin-top: 10px; }
-
+    /* 
+    ================================================================
+    FOOTER
+    ================================================================
+    */
     footer {
-        margin-top: 100px; background: var(--wab-ink); padding: 60px 20px;
-        text-align: center; border-top: 10px solid var(--wab-magenta);
+        margin-top: 150px; background: #000; padding: 100px 40px;
+        text-align: center; border-top: 15px solid var(--wab-yellow);
+        position: relative;
     }
+    .footer-hazard { position: absolute; top: 0; left: 0; width: 100%; height: 15px; background: var(--red-hazard); }
+
   </style>
 </head>
 <body>
 
-  <div class="hazard-header"></div>
+  <div class="top-hazard"></div>
+  <div class="scanning-line"></div>
 
   <div class="container">
     
+    <!-- HEADER -->
     <header>
-      <div class="hero-main shadow-heavy">
-        <div class="hero-tag">★ WAB INTERNAL ACCESS ★</div>
-        <div class="hero-title">
-          <h1 class="bebas">WAB CAMPUS <span>RECOVERY</span> <br>& RESOURCE HUB</h1>
+      <div class="hero-main">
+        <div class="hero-tag">DECENTRALIZED ACCESS :: CLOUD.SYNC</div>
+        <h1 class="bebas">WAB CAMPUS<br><span>RECOVERY</span> SYSTEM</h1>
+        <p class="mono">> INTERNAL RESOURCE TERMINAL v4.0.2</p>
+        <div style="margin-top:40px; border-left: 10px solid #000; padding-left: 20px;">
+            <div class="mono" style="color:#000; font-size: 14px; font-weight: 900;">
+                LOCATION: BEIJING_SHUNYI_DISTRICT<br>
+                AUTH: STUDENT_BODY_VERIFIED<br>
+                UPTIME: 99.9%
+            </div>
         </div>
-        <p class="mono" style="background:#000; color: var(--wab-yellow); padding: 10px; display: inline-block;">
-          Secure decentralized registry for Western Academy of Beijing students.
-        </p>
       </div>
 
-      <div class="hero-sidebar shadow-heavy">
-        <div class="sidebar-status">
-          <span>SYSTEM.STATUS</span>
-          <span style="color:var(--wab-yellow)">● LIVE_SYNC</span>
+      <div class="hero-sidebar">
+        <div class="sidebar-clock bebas" id="wabClock">00:00:00</div>
+        <div class="status-panel">
+            [SYS] ACCESS_GRANTED<br>
+            [SYS] DB_STATUS: ONLINE<br>
+            [SYS] COORDINATOR: A. CROUCH<br>
+            [SYS] SECURITY: ENCRYPTED
         </div>
-        <div class="mono" style="font-size: 13px; color: #000; font-weight: 900;">
-          DATABASE: CLOUD_READY<br>
-          ENCRYPTION: WAB_STANDARD<br>
-          COORD: ANGELIA CROUCH
-        </div>
-        <div class="quote-box" onclick="rotateQuote()">
-          <p id="quoteText" class="mono" style="font-size: 11px;">"Friendly cooperation makes our campus better!"</p>
-          <div style="font-size: 8px; text-align: right; margin-top: 10px; color: var(--wab-magenta);">[ CLICK TO REFRESH ]</div>
+        <div class="quote-box" id="quoteTrigger" onclick="rotateQuote()">
+          <p id="quoteParagraph">"Keep your CAS hours high and your stress levels low!"</p>
+          <div class="mono" style="font-size: 8px; margin-top: 15px; color: var(--wab-red); font-weight: 900;">[ CLICK_TO_ROTATE_QUOTES ]</div>
         </div>
       </div>
     </header>
 
-    <!-- Portal Section -->
-    <section class="portal-section">
-        <a href="https://mytime.wab-edu.cn/" target="_blank" class="portal-btn btn-time shadow-heavy">★ MYTIME LOGIN ★</a>
-        <a href="https://powerschool.wab-edu.cn/" target="_blank" class="portal-btn btn-power shadow-heavy">★ POWERSCHOOL ★</a>
-    </section>
-
-    <!-- Navigation Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">★ CAMPUS DIRECTORY ★</button>
-      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">★ TIGER VOLUNTEERING ★</button>
-      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">☆ STUDENT LOST & FOUND ☆</button>
+    <!-- HOTLINE BAR -->
+    <div class="emergency-broadcast shadow-yellow">
+        <a href="tel:+861084564155" class="broadcast-item">
+            <div class="broadcast-icon bebas">C</div>
+            <div class="broadcast-info"><strong>CLINIC (ext. 100)</strong><span>Immediate Medical Attention</span></div>
+        </a>
+        <a href="tel:+861084564155" class="broadcast-item">
+            <div class="broadcast-icon bebas">B</div>
+            <div class="broadcast-info"><strong>BUS OFFICE (ext. 200)</strong><span>Logistics & Route Support</span></div>
+        </a>
+        <a href="tel:+861084564155" class="broadcast-item">
+            <div class="broadcast-icon bebas">H</div>
+            <div class="broadcast-info"><strong>HS CORE (ext. 331)</strong><span>Academic Admin Hub</span></div>
+        </a>
+        <a href="tel:+861084564155" class="broadcast-item">
+            <div class="broadcast-icon bebas">T</div>
+            <div class="broadcast-info"><strong>TECH BAR (ext. 500)</strong><span>MacBook Repair & IT</span></div>
+        </a>
     </div>
+
+    <!-- MAIN TABS -->
+    <nav class="nav-tabs">
+      <button class="nav-tab-btn active" id="btnDir" onclick="switchTab('directory')">★ CAMPUS DIRECTORY <span>[01]</span></button>
+      <button class="nav-tab-btn" id="btnVol" onclick="switchTab('volunteering')">★ TIGER VOLUNTEERING <span>[02]</span></button>
+      <button class="nav-tab-btn" id="btnLF" onclick="switchTab('lostfound')">☆ STUDENT BULLETINS <span>[03]</span></button>
+    </nav>
 
     <main>
       
-      <!-- Panel 1: Directory -->
-      <div id="panel-directory">
-        <div class="section-header">
-            <div class="section-badge shadow-heavy">CORE DEPARTMENTS</div>
+      <!-- DIRECTORY -->
+      <section id="panel-directory">
+        <div class="grid-deck" id="resourcesGrid">
+          <!-- Dynamically Injected Lines -->
         </div>
-        <div class="grid-cards" id="resourcesGrid"></div>
-      </div>
+      </section>
 
-      <!-- Panel 2: Volunteering -->
-      <div id="panel-volunteering" style="display: none;">
-        <div class="section-header">
-            <div class="section-badge shadow-heavy" style="background:var(--wab-cyan)">SERVICE & CAS HUB</div>
-        </div>
+      <!-- VOLUNTEERING -->
+      <section id="panel-volunteering" style="display: none;">
         <div class="v-grid">
-            <div id="volOpportunitiesGrid"></div>
-            <div class="form-panel shadow-heavy">
-                <h2 class="bebas" style="font-size: 2.5rem; margin-bottom: 20px; color: var(--wab-cyan);">DIRECT APPLICATION</h2>
+            <div id="volOpportunitiesGrid">
+              <!-- Dynamically Injected Lines -->
+            </div>
+            <div class="application-form">
+                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 4px 4px 0 #000;">CAS_APPLICATION</h2>
                 <form onsubmit="submitVolunteerApp(event)">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" id="vName" class="form-input" required placeholder="LIAM WONG" />
-                    
-                    <label class="form-label">Target Opportunity</label>
-                    <select id="vRole" class="form-select">
-                        <option value="v1">Tiger Peer Tutoring Alliance</option>
-                        <option value="v2">Eco-Warriors Sustainability Audit</option>
-                        <option value="v3">Literacy Buddy Program</option>
-                    </select>
-
-                    <label class="form-label">Why are you joining?</label>
-                    <textarea id="vMsg" class="form-textarea" rows="4"></textarea>
-                    
-                    <button type="submit" class="submit-btn" style="width:100%; background:var(--wab-cyan); border:4px solid #000; font-family:'Bebas Neue'; font-size:1.5rem; padding:10px;">★ SUBMIT TO OFFICE ★</button>
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="vName" class="f-input" required placeholder="LIAM WONG" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Grade Level</label>
+                        <select id="vGrade" class="f-input">
+                            <option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Target Initiative</label>
+                        <select id="vRole" class="f-input">
+                            <option value="v1">Tiger Peer Tutoring Alliance</option>
+                            <option value="v2">Eco-Warriors Sustainability Audit</option>
+                            <option value="v3">Literacy Buddy Program</option>
+                            <option value="v4">Tech Support Apprenticeship</option>
+                            <option value="v5">Roots & Shoots Collaboration</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Brief Statement of Intent</label>
+                        <textarea id="vMsg" class="f-input" rows="5" placeholder="WHY SHOULD THE COORDINATOR APPROVE YOUR CAS HOURS?"></textarea>
+                    </div>
+                    <button type="submit" class="bebas" style="width:100%; background:var(--wab-red); color:#fff; border:5px solid #000; padding:20px; font-size:2rem; cursor:pointer; box-shadow: 10px 10px 0 var(--wab-yellow);">★ SUBMIT TO STAFF ★</button>
                 </form>
-                <div id="registrationsList" style="margin-top:30px;"></div>
+                <div id="localRegs" style="margin-top: 40px;"></div>
             </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Panel 3: Lost & Found -->
-      <div id="panel-lostfound" style="display: none;">
-        <div id="matchWidget" class="match-widget" style="display: none;">
-            <h4 class="bebas" style="font-size: 1.5rem; color: #000;">★ MATCH DETECTOR: POTENTIAL COLLISIONS ★</h4>
+      <!-- LOST & FOUND -->
+      <section id="panel-lostfound" style="display: none;">
+        
+        <div id="matchBanner" class="match-alert" style="display: none;">
+            <h4 class="bebas" style="font-size: 2rem;">!!! CLOUD_MATCH_COLLISION_DETECTED !!!</h4>
             <div id="collisionsList"></div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 40px; border-bottom: 8px solid var(--wab-magenta); padding-bottom: 10px;">
-            <h2 class="bebas" style="font-size: 3.5rem;">STUDENT BULLETINS</h2>
-            <button onclick="toggleFormPanel()" id="postBtnToggle" class="submit-btn" style="background:var(--wab-yellow); border:4px solid #000; font-family:'Bebas Neue'; padding:10px 30px; font-size:1.5rem;">★ POST CASE + ★</button>
+        <div class="bulletin-controls">
+            <h2 class="bebas" style="font-size: 4rem; color: #fff;">HUB_BULLETINS</h2>
+            <button class="post-trigger" onclick="toggleForm()">★ FILE NEW CASE + ★</button>
         </div>
 
-        <!-- Form Panel -->
-        <div class="form-panel shadow-heavy" id="lfFormPanel" style="display:none;">
-            <div style="display:flex; justify-content:space-between; margin-bottom: 30px;">
-                <h3 class="bebas" style="font-size: 2.5rem; color: var(--wab-yellow);">NEW CASE FILING</h3>
-                <div style="display:flex; gap:10px; background:#000; padding:5px;">
-                    <button id="typeLost" onclick="setFormType('lost')" style="background:var(--wab-magenta); color:#fff; border:none; padding:10px 20px; font-family:'Bebas Neue';">LOST</button>
-                    <button id="typeFound" onclick="setFormType('found')" style="background:transparent; color:#666; border:none; padding:10px 20px; font-family:'Bebas Neue';">FOUND</button>
+        <div class="form-panel shadow-red" id="lfFormPanel" style="display: none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 40px;">
+                <h3 class="bebas" style="font-size: 2.5rem; color: var(--wab-yellow);">REGISTRY_FORM_B7</h3>
+                <div style="display:flex; background:#000; padding:5px; border:4px solid #333;">
+                    <button id="btnTypeLost" onclick="setFormType('lost')" style="background:var(--wab-red); color:#fff; border:none; padding:10px 25px; font-family:'Bebas Neue';">LOST</button>
+                    <button id="btnTypeFound" onclick="setFormType('found')" style="background:transparent; color:#666; border:none; padding:10px 25px; font-family:'Bebas Neue';">FOUND</button>
                 </div>
             </div>
+
             <form onsubmit="submitLfItem(event)">
-                <div class="grid-2">
-                    <div class="form-group"><label class="form-label">Item Headline</label><input type="text" id="lfTitle" required class="form-input" placeholder="BLUE WATER BOTTLE" /></div>
-                    <div class="form-group"><label class="form-label">Date</label><input type="date" id="lfDate" required class="form-input" /></div>
-                </div>
-                <div class="grid-2">
-                    <div class="form-group"><label class="form-label">Location</label><select id="lfLocation" class="form-select"><option>Atrium</option><option>Library</option><option>Cafeteria</option><option>HS Wing</option><option>Sports Pitch</option></select></div>
-                    <div class="form-group"><label class="form-label">Category</label><select id="lfCategory" class="form-select"><option>Electronics</option><option>Clothing</option><option>ID/Card</option><option>Bags</option></select></div>
-                </div>
-                <div class="form-group"><label class="form-label">Visual Proof</label>
-                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                        <span id="uploadLabel" class="mono">CLICK TO UPLOAD CUSTOM PHOTO 📸</span>
-                        <input type="file" id="fileInput" hidden accept="image/*" onchange="handleImageUpload(event)">
-                        <img id="uploadPreview" style="display:none; max-height:150px; margin: 10px auto; border:3px solid var(--wab-yellow);">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px;">
+                    <div class="form-group">
+                        <label class="form-label">Headline</label>
+                        <input type="text" id="lfTitle" class="f-input" required placeholder="BLUE BOTTLE, NIKON CAP..." />
                     </div>
-                    <div class="preset-photos" id="presetPhotos" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+                    <div class="form-group">
+                        <label class="form-label">Case Date</label>
+                        <input type="date" id="lfDate" class="f-input" required />
+                    </div>
                 </div>
-                <div class="form-group"><label class="form-label">Details</label><textarea id="lfDesc" class="form-textarea" rows="3"></textarea></div>
-                <div class="grid-2">
-                    <div class="form-group"><label class="form-label">Reporter Name</label><input type="text" id="lfName" required class="form-input" /></div>
-                    <div class="form-group"><label class="form-label">Contact (Email/WeChat)</label><input type="text" id="lfContact" required class="form-input" /></div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px;">
+                    <div class="form-group">
+                        <label class="form-label">Last Known Zone</label>
+                        <select id="lfLocation" class="f-input">
+                            <option>Library HUB</option><option>Cafeteria</option><option>HS Atrium</option><option>Sports Pitch</option><option>Music Floor</option><option>Gym</option><option>Theater</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Class Category</label>
+                        <select id="lfCategory" class="f-input">
+                            <option>Electronics</option><option>Clothing/Blazer</option><option>ID/Access Cards</option><option>Keys/Fobs</option><option>Bottle/Flask</option><option>Other</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group" id="rewardGroup"><label class="form-label">Reward Incentive (Optional)</label><input type="text" id="lfReward" class="form-input" /></div>
-                
-                <div style="display:flex; justify-content:flex-end; gap:20px;">
-                    <button type="button" onclick="toggleFormPanel()" class="bebas" style="background:none; border:none; color:#666; font-size:1.5rem;">CANCEL</button>
-                    <button type="submit" class="submit-btn" style="background:var(--wab-yellow); padding:10px 40px; font-family:'Bebas Neue'; font-size:2rem; border:4px solid #000;">★ PUBLISH BULLETIN ★</button>
+
+                <div class="form-group">
+                    <label class="form-label">Visual Verification</label>
+                    <div class="file-upload-zone" onclick="document.getElementById('fileInp').click()">
+                        <span id="uploadLabel">UPLOAD_PHOTO.JPG // CLICK TO SELECT</span>
+                        <input type="file" id="fileInp" hidden accept="image/*" onchange="handleImg(event)">
+                        <img id="imgPreview" style="display:none; max-height:200px; margin:20px auto; border:4px solid #000;">
+                    </div>
+                    <div id="presetsGrid" style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Identifying Marks</label>
+                    <textarea id="lfDesc" class="f-input" rows="3" placeholder="SERIAL NUMBERS, STICKERS, LABELS..."></textarea>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px;">
+                    <div class="form-group">
+                        <label class="form-label">Filer Student Name</label>
+                        <input type="text" id="lfName" class="f-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Direct Contact Address</label>
+                        <input type="text" id="lfContact" class="f-input" required placeholder="EMAIL / WECHAT" />
+                    </div>
+                </div>
+
+                <div class="form-group" id="rewardGrp">
+                    <label class="form-label">Reward Incentive</label>
+                    <input type="text" id="lfReward" class="f-input" placeholder="BOBA, TREATS, GRATITUDE..." />
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:30px; border-top: 5px solid #000; padding-top: 30px;">
+                    <button type="button" onclick="toggleForm()" class="bebas" style="background:none; border:none; color:#666; font-size:2rem; cursor:pointer;">ABORT_CASE</button>
+                    <button type="submit" class="bebas shadow-red" style="background:var(--wab-red); color:#fff; border:6px solid #000; padding:15px 60px; font-size:2.5rem; cursor:pointer;">★ PUBLISH_TO_HUB ★</button>
                 </div>
             </form>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="filter-bar shadow-heavy" style="background: var(--wab-gray); border:4px solid #000; padding: 20px; margin-bottom: 40px; display:flex; gap:15px; flex-wrap:wrap;">
-            <input type="text" id="filterSearch" placeholder="SEARCH BULLETINS..." class="form-input" style="flex:1; margin-bottom:0;" oninput="renderLF()">
-            <select id="filterType" class="form-select" style="width:auto; margin-bottom:0;" onchange="renderLF()">
-                <option value="all">ALL STATUS</option>
-                <option value="lost">LOST</option>
-                <option value="found">FOUND</option>
-                <option value="reclaimed">RECLAIMED / ARCHIVED</option>
+        <!-- Filter UI -->
+        <div style="background:var(--wab-gray); padding:30px; border:10px solid #000; margin-bottom:60px; display:flex; gap:20px; flex-wrap:wrap;" class="shadow-red">
+            <input type="text" id="lfSearch" placeholder="SEARCH_DATABASE..." class="f-input" style="flex:1; margin-bottom:0;" oninput="renderLF()">
+            <select id="lfFilterType" class="f-input" style="width:auto; margin-bottom:0;" onchange="renderLF()">
+                <option value="all">ALL_RECORDS</option>
+                <option value="lost">LOST_ONLY</option>
+                <option value="found">FOUND_ONLY</option>
+                <option value="reclaimed">ARCHIVED/RECLAIMED</option>
             </select>
         </div>
 
-        <div id="lfItemsGrid" class="grid-cards"></div>
-      </div>
+        <div id="lfItemsGrid" class="lf-grid">
+          <!-- Dynamically Injected Lines -->
+        </div>
+
+      </section>
+
     </main>
 
-    <!-- Global Modal -->
-    <div class="modal-overlay" id="detailModal" onclick="closeModal()">
+    <!-- MODAL ARCHITECTURE -->
+    <div class="modal-overlay" id="globalModal" onclick="closeModal()">
         <div class="modal-card" onclick="event.stopPropagation()">
-            <button class="close-modal bebas" onclick="closeModal()">X</button>
-            <div class="modal-sidebar shadow-heavy" id="modalSidebar">
-                <span id="modalBadge" style="background:#000; padding:5px 10px; font-family:'JetBrains Mono'; font-size:10px;"></span>
-                <h2 id="modalTitle" class="bebas" style="font-size: 3rem; margin-top: 20px;"></h2>
-                <div id="modalMeta" style="margin-top: 30px; font-family:'JetBrains Mono'; font-size:12px; display:flex; flex-direction:column; gap:15px;"></div>
+            <button class="modal-close bebas" onclick="closeModal()">X</button>
+            <div class="modal-side">
+                <span id="mBadge" class="mono" style="background:#000; padding:5px 15px; font-size:10px; font-weight:900;">SYSTEM_TAG</span>
+                <h2 id="mTitle" class="bebas" style="font-size: 4rem; margin-top: 20px; line-height:0.8;">ITEM_NAME</h2>
+                <div id="mMeta" style="margin-top: 40px;"></div>
             </div>
-            <div class="modal-content" id="modalContent">
-                <!-- Data here -->
-            </div>
+            <div class="modal-content" id="mContent"></div>
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
-        <div class="hazard-header" style="position:absolute; top:0; left:0; width:100%;"></div>
-        <h2 class="bebas" style="font-size: 3rem; color: var(--wab-yellow); text-shadow: 4px 4px 0 var(--wab-magenta);">★ BEIJING WAB COMMUNITY SHIELD ★</h2>
-        <p class="mono" style="font-size: 10px; opacity: 0.5; margin-top: 20px;">© 2026 WESTERN ACADEMY OF BEIJING. INDEPENDENT DIRECTORY PORTAL.</p>
+        <div class="footer-hazard"></div>
+        <h2 class="bebas" style="font-size: 5rem; color:var(--wab-yellow); text-shadow: 10px 10px 0 var(--wab-red);">★ BEIJING WAB COMMUNITY SHIELD ★</h2>
+        <div class="mono" style="margin-top:30px; font-size: 12px; color:#444;">
+            VERSION: 4.0.2-RELEASE_B<br>
+            CORE_ENGINE: SUPABASE_CLOUD_SYNC<br>
+            © 2026 WESTERN ACADEMY OF BEIJING INDEPENDENT PORTAL
+        </div>
     </footer>
 
   </div>
 
   <script>
-    // --- SUPABASE SETUP ---
+    /*
+    ================================================================
+    WAB HUB CORE JAVASCRIPT
+    ================================================================
+    */
+
+    // --- CLOUD CONFIGURATION ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const TABLE_NAME = 'bulletins';
 
+    // --- DATASETS (EXTENSIVE CONTENT) ---
     const presetImages = [
-      { url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400' },
-      { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400' },
-      { url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?w=400' },
-      { url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400' },
-      { url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400' }
+      { url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500' },
+      { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500' },
+      { url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?w=500' },
+      { url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500' },
+      { url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500' }
     ];
 
     const resources = [
-      { id: 'r1', category: 'counseling', title: 'HS Support & Wellbeing', lead: 'Sarah Martinez', description: 'Confidential guidance and emotional support for high school students.', loc: 'Room H214' },
-      { id: 'r2', category: 'tech', title: 'TigerTech IT Support', lead: 'David Wu', description: 'Hardware diagnostics and network assistance for MacBooks.', loc: 'IT Bar Level 1' },
-      { id: 'r3', category: 'library', title: 'The Hub Library', lead: 'Dr. Timothy Cole', description: 'IB Research mentorship and collaborative study text resources.', loc: 'HUB Atrium' }
+      { id:'r1', category:'Counseling', title:'HS Support & Wellbeing', lead:'Sarah Martinez', loc:'Room H214', desc:'Confidential guidance for academic stress, workload management, and personal mental health facilitation for Grades 9-12.' },
+      { id:'r2', category:'IT_Bar', title:'TigerTech Support', lead:'David Wu', loc:'TechBar Level 1', desc:'Core MacBook hardware diagnostic, institutional Wi-Fi & VPN configuration, and software licensing aid (Adobe/Office).' },
+      { id:'r3', category:'Library', title:'The Hub HUB Research', lead:'Tim Cole', loc:'The HUB Atrium', desc:'Advanced research mentorship, JSTOR/Ebsco database subscriptions, and IB Extended Essay literary support center.' },
+      { id:'r4', category:'CAS_Dept', title:'Service & CAS Coordination', lead:'Angelia Crouch', loc:'Global Lounge', desc:'Verification hub for local and international volunteering projects, project approval, and CAS portfolio management.' },
+      { id:'r5', category:'Clinic', title:'Campus Medical Clinic', lead:'Nurse Head', loc:'Administrative Wing', desc:'Immediate first aid, allergic reaction protocols, and chronic medication management center for all students.' },
+      { id:'r6', category:'Athletics', title:'WAB Tigers Sports', lead:'Athletic Dir', loc:'Gym Level 2', desc:'Scheduling hub for ACAMIS/APAC sports events, training protocols, and varsity team announcements.' },
+      { id:'r7', category:'Bus_Office', title:'Transport Logistics', lead:'Admin Team', loc:'West Gate', desc:'Route management, dynamic delay broadcasts, and bus scheduling for the entire WAB student body.' }
     ];
 
-    const vOpportunities = [
-      { id: 'v1', title: 'Tiger Peer Tutoring', desc: 'Assist middle schoolers with homework.', area: 'Math Wing' },
-      { id: 'v2', title: 'Eco-Warriors Audit', desc: 'Audit campus energy and recycling.', area: 'Campus Center' }
+    const vOpps = [
+      { id:'v1', title:'Tiger Peer Tutoring', area:'HS HUB', lead:'Dr. Angelia Crouch', desc:'Assist middle school students during specified study hall sessions in Math and Science subjects.' },
+      { id:'v2', title:'Eco-Warriors Audit', area:'Campus Wide', lead:'Angelia Crouch', desc:'Environmental auditing of campus energy consumption and room recycling efficiency benchmarks.' },
+      { id:'v3', title:'Literacy Buddy', area:'ES Library', lead:'Primary Liaison', desc:'Reading Illustrative story books and leading reading comprehension tasks for Grade 1-3 children.' },
+      { id:'v4', title:'Tech Support Apprentice', area:'IT Bar', lead:'David Wu', desc:'Assisting the tech team with institutional device setup and minor software troubleshooting.' },
+      { id:'v5', title:'Roots & Shoots', area:'HS Garden', lead:'Angelia Crouch', desc:'Sustainable agriculture initiative involving campus garden maintenance and community pantry donation.' }
     ];
 
+    const quotes = [
+      '"A beautiful campus relies on friendly cooperation. Keep your heart helpful!" — Advisor Vance',
+      '"Found my lost MacBook in under 10 minutes using the Hub Bulletin. Unmatched efficiency!" — Emily K.',
+      '"Secure your CAS hours early! Angelia is checking submissions every Tuesday." — CAS Liaison',
+      '"Clinic ext. 100 for emergencies. Stay safe and hydrated, Tigers!" — Medical Staff'
+    ];
+
+    // --- STATE ---
     let lfItems = [];
-    let activeFormType = 'lost';
-    let selectedImage = presetImages[0].url;
-    let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
+    let currentTab = 'directory';
+    let currentFormType = 'lost';
+    let selectedImageStr = presetImages[0].url;
+    let localVApps = JSON.parse(localStorage.getItem('wab_v_apps') || '[]');
 
-    window.onload = async function() {
+    // --- CLOCK ---
+    setInterval(() => {
+        const d = new Date();
+        document.getElementById('wabClock').innerText = d.getHours().toString().padStart(2,'0') + ":" + d.getMinutes().toString().padStart(2,'0') + ":" + d.getSeconds().toString().padStart(2,'0');
+    }, 1000);
+
+    window.onload = async () => {
         document.getElementById('lfDate').value = new Date().toISOString().split('T')[0];
         renderResources();
         renderVolunteering();
-        renderPhotoPresets();
+        renderPresets();
+        renderVApps();
         await fetchBulletins();
     };
 
-    // --- FETCH ---
-    async function fetchBulletins() {
-        const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
-        if (!error) { lfItems = data || []; renderLF(); detectMatches(); }
+    // --- SYSTEM LOGIC ---
+    function switchTab(t) {
+        currentTab = t;
+        ['directory','volunteering','lostfound'].forEach(p => document.getElementById('panel-'+p).style.display = (p===t?'block':'none'));
+        ['btnDir','btnVol','btnLF'].forEach(b => {
+            const btn = document.getElementById(b);
+            btn.classList.toggle('active', btn.id.toLowerCase().includes(t.toLowerCase().substring(0,3)));
+        });
+        if(t==='lostfound') fetchBulletins();
     }
 
-    // --- SUBMIT ---
+    function rotateQuote() {
+        const p = document.getElementById('quoteParagraph');
+        p.style.animation = 'shake 0.3s';
+        setTimeout(() => {
+            p.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            p.style.animation = '';
+        }, 150);
+    }
+
+    // --- SUPABASE ENGINE ---
+    async function fetchBulletins() {
+        const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
+        if (!error) { lfItems = data || []; renderLF(); checkMatches(); }
+    }
+
     async function submitLfItem(e) {
       e.preventDefault();
       const newItem = {
-        type: activeFormType,
-        title: document.getElementById('lfTitle').value.trim(),
+        type: currentFormType,
+        title: document.getElementById('lfTitle').value,
         date: document.getElementById('lfDate').value,
         location: document.getElementById('lfLocation').value,
         category: document.getElementById('lfCategory').value,
-        description: document.getElementById('lfDesc').value.trim(),
-        studentName: document.getElementById('lfName').value.trim(),
-        contactDetails: document.getElementById('lfContact').value.trim(),
+        description: document.getElementById('lfDesc').value,
+        studentName: document.getElementById('lfName').value,
+        contactDetails: document.getElementById('lfContact').value,
         Status: 'active',
-        RewardInfo: activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : null,
-        image: selectedImage
+        RewardInfo: currentFormType === 'lost' ? document.getElementById('lfReward').value : null,
+        image: selectedImageStr
       };
 
       const { error } = await _supabase.from(TABLE_NAME).insert([newItem]);
-      if (error) alert("Upload Failed: " + error.message);
-      else { toggleFormPanel(); await fetchBulletins(); }
+      if (error) {
+          alert("DATABASE_ERROR: " + error.message);
+      } else {
+          toggleForm();
+          await fetchBulletins();
+          alert("★ RECORD_PUBLISHED_SUCCESSFULLY ★");
+      }
     }
 
-    // --- UPDATE (RECLAIM) ---
-    async function resolveProperty(event, id) {
+    async function updateStatus(event, id) {
         event.stopPropagation();
         const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
-        if (error) alert("Sync failed.");
-        else await fetchBulletins();
+        if(!error) await fetchBulletins();
     }
 
-    // --- DELETE ---
-    async function archiveProperty(event, id) {
+    async function eraseRecord(event, id) {
         event.stopPropagation();
-        if (!confirm("Permanently erase this record from cloud?")) return;
+        if(!confirm("ERASE_PERMANENTLY?")) return;
         const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
-        if (error) alert("Delete failed.");
-        else await fetchBulletins();
+        if(!error) await fetchBulletins();
     }
 
-    // --- IMAGE UPLOAD ---
-    function handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    function handleImg(e) {
+        const file = e.target.files[0];
         const reader = new FileReader();
-        reader.onload = (e) => {
-            selectedImage = e.target.result;
-            const preview = document.getElementById('uploadPreview');
-            preview.src = selectedImage; preview.style.display = 'block';
-            document.getElementById('uploadLabel').innerText = "CUSTOM IMAGE READY ★";
+        reader.onload = (ev) => {
+            selectedImageStr = ev.target.result;
+            const prev = document.getElementById('imgPreview');
+            prev.src = selectedImageStr; prev.style.display = 'block';
+            document.getElementById('uploadLabel').innerText = "CUSTOM_DATA_READY";
         };
         reader.readAsDataURL(file);
     }
 
-    // --- MODAL ---
+    // --- MODAL ENGINE ---
     function openModal(type, id) {
-        const meta = document.getElementById('modalMeta');
-        const content = document.getElementById('modalContent');
-        const badge = document.getElementById('modalBadge');
-        const title = document.getElementById('modalTitle');
+        const modal = document.getElementById('globalModal');
+        const badge = document.getElementById('mBadge');
+        const title = document.getElementById('mTitle');
+        const meta = document.getElementById('mMeta');
+        const content = document.getElementById('mContent');
 
         if (type === 'directory') {
             const r = resources.find(x => x.id === id);
-            badge.innerText = r.category.toUpperCase();
+            badge.innerText = "DEPARTMENT_DOSSIER";
             title.innerText = r.title;
-            meta.innerHTML = `<div><b>DIRECTOR:</b> ${r.lead}</div><div><b>HQ:</b> ${r.loc}</div>`;
-            content.innerHTML = `<p style="font-size:1.2rem; color:#aaa; line-height:1.6;">${r.description}</p>`;
+            meta.innerHTML = `
+                <div style="border-left: 5px solid #000; padding-left: 10px;">
+                    <span style="color:#000; font-weight:900;">DIRECTOR:</span><br><b>${r.lead}</b>
+                </div>
+                <div style="border-left: 5px solid #000; padding-left: 10px; margin-top: 15px;">
+                    <span style="color:#000; font-weight:900;">STATION:</span><br><b>${r.loc}</b>
+                </div>
+            `;
+            content.innerHTML = `<p style="font-size: 1.8rem; line-height: 1.4; color: var(--wab-yellow); font-weight:700;">${r.desc}</p>`;
         } else {
             const item = lfItems.find(x => x.id.toString() === id.toString());
-            badge.innerText = item.type.toUpperCase();
+            badge.innerText = item.type.toUpperCase() + "_BULLETIN";
             title.innerText = item.title;
-            meta.innerHTML = `<div><b>REPORTER:</b> ${item.studentName}</div><div style="color:var(--wab-yellow)"><b>CONTACT:</b> ${item.contactDetails}</div>`;
-            content.innerHTML = `
-                <img src="${item.image}" style="width:100%; height:300px; object-fit:cover; border:5px solid #000; margin-bottom:20px;" />
-                <p class="mono" style="font-size:12px; opacity:0.6;">📍 LOCATION: ${item.location} | 📅 DATE: ${item.date}</p>
-                <div style="background:rgba(255,255,255,0.05); padding:20px; border:2px solid #333; margin-top:20px; font-size:15px;">
-                    ${item.description || 'No description provided.'}
+            meta.innerHTML = `
+                <div style="border-left: 5px solid #000; padding-left: 10px;">
+                    <span style="color:#000; font-weight:900;">REPORTED_BY:</span><br><b>${item.studentName}</b>
                 </div>
-                ${item.RewardInfo ? `<div style="background:var(--wab-magenta); color:#fff; padding:15px; margin-top:20px; font-family:'Bebas Neue'; font-size:1.5rem;">🏆 REWARD: ${item.RewardInfo}</div>` : ''}
+                <div style="border-left: 5px solid #000; padding-left: 10px; margin-top: 15px;">
+                    <span style="color:#000; font-weight:900;">CONTACT_LINE:</span><br><b style="color:var(--wab-yellow)">${item.contactDetails}</b>
+                </div>
+            `;
+            content.innerHTML = `
+                <img src="${item.image}" style="width:100%; height:400px; object-fit:cover; border:10px solid #000; margin-bottom:30px;" />
+                <div style="background:rgba(255,255,255,0.05); padding:30px; border:2px solid #333; font-size: 1.4rem;">
+                    <b>OBSERVATIONS:</b><br>${item.description || 'NO ADDITIONAL DATA'}
+                </div>
+                ${item.RewardInfo ? `<div style="background:var(--wab-red); color:#fff; padding:20px; margin-top:20px; font-family:'Bebas Neue'; font-size:2rem;">★ REWARD: ${item.RewardInfo} ★</div>` : ''}
+                <div style="margin-top:30px; opacity:0.3; font-size: 10px;" class="mono">STATUS: ${item.Status} // DB_ID: ${item.id}</div>
             `;
         }
-        document.getElementById('detailModal').style.display = 'flex';
+        modal.style.display = 'flex';
     }
 
-    function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
+    function closeModal() { document.getElementById('globalModal').style.display = 'none'; }
 
-    // --- RENDERING ---
+    // --- RENDERERS ---
     function renderLF() {
-      const grid = document.getElementById('lfItemsGrid');
-      const q = document.getElementById('filterSearch').value.toLowerCase();
-      const type = document.getElementById('filterType').value;
-      
-      const filtered = lfItems.filter(i => {
-          const matchQ = i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q);
-          const matchT = (type === 'all') || (type === 'reclaimed' ? i.Status === 'reclaimed' : (i.type === type && i.Status === 'active'));
-          return matchQ && matchT;
-      });
+        const grid = document.getElementById('lfItemsGrid');
+        const q = document.getElementById('lfSearch').value.toLowerCase();
+        const tF = document.getElementById('lfFilterType').value;
 
-      grid.innerHTML = filtered.map(item => `
-        <div class="lf-card" onclick="openModal('lf', '${item.id}')">
-          <div class="lf-img-wrap">
-            <img class="lf-img" src="${item.image}" />
-            <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</div>
-            ${item.Status === 'reclaimed' ? '<div class="reclaimed-overlay"><span class="reclaimed-stamp">RECLAIMED</span></div>' : ''}
-          </div>
-          <div class="lf-body">
-            <h4 class="lf-title">${item.title}</h4>
-            <div class="mono" style="font-size:10px; opacity:0.5;">By: ${item.studentName}</div>
-          </div>
-          <div class="lf-actions">
-            ${item.Status === 'active' ? `
-              <button class="reclaim-btn" onclick="resolveProperty(event, '${item.id}')">★ RECLAIM ★</button>
-              <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">✕</button>
-            ` : `
-              <div style="flex:1; text-align:center; color:var(--wab-cyan); font-family:'Bebas Neue'; font-size:1.2rem; padding:10px;">★ ARCHIVED ★</div>
-              <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">✕</button>
-            `}
-          </div>
-        </div>
-      `).join('');
+        const filtered = lfItems.filter(i => {
+            const mQ = i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q);
+            const mT = (tF === 'all') || (tF === 'reclaimed' ? i.Status === 'reclaimed' : (i.type === tF && i.Status === 'active'));
+            return mQ && mT;
+        });
+
+        grid.innerHTML = filtered.map(item => `
+            <article class="lf-item-card" onclick="openModal('lf', '${item.id}')">
+                <div class="lf-img-wrap">
+                    <img src="${item.image}" class="lf-photo" />
+                    <div class="lf-badge ${item.type==='lost'?'badge-lost':''}">★ ${item.type.toUpperCase()}</div>
+                    ${item.Status==='reclaimed'?'<div class="reclaimed-overlay"><div class="reclaimed-stamp">RECLAIMED</div></div>':''}
+                </div>
+                <div class="lf-info">
+                    <h3 class="lf-name">${item.title}</h3>
+                    <div class="lf-meta-small">📍 ${item.location} // 📅 ${item.date}</div>
+                    <div style="font-size:12px; opacity:0.6;">By: ${item.studentName}</div>
+                </div>
+                <div class="action-row">
+                    ${item.Status==='active'?`
+                        <button class="btn-resolve" onclick="updateStatus(event, '${item.id}')">★ SECURED ★</button>
+                        <button class="btn-trash" onclick="eraseRecord(event, '${item.id}')">✕</button>
+                    `:`<div style="flex:1; text-align:center; padding:10px; font-family:'Bebas Neue'; color:var(--wab-cyan);">★ ARCHIVED ★</div>
+                       <button class="btn-trash" onclick="eraseRecord(event, '${item.id}')">✕</button>`}
+                </div>
+            </article>
+        `).join('');
     }
 
     function renderResources() {
-      document.getElementById('resourcesGrid').innerHTML = resources.map(r => `
-        <div class="c-card" onclick="openModal('directory', '${r.id}')">
-          <div class="card-header"><span style="background:var(--wab-yellow); color:#000; padding:2px 10px; font-family:'Bebas Neue';">${r.category}</span></div>
-          <div style="padding:20px;"><h3 class="bebas" style="font-size:2rem;">${r.title}</h3></div>
-          <button style="background:var(--wab-ink); color:#fff; border:none; padding:10px; font-family:'Bebas Neue'; font-size:1.2rem;">VIEW DETAILS</button>
-        </div>
-      `).join('');
+        document.getElementById('resourcesGrid').innerHTML = resources.map(r => `
+            <div class="dossier-card" onclick="openModal('directory', '${r.id}')">
+                <div class="dossier-header"><h3 class="bebas" style="font-size:2.5rem; color:#000; position:relative; z-index:1;">${r.category}</h3></div>
+                <div class="dossier-body">
+                    <span class="dossier-id">STATION_REF // ${r.id}</span>
+                    <h4 class="dossier-title">${r.title}</h4>
+                    <p class="dossier-desc">${r.desc.substring(0,60)}...</p>
+                </div>
+                <div class="dossier-footer">★ ACCESS_DOSSIER ★</div>
+            </div>
+        `).join('');
     }
 
     function renderVolunteering() {
-        document.getElementById('volOpportunitiesGrid').innerHTML = vOpportunities.map(o => `
-            <div class="v-card shadow-heavy">
-                <div style="padding:20px; background:var(--wab-gray); border-bottom:4px solid #000;">
-                    <h3 class="bebas" style="font-size:2rem; color:var(--wab-cyan);">${o.title}</h3>
-                    <p class="mono" style="font-size:10px; opacity:0.6;">📍 ${o.area}</p>
-                </div>
-                <div style="padding:20px;">
-                    <p style="font-size:14px; color:#ccc;">${o.desc}</p>
-                    <button onclick="document.getElementById('vRole').value='${o.id}'" style="margin-top:15px; width:100%; padding:10px; background:var(--wab-ink); color:var(--wab-cyan); border:2px solid var(--wab-cyan); font-family:'Bebas Neue';">SELECT ROLE</button>
+        document.getElementById('volOpportunitiesGrid').innerHTML = vOpps.map(o => `
+            <div class="opportunity-card shadow-red">
+                <div class="v-img-box"></div>
+                <div class="v-details">
+                    <h3 class="bebas" style="font-size:2.2rem; color:var(--wab-red);">${o.title}</h3>
+                    <p class="mono" style="font-size:10px; margin-bottom:10px;">📍 AREA: ${o.area} // LEAD: ${o.lead}</p>
+                    <p style="font-size:14px; opacity:0.8;">${o.desc}</p>
+                    <button class="btn-resolve" style="margin-top:15px; width:100%; border:4px solid #000;" onclick="document.getElementById('vRole').value='${o.id}'">★ SELECT_INITIATIVE ★</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function detectMatches() {
-      const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
-      const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
-      const matches = [];
-      lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) matches.push({l, f}); })});
-      const widget = document.getElementById('matchWidget');
-      if (matches.length > 0) {
-        widget.style.display = 'block';
-        document.getElementById('collisionsList').innerHTML = matches.map(m => `<div class="match-item mono">DETECTED: <b>${m.l.title}</b> (Lost) + <b>${m.f.title}</b> (Found) @ ${m.l.location}</div>`).join('');
-      } else widget.style.display = 'none';
+    function submitVolunteerApp(e) {
+        e.preventDefault();
+        const app = { name: document.getElementById('vName').value, role: document.getElementById('vRole').value, date: new Date().toLocaleDateString() };
+        localVApps.unshift(app);
+        localStorage.setItem('wab_v_apps', JSON.stringify(localVApps));
+        renderVApps();
+        alert("APPLICATION_RECEIVED: Local record updated.");
     }
 
-    // --- UI UI UI ---
-    function switchTab(tab) {
-      ['directory', 'volunteering', 'lostfound'].forEach(p => document.getElementById('panel-' + p).style.display = (p === tab ? 'block' : 'none'));
-      ['directory', 'volunteering', 'lostfound'].forEach(t => document.getElementById('tab-' + t).className = (t === tab ? 'tab-btn active' : 'tab-btn'));
-      if (tab === 'lostfound') fetchBulletins();
+    function renderVApps() {
+        document.getElementById('localRegs').innerHTML = localVApps.map(a => `<div style="background:#000; padding:15px; border:2px solid #444; margin-bottom:10px; font-size:12px;">★ <b>${a.name}</b> applied for ${a.role} on ${a.date} <span style="color:var(--wab-cyan)">[PENDING_SYNC]</span></div>`).join('');
     }
-    function toggleFormPanel() { const p = document.getElementById('lfFormPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; }
+
+    function checkMatches() {
+        const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
+        const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
+        const matches = [];
+        lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) matches.push({l, f}); })});
+        const banner = document.getElementById('matchBanner');
+        if (matches.length > 0) {
+            banner.style.display = 'block';
+            document.getElementById('collisionsList').innerHTML = matches.map(m => `MATCH: ${m.l.title} <-> ${m.f.title} @ ${m.l.location}`).join('<br>');
+        } else banner.style.display = 'none';
+    }
+
+    // --- UI TOOLS ---
+    function toggleForm() {
+        const p = document.getElementById('lfFormPanel');
+        p.style.display = (p.style.display==='none'?'block':'none');
+    }
     function setFormType(t) {
-        activeFormType = t;
-        document.getElementById('typeLost').style.background = (t === 'lost' ? 'var(--wab-magenta)' : 'none');
-        document.getElementById('typeFound').style.background = (t === 'found' ? 'var(--wab-cyan)' : 'none');
-        document.getElementById('rewardGroup').style.display = (t === 'lost' ? 'block' : 'none');
+        currentFormType = t;
+        document.getElementById('btnTypeLost').style.background = (t==='lost'?'var(--wab-red)':'none');
+        document.getElementById('btnTypeFound').style.background = (t==='found'?'var(--wab-yellow)':'none');
+        document.getElementById('rewardGrp').style.display = (t==='lost'?'block':'none');
     }
-    function renderPhotoPresets() {
-        document.getElementById('presetPhotos').innerHTML = presetImages.map(p => `
-            <img src="${p.url}" style="width:60px; height:60px; border:3px solid #000; cursor:pointer;" onclick="selectedImage='${p.url}'; document.getElementById('uploadPreview').style.display='none';">
-        `).join('');
+    function renderPresets() {
+        document.getElementById('presetsGrid').innerHTML = presetImages.map(p => `<img src="${p.url}" style="width:70px; height:70px; border:4px solid #000; cursor:pointer;" onclick="selectedImageStr='${p.url}'; document.getElementById('imgPreview').style.display='none';">`).join('');
     }
-    function rotateQuote() { document.getElementById('quoteText').innerText = "The WAB spirit is found in how we help each other!"; }
-    function submitVolunteerApp(e) { e.preventDefault(); alert("APPLICATION SENT TO STAFF!"); }
 
   </script>
 </body>

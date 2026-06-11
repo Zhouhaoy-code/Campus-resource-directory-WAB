@@ -1,4 +1,3 @@
---- START OF FILE Paste June 11, 2026 - 9:36AM ---
 
 <!DOCTYPE html>
 <html lang="en">
@@ -174,12 +173,6 @@
       text-transform: uppercase;
     }
 
-    @media (min-width: 576px) {
-      .hero-main h1 {
-        font-size: 3.5rem;
-      }
-    }
-
     .hero-main p {
       font-weight: 700;
       color: var(--p4-pure);
@@ -188,24 +181,18 @@
       line-height: 1.6;
     }
 
-    /* Quote Widget Sidebar */
+    /* Sidebar */
     .hero-sidebar {
       width: 100%;
       background: var(--p4-gray);
       border: 4px solid var(--p4-pure);
       padding: 20px;
-      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 16px;
     }
-
-    @media (min-width: 992px) {
-      .hero-sidebar {
-        width: 320px;
-      }
-    }
+    @media (min-width: 992px) { .hero-sidebar { width: 320px; } }
 
     .sidebar-status {
       display: flex;
@@ -213,1453 +200,275 @@
       align-items: center;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      font-weight: bold;
       color: var(--p4-yellow);
       border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
       padding-bottom: 8px;
     }
 
-    .status-online {
-      color: var(--p4-magenta);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .status-online { color: var(--p4-magenta); display: flex; align-items: center; gap: 6px; }
+    .status-indicator { width: 6px; height: 6px; background-color: var(--p4-magenta); border-radius: 50%; box-shadow: 0 0 8px var(--p4-magenta); }
+    .status-row { display: flex; justify-content: space-between; background: rgba(0, 0, 0, 0.4); padding: 4px; border: 1px solid var(--p4-pure); font-size: 11px; font-family: 'JetBrains Mono'; }
 
-    .status-indicator {
-      width: 6px;
-      height: 6px;
-      background-color: var(--p4-magenta);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--p4-magenta);
-    }
+    .quote-box { background: var(--p4-yellow); color: var(--p4-pure); padding: 12px; border: 2px solid var(--p4-pure); cursor: pointer; box-shadow: 3px 3px 0 rgba(0,0,0,1); }
+    .quote-text { font-size: 10px; font-weight: bold; }
 
-    .status-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px;
-      border: 1px solid var(--p4-pure);
-    }
-
-    .status-label {
-      color: rgba(242, 242, 247, 0.4);
-    }
-
-    .quote-box {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      padding: 12px;
-      border: 2px solid var(--p4-pure);
-      cursor: pointer;
-      box-shadow: 3px 3px 0 rgba(0,0,0,1);
-      transition: all 0.2s;
-    }
-
-    .quote-box:hover {
-      background: var(--p4-yellow-pale);
-    }
-
-    .quote-text {
-      font-size: 10px;
-      font-weight: bold;
-      line-height: 1.4;
-    }
-
-    .quote-action {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
-      color: var(--p4-magenta);
-      font-weight: 900;
-      text-align: right;
-      margin-top: 6px;
-      text-transform: uppercase;
-    }
-
-    /* Emergency Hotlines Row */
-    .link-section {
-      background: var(--p4-card);
-      border: 4px solid var(--p4-pure);
-      padding: 16px;
-      margin-bottom: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    @media (min-width: 768px) {
-      .link-section {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-
-    .link-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .link-badge {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      padding: 4px 12px;
-      border: 2px solid var(--p4-pure);
-      transform: rotate(-1deg);
-      font-weight: bold;
-    }
-
-    .link-title h3 {
-      font-size: 1.5rem;
-      line-height: 1.1;
-      color: var(--p4-light);
-      text-transform: uppercase;
-    }
-
-    .link-title p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: rgba(242, 242, 247, 0.4);
-      margin-top: 4px;
-      text-transform: uppercase;
-    }
-
-    .link-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      width: 100%;
-    }
-
-    @media (min-width: 768px) {
-      .link-buttons {
-        width: auto;
-      }
-    }
-
-    .portal-btn {
-      flex: 1;
-      text-align: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.25rem;
-      padding: 8px 24px;
-      border: 2px solid var(--p4-pure);
-      text-decoration: none;
-      box-shadow: 3px 3px 0 rgba(0,0,0,1);
-      transition: all 0.2s;
-    }
-
-    .portal-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-mytime {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-    }
-    .btn-mytime:hover { background: var(--p4-yellow-pale); }
-
-    .btn-powerschool {
-      background: var(--p4-cyan);
-      color: var(--p4-pure);
-    }
-    .btn-powerschool:hover { background: #5ed6ff; }
-
-    /* Tabs Bar */
-    .tabs {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-
-    @media (min-width: 768px) {
-      .tabs {
-        flex-direction: row;
-      }
-    }
-
+    /* Tabs */
+    .tabs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+    @media (min-width: 768px) { .tabs { flex-direction: row; } }
     .tab-btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 16px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      border: 2px solid var(--p4-gray);
-      background: var(--p4-card);
-      color: rgba(242, 242, 247, 0.6);
-      transition: all 0.2s;
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; cursor: pointer;
+      border: 2px solid var(--p4-gray); background: var(--p4-card); color: rgba(242, 242, 247, 0.6);
     }
+    .tab-btn.active { background: var(--p4-yellow); color: var(--p4-pure); border-color: var(--p4-pure); transform: translateY(-4px); box-shadow: 4px 4px 0 rgba(0,0,0,1); }
 
-    .tab-btn svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
+    /* Cards */
+    .grid-cards { display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 768px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1200px) { .grid-cards { grid-template-columns: repeat(4, 1fr); } }
+
+    .c-card, .lf-card {
+      background: var(--p4-card); border: 2px solid var(--p4-pure); display: flex; flex-direction: column;
+      justify-content: space-between; overflow: hidden; box-shadow: 4px 4px 0 rgba(0,0,0,1); transition: 0.2s;
     }
+    .c-card:hover, .lf-card:hover { border-color: var(--p4-yellow); }
 
-    .tab-btn:hover {
-      border-color: var(--p4-yellow);
-      color: var(--p4-light);
-    }
-
-    .tab-btn.active {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      font-weight: 900;
-      border-color: var(--p4-pure);
-      transform: translateY(-4px);
-      box-shadow: 4px 4px 0 rgba(0,0,0,1);
-    }
-
-    /* Subsections Headers */
-    .section-header {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      border-bottom: 2px solid var(--p4-gray);
-      padding-bottom: 16px;
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 768px) {
-      .section-header {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
-
-    .section-badge {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: bold;
-      padding: 6px 16px;
-      transform: rotate(-1deg);
-      border: 1px solid var(--p4-pure);
-      display: inline-block;
-      align-self: flex-start;
-    }
-
-    /* Notification */
-    .success-banner {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      border: 4px solid var(--p4-pure);
-      padding: 12px;
-      text-align: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      box-shadow: 4px 4px 0 rgba(0,0,0,1);
-      margin-bottom: 24px;
-    }
-
-    /* Forms */
-    .form-panel {
-      background: var(--p4-card);
-      border: 4px solid var(--p4-pure);
-      padding: 24px;
-      margin-bottom: 30px;
-    }
-
-    .form-header {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 16px;
-      margin-bottom: 20px;
-    }
-
-    @media (min-width: 768px) {
-      .form-header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
-    .form-toggle {
-      display: flex;
-      background: var(--p4-pure);
-      padding: 4px;
-    }
-
-    .form-toggle-btn {
-      background: none;
-      border: none;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      padding: 6px 16px;
-      color: rgba(242, 242, 247, 0.6);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .form-toggle-btn.active {
-      background: var(--p4-orange);
-      color: var(--p4-pure);
-      font-weight: 955;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--p4-yellow);
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .form-input {
-      background: var(--p4-pure);
-      border: 2px solid var(--p4-gray);
-      color: var(--p4-light);
-      padding: 10px;
-      font-size: 13px;
-      outline: none;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
-      transition: border-color 0.2s;
-    }
-
-    .form-input:focus {
-      border-color: var(--p4-yellow);
-    }
-
-    .form-select {
-      background: var(--p4-pure);
-      border: 2px solid var(--p4-gray);
-      color: var(--p4-light);
-      padding: 10px;
-      font-size: 13px;
-      outline: none;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .form-textarea {
-      background: var(--p4-pure);
-      border: 2px solid var(--p4-gray);
-      color: var(--p4-light);
-      padding: 10px;
-      font-size: 13px;
-      outline: none;
-      font-family: 'JetBrains Mono', monospace;
-      resize: vertical;
-    }
-
-    .form-textarea:focus {
-      border-color: var(--p4-yellow);
-    }
-
-    .preset-photos {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .preset-img-btn {
-      height: 48px;
-      border: 2px solid var(--p4-gray);
-      cursor: pointer;
-      overflow: hidden;
-      background: none;
-      padding: 0;
-    }
-
-    .preset-img-btn.active {
-      border-color: var(--p4-yellow);
-    }
-
-    .preset-img-btn img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 20px;
-      margin-top: 20px;
-    }
-
-    .cancel-btn {
-      background: none;
-      border: none;
-      color: rgba(242, 242, 247, 0.5);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    .submit-btn {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.25rem;
-      padding: 8px 24px;
-      border: 2px solid var(--p4-pure);
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    /* Filter Grid */
-    .filter-bar {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      background: var(--p4-card);
-      padding: 16px;
-      border: 2px solid var(--p4-pure);
-      margin-bottom: 24px;
-    }
-
-    @media (min-width: 768px) {
-      .filter-bar {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-      }
-    }
-
-    .search-wrap {
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      background: var(--p4-pure);
-      border: 2px solid var(--p4-gray);
-      color: #fff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      padding: 10px 10px 10px 32px;
-      outline: none;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 10px;
-      top: 12px;
-      width: 14px;
-      height: 14px;
-      stroke: rgba(255, 255, 255, 0.3);
-    }
-
-    /* Cards Layout */
-    .grid-cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    @media (min-width: 768px) {
-      .grid-cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 992px) {
-      .grid-cards {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (min-width: 1200px) {
-      .grid-cards {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .c-card {
-      background: var(--p4-card);
-      border: 2px solid var(--p4-pure);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      box-shadow: 4px 4px 0 rgba(0,0,0,1);
-      transition: all 0.2s;
-    }
-
-    .c-card:hover {
-      border-color: var(--p4-yellow);
-      transform: scale(1.01) rotate(-0.5deg);
-    }
-
-    .c-header {
-      background: var(--p4-pure);
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--p4-pure);
-    }
-
-    .category-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding: 2px 8px;
-    }
-
-    .badge-counseling { background: var(--p4-yellow); color: var(--p4-pure); }
-    .badge-library { background: var(--p4-orange); color: white; }
-    .badge-tech { background: var(--p4-cyan); color: var(--p4-pure); }
-    .badge-service { background: var(--p4-magenta); color: white; }
-    .badge-community { background: var(--p4-gray); color: white; }
-
-    .c-id-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: rgba(242, 242, 247, 0.4);
-    }
-
-    .c-body {
-      padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .c-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.45rem;
-      text-transform: uppercase;
-      color: var(--p4-light);
-      line-height: 1.1;
-      margin-bottom: 2px;
-    }
-
-    .c-subtitle {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: rgba(242, 242, 247, 0.4);
-      text-transform: uppercase;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-    }
-
-    .c-desc {
-      font-size: 12px;
-      color: rgba(242, 242, 247, 0.7);
-      line-height: 1.5;
-    }
-
-    .c-meta {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: rgba(242, 242, 247, 0.5);
-    }
-
-    .card-action-btn {
-      width: 100%;
-      background: var(--p4-pure);
-      border: none;
-      color: rgba(242, 242, 247, 0.8);
-      padding: 10px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .c-card:hover .card-action-btn {
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-    }
-
-    /* Lost & Found Item Card specific styling */
-    .lf-card {
-      background: var(--p4-card);
-      border: 2px solid var(--p4-pure);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      box-shadow: 4px 4px 0 rgba(0,0,0,1);
-      cursor: pointer;
-    }
-
-    .lf-card:hover {
-      border-color: var(--p4-yellow);
-    }
-
-    .lf-img-wrap {
-      height: 160px;
-      position: relative;
-      background: #000;
-      overflow: hidden;
-    }
-
-    .lf-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.2s;
-    }
-
-    .lf-card:hover .lf-img {
-      transform: scale(1.03);
-    }
-
-    .lf-type-badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.85rem;
-      padding: 2px 8px;
-      border: 1px solid var(--p4-pure);
-      color: var(--p4-pure);
-    }
-    
+    .lf-img-wrap { height: 160px; position: relative; background: #000; overflow: hidden; }
+    .lf-img { width: 100%; height: 100%; object-fit: cover; }
+    .lf-type-badge { position: absolute; top: 8px; left: 8px; font-family: 'Bebas Neue'; padding: 2px 8px; border: 1px solid var(--p4-pure); color: #000; font-size: 0.85rem; }
     .badge-lost { background: var(--p4-orange); }
     .badge-found { background: var(--p4-yellow); }
 
-    .reclaimed-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .reclaimed-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; }
+    .reclaimed-stamp { border: 2px solid var(--p4-cyan); color: var(--p4-cyan); font-family: 'Bebas Neue'; font-size: 1.5rem; padding: 4px 16px; transform: rotate(-12deg); }
 
-    .reclaimed-stamp {
-      border: 2px solid var(--p4-cyan);
-      color: var(--p4-cyan);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      padding: 4px 16px;
-      transform: rotate(-12deg);
-    }
+    .lf-actions { background: var(--p4-pure); padding: 8px; display: flex; gap: 8px; }
+    .reclaim-btn { flex: 1; background: var(--p4-cyan); color: var(--p4-pure); font-family: 'Bebas Neue'; font-size: 1rem; border: none; padding: 8px; cursor: pointer; }
+    .delete-btn { background: var(--p4-gray); border: none; color: var(--p4-magenta); padding: 8px; cursor: pointer; display: flex; align-items: center; }
 
-    .lf-meta-header {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: rgba(242, 242, 247, 0.4);
-      margin-bottom: 6px;
+    /* Upload & Form */
+    .upload-box {
+      border: 2px dashed var(--p4-gray); padding: 15px; text-align: center; cursor: pointer; margin-bottom: 10px; transition: 0.2s;
     }
+    .upload-box:hover { border-color: var(--p4-yellow); background: rgba(253, 241, 0, 0.05); }
+    .upload-preview { max-width: 100%; height: 100px; object-fit: contain; margin-top: 10px; display: none; border: 1px solid var(--p4-gray); }
 
-    .reward-box {
-      background: rgba(255, 144, 0, 0.1);
-      border: 1px dashed rgba(255, 144, 0, 0.3);
-      padding: 6px;
-      margin-top: 8px;
-      font-size: 10px;
-      color: var(--p4-orange);
-    }
+    .form-panel { background: var(--p4-card); border: 4px solid var(--p4-pure); padding: 24px; margin-bottom: 30px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+    .form-label { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--p4-yellow); text-transform: uppercase; }
+    .form-input, .form-select, .form-textarea { background: var(--p4-pure); border: 2px solid var(--p4-gray); color: #fff; padding: 10px; font-family: 'JetBrains Mono'; outline: none; }
 
-    .lf-actions {
-      background: var(--p4-pure);
-      padding: 8px;
-      display: flex;
-      gap: 8px;
-    }
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .modal-card { background: var(--p4-dark); border: 4px solid var(--p4-pure); width: 100%; max-width: 800px; display: flex; flex-direction: column; position: relative; }
+    @media (min-width: 768px) { .modal-card { flex-direction: row; } }
+    .modal-sidebar { background: var(--p4-pure); padding: 24px; border-right: 2px solid var(--p4-pure); width: 35%; }
+    @media (max-width: 768px) { .modal-sidebar { width: 100%; border-right: none; border-bottom: 2px solid #000; } }
+    .modal-content { flex: 1; padding: 24px; overflow-y: auto; max-height: 80vh; }
+    .modal-close { position: absolute; top: 12px; right: 12px; background: var(--p4-yellow); border: 2px solid #000; padding: 4px 8px; cursor: pointer; z-index: 110; }
 
-    .reclaim-btn {
-      flex: 1;
-      background: var(--p4-cyan);
-      color: var(--p4-pure);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      padding: 8px;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-
-    .reclaim-btn:hover {
-      background: var(--p4-yellow);
-    }
-
-    .delete-btn {
-      background: var(--p4-gray);
-      border: none;
-      color: var(--p4-magenta);
-      padding: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .delete-btn:hover {
-      background: var(--p4-magenta);
-      color: var(--p4-pure);
-    }
-    
-    .delete-btn svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-    }
-
-    /* Collision Match Widget */
-    .match-widget {
-      border: 4px solid var(--p4-pure);
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      padding: 16px;
-      position: relative;
-      margin-bottom: 24px;
-      box-shadow: 6px 6px 0 rgba(0,0,0,1);
-    }
-
-    .match-header {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .match-header {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
-    .match-icon-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .match-icon-box {
-      background: var(--p4-pure);
-      padding: 8px;
-      border: 1px solid var(--p4-pure);
-      display: flex;
-    }
-
-    .match-icon-box svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--p4-yellow);
-    }
-
-    .match-grid-list {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .match-grid-list {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .match-tag-card {
-      background: var(--p4-pure);
-      color: var(--p4-light);
-      border: 2px solid var(--p4-gray);
-      padding: 12px;
-    }
-
-    /* Volunteering Elements */
-    .v-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    @media (min-width: 992px) {
-      .v-grid {
-        grid-template-columns: 2fr 1.1fr;
-      }
-    }
-
-    .v-cards-col {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    @media (min-width: 768px) {
-      .v-cards-col {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .v-card {
-      background: var(--p4-card);
-      border: 2px solid var(--p4-pure);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      box-shadow: 4px 4px 0 rgba(0,0,0,1);
-      transition: all 0.2s;
-    }
-
-    .v-card:hover {
-      border-color: var(--p4-cyan);
-    }
-
-    .v-pfp-box {
-      height: 120px;
-      position: relative;
-    }
-
-    .v-pfp-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .v-body-box {
-      padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .v-title-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      color: #fff;
-      line-height: 1.2;
-    }
-
-    .v-coordinator {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: var(--p4-magenta);
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .v-sub-desc {
-      font-size: 12px;
-      color: rgba(242, 242, 247, 0.7);
-      margin-bottom: 12px;
-    }
-
-    .v-footer-stats {
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      padding-top: 10px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: rgba(242, 242, 247, 0.5);
-    }
-
-    .v-select-btn {
-      width: 100%;
-      background: var(--p4-pure);
-      border: none;
-      color: var(--p4-cyan);
-      padding: 8px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      border-top: 1px solid var(--p4-pure);
-    }
-
-    .v-card:hover .v-select-btn {
-      background: var(--p4-cyan);
-      color: var(--p4-pure);
-    }
-
-    /* Volunteering Application lists */
-    .reg-work-box {
-      background: var(--p4-pure);
-      border: 2px solid var(--p4-gray);
-      padding: 16px;
-      margin-top: 20px;
-    }
-
-    .reg-item {
-      background: var(--p4-card);
-      padding: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 8px;
-    }
-
-    .reg-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .reg-title {
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-      text-transform: uppercase;
-    }
-
-    .reg-cancel {
-      background: none;
-      border: none;
-      color: var(--p4-magenta);
-      cursor: pointer;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: bold;
-    }
-
-    .reg-meta {
-      display: flex;
-      justify-content: space-between;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: rgba(242, 242, 247, 0.4);
-    }
-
-    /* Modal Styles */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .modal-card {
-      background: var(--p4-dark);
-      border: 4px solid var(--p4-pure);
-      width: 100%;
-      max-width: 800px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    @media (min-width: 768px) {
-      .modal-card {
-        flex-direction: row;
-      }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--p4-yellow);
-      color: var(--p4-pure);
-      border: 2px solid var(--p4-pure);
-      padding: 4px 8px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 110;
-    }
-
-    .modal-sidebar {
-      background: var(--p4-pure);
-      padding: 24px;
-      border-right: 2px solid var(--p4-pure);
-    }
-
-    @media (min-width: 768px) {
-      .modal-sidebar {
-        width: 35%;
-      }
-    }
-
-    .modal-content {
-      flex: 1;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Footer styling */
-    footer {
-      margin-top: 80px;
-      border-top: 4px solid var(--p4-pure);
-      padding: 32px 16px;
-      text-align: center;
-      position: relative;
-    }
-
-    .footer-hazard {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: repeating-linear-gradient(
-        -45deg,
-        var(--p4-pure) 0,
-        var(--p4-pure) 10px,
-        var(--p4-yellow) 10px,
-        var(--p4-yellow) 20px
-      );
-    }
+    footer { margin-top: 80px; border-top: 4px solid var(--p4-pure); padding: 32px 16px; text-align: center; background: rgba(0,0,0,0.4); position: relative; }
+    .footer-hazard { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: repeating-linear-gradient(-45deg, var(--p4-pure) 0, var(--p4-pure) 10px, var(--p4-yellow) 10px, var(--p4-yellow) 20px); }
   </style>
 </head>
 <body>
 
-  <!-- Top Hazard Boundary -->
   <div class="hazard-header bg-danger-stripes animate-pulse"></div>
 
   <div class="container">
     
-    <!-- Hero Main Header -->
     <header>
       <div class="hero-main shadow-black">
         <div class="hero-tag">★ WAB PORTAL INDEX ★</div>
-        
         <div class="hero-title-box">
-          <div class="hero-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-          </div>
+          <div class="hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
           <div>
-            <div class="hero-meta-title">Beijing WAB Academy ★ SERVICE & COMMUNITY PORTAL</div>
+            <div class="hero-meta-title">Beijing WAB Academy ★ SERVICE & COMMUNITY</div>
             <h1>WAB CAMPUS <span style="color:var(--p4-magenta)">RECOVERY</span> & RESOURCE HUB</h1>
           </div>
         </div>
-        <p>
-          Welcome to the centralized community directory for the Western Academy of Beijing. Connect securely with peer counselors, support teams, libraries, and Angelia Crouch's volunteering program.
-        </p>
+        <p>Welcome to the centralized community directory for WAB. Connect securely with counselors, tech support, and the volunteer program.</p>
       </div>
 
-      <!-- Quick status sidebar -->
       <div class="hero-sidebar shadow-black">
         <div>
-          <div class="sidebar-status">
-            <span>WAB CAMPUS STATUS</span>
-            <span class="status-online">
-              <span class="status-indicator"></span> ONLINE
-            </span>
-          </div>
-          <div class="status-grid">
-            <div class="status-row">
-              <span class="status-label">Student Welfare:</span>
-              <span style="color:var(--p4-yellow);">100% SECURE</span>
-            </div>
-            <div class="status-row">
-              <span class="status-label">Service Coord:</span>
-              <span style="color:var(--p4-cyan);">A. CROUCH</span>
-            </div>
+          <div class="sidebar-status"><span>WAB STATUS</span><span class="status-online"><span class="status-indicator"></span> ONLINE</span></div>
+          <div style="margin-top:10px;">
+            <div class="status-row"><span>Student Welfare:</span><span style="color:var(--p4-yellow);">SECURE</span></div>
+            <div class="status-row"><span>Cloud Storage:</span><span style="color:var(--p4-cyan);">ACTIVE</span></div>
           </div>
         </div>
-
-        <div class="quote-box" onclick="rotateQuote()">
-          <p id="quoteParagraph" class="quote-text">"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged and your heart helpful!" — HS Office Advisor</p>
-          <div class="quote-action">⚡ ROTATE CAMPUS QUOTES</div>
-        </div>
+        <div class="quote-box" onclick="rotateQuote()"><p id="quoteParagraph" class="quote-text">"Friendly cooperation makes our campus better!"</p></div>
       </div>
     </header>
 
-    <!-- Unified Login Portals -->
-    <section class="link-section shadow-black">
-      <div class="link-meta">
-        <div class="link-badge">⚡ PORTALS</div>
-        <div class="link-title">
-          <h3>WAB Student Integrated Channels</h3>
-          <p>Instant login links for high school schedulers and grade management systems</p>
+    <!-- Portals -->
+    <section style="background: var(--p4-card); border:4px solid #000; padding:16px; margin-bottom:30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px;">
+        <div style="font-family:'Bebas Neue'; font-size:1.5rem;">★ Unified Portals ★</div>
+        <div style="display:flex; gap:12px;">
+            <a href="https://mytime.wab-edu.cn/" target="_blank" style="background:var(--p4-yellow); color:#000; padding:8px 20px; text-decoration:none; font-family:'Bebas Neue'; border:2px solid #000;">MYTIME LOGIN ↗</a>
+            <a href="https://powerschool.wab-edu.cn/" target="_blank" style="background:var(--p4-cyan); color:#000; padding:8px 20px; text-decoration:none; font-family:'Bebas Neue'; border:2px solid #000;">POWERSCHOOL ↗</a>
         </div>
-      </div>
-      <div class="link-buttons">
-        <a href="https://mytime.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-mytime">★ MYTIME LOGIN ↗</a>
-        <a href="https://powerschool.wab-edu.cn/" target="_blank" rel="noopener noreferrer" class="portal-btn btn-powerschool">★ POWERSCHOOL LOGIN ↗</a>
-      </div>
     </section>
 
-    <!-- Primary Tabs Buttons -->
     <div class="tabs">
-      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
-        ★ CAMPUS RESOURCE DIRECTORY ★
-      </button>
-      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">
-        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"><path d="M22 10v6M2 10v6M12 2l10 5-10 5L2 7z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
-        ★ TIGER VOLUNTEERING HUB ★
-      </button>
-      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        ☆ STUDENT LOST &amp; FOUND bulletins ☆
-      </button>
+      <button class="tab-btn active" id="tab-directory" onclick="switchTab('directory')">★ CAMPUS DIRECTORY ★</button>
+      <button class="tab-btn" id="tab-volunteering" onclick="switchTab('volunteering')">★ TIGER VOLUNTEERING ★</button>
+      <button class="tab-btn" id="tab-lostfound" onclick="switchTab('lostfound')">☆ STUDENT LOST &amp; FOUND ☆</button>
     </div>
 
-    <!-- MAIN INTERACTIVE SECTION -->
     <main>
-      
-      <!-- ================= TAB 1: CAMPUS DIRECTORY ================= -->
+      <!-- TAB 1: DIRECTORY -->
       <div id="panel-directory">
-        <div class="section-header">
-          <div class="section-badge">★ DEPARTMENTS ACTIVE ★</div>
-          <div>
-            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">CENTRALIZED DIRECTORY</h2>
-            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Immediate hotlines, location tracks, and booking ports for high schoolers.</p>
-          </div>
+        <div class="section-header" style="display:flex; align-items:center; gap:15px; margin-bottom:20px; border-bottom:2px solid #333; padding-bottom:10px;">
+          <div class="section-badge">★ ACTIVE DEPTS ★</div>
+          <h2 class="bebas" style="font-size: 2rem;">CENTRALIZED DIRECTORY</h2>
         </div>
-
         <div class="grid-cards" id="resourcesGrid"></div>
       </div>
 
-      <!-- ================= TAB 2: TIGER VOLUNTEERING HUB ================= -->
+      <!-- TAB 2: VOLUNTEERING -->
       <div id="panel-volunteering" style="display: none;">
-        <div class="section-header">
-          <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure)">★ ANGELIA CROUCH SECTOR ★</div>
-          <div>
-            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">STUDENT SERVICE &amp; VOLUNTEERING</h2>
-            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">Explore verified school slots, file registration rosters, and accrue CAS hours seamlessly.</p>
-          </div>
+        <div class="section-header" style="margin-bottom:20px;">
+          <div class="section-badge" style="background:var(--p4-cyan); color:#000;">★ ANGELIA CROUCH HUB ★</div>
+          <h2 class="bebas" style="font-size: 2rem; margin-top:10px;">STUDENT SERVICE &amp; VOLUNTEERING</h2>
         </div>
-
-        <div id="volSuccessBanner" class="success-banner" style="display: none; background:var(--p4-cyan); color:#000;"></div>
-
-        <div class="v-grid">
-          <!-- Left Column Opportunities -->
-          <div>
-            <h3 class="bebas" style="font-size: 1.6rem; color: #fff; margin-bottom: 16px; border-bottom: 2px solid var(--p4-gray); padding-bottom: 4px;">⚡ Verified Opportunities</h3>
-            <div class="v-cards-col" id="volOpportunitiesGrid"></div>
-          </div>
-
-          <!-- Right Column Submission -->
-          <div>
-            <div class="form-panel" style="position: relative; border-color: var(--p4-pure);">
-              <div class="section-badge" style="background:var(--p4-cyan); color:var(--p4-pure); position: absolute; top:-12px; left:16px;">DIRECT APPLICATION PORT</div>
-              
-              <form id="volunteerForm" onsubmit="submitVolunteerApp(event)" style="margin-top: 12px; display: flex; flex-direction: column; gap:12px;">
-                <div class="form-group">
-                  <label class="form-label" style="color:var(--p4-cyan)">Select Target Role</label>
-                  <select id="vApplyRole" class="form-select">
-                    <option value="v-001">Tiger Peer Tutoring Alliance</option>
-                    <option value="v-002">Eco-Warriors Sustainability Audit</option>
-                    <option value="v-003">Primary School Literacy Buddy</option>
-                  </select>
-                </div>
-
-                <div class="grid-2">
-                  <div class="form-group">
-                    <label class="form-label">Your Name</label>
-                    <input type="text" id="vApplyName" required class="form-input" placeholder="LIAM WONG" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Grade</label>
-                    <select id="vApplyGrade" class="form-select">
-                      <option>Grade 9</option>
-                      <option>Grade 10</option>
-                      <option>Grade 11</option>
-                      <option>Grade 12</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" style="color:var(--p4-cyan)">Contact Address (Email/WeChat ID)</label>
-                  <input type="text" id="vApplyContact" required class="form-input" placeholder="angelia_crouch@wab.edu" />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Core Motivation / Relevance</label>
-                  <textarea id="vApplyMsg" rows="3" class="form-textarea" placeholder="EXPLAIN REASONS FOR APPLYING..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" style="background:var(--p4-cyan); border-color: var(--p4-pure);">★ SUBMIT APPLICATION ★</button>
-              </form>
-            </div>
-
-            <!-- Active registered records -->
-            <div class="reg-work-box">
-              <h4 class="bebas" style="font-size: 1.25rem; color: var(--p4-yellow); margin-bottom: 8px;">★ Your Registered Work</h4>
-              <p class="mono" style="font-size: 8px; color:rgba(255,255,255,0.3); text-transform: uppercase;">Direct inquiries: <a href="mailto:angelia_crouch@wab.edu" style="color: var(--p4-cyan)">angelia_crouch@wab.edu</a></p>
-              
-              <div id="registrationsList" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;"></div>
-            </div>
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:25px;" id="vGrid">
+          <div id="volOpportunitiesGrid"></div>
+          <div class="form-panel">
+            <h3 class="bebas">Apply for Role</h3>
+            <form onsubmit="submitVolunteerApp(event)" style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
+                <input type="text" id="vName" placeholder="YOUR NAME" class="form-input" required />
+                <select id="vRole" class="form-select">
+                    <option value="v1">Tiger Peer Tutoring</option>
+                    <option value="v2">Eco-Warriors Audit</option>
+                    <option value="v3">Literacy Buddy</option>
+                </select>
+                <textarea id="vMsg" placeholder="REASONS FOR APPLYING..." class="form-textarea" rows="3"></textarea>
+                <button type="submit" class="submit-btn" style="background:var(--p4-cyan); border:2px solid #000; font-family:'Bebas Neue'; padding:10px; cursor:pointer;">SUBMIT APPLICATION</button>
+            </form>
+            <div id="registrationsList" style="margin-top:20px;"></div>
           </div>
         </div>
       </div>
 
-      <!-- ================= TAB 3: LOST & FOUND ================= -->
+      <!-- TAB 3: LOST & FOUND -->
       <div id="panel-lostfound" style="display: none;">
-        
-        <!-- Collision notifications -->
-        <div id="collisionWidget" class="match-widget" style="display: none;">
-          <div class="match-header">
-            <div class="match-icon-title">
-              <div class="match-icon-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </div>
-              <div>
-                <h4 class="bebas" style="font-size: 1.6rem; line-height: 1;">★ BULLETIN MATCH DETECTOR: COLLISIONS DETECTED ★</h4>
-                <p style="font-size: 11px; font-weight: bold; opacity: 0.8; margin-top:2px;">Our algorithms detected reciprocal active registrations. Please review clash.</p>
-              </div>
-            </div>
-            <span class="mono" style="font-size: 10px; background: #000; color: var(--p4-yellow); padding: 4px 8px; font-weight: bold;" id="collisionCountBadge">ZONES CLASH: 0</span>
-          </div>
-
-          <div class="match-grid-list" id="collisionsList"></div>
+        <div id="matchWidget" class="match-widget" style="display: none;">
+          <h4 class="bebas">★ MATCH DETECTOR: COLLISIONS DETECTED ★</h4>
+          <div id="collisionsList"></div>
         </div>
 
-        <div class="section-header" style="justify-content: space-between;">
-          <div>
-            <h2 class="bebas" style="font-size: 2rem; color:var(--p4-light)">★ WAB HIGH SCHOOL BULLETINS ★</h2>
-            <p class="mono" style="font-size:10px; color:rgba(255,255,255,0.4)">RECOVER SECURED COMMUNITY PROPERTY</p>
-          </div>
-          <button class="submit-btn" onclick="toggleFormPanel()" id="postBtnToggle">★ POST NEW BULLETIN + ★</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h2 class="bebas" style="font-size: 2rem;">★ WAB STUDENT BULLETINS ★</h2>
+          <button onclick="toggleFormPanel()" id="postBtnToggle" style="background:var(--p4-yellow); border:2px solid #000; padding:10px 20px; font-family:'Bebas Neue'; cursor:pointer;">★ POST NEW BULLETIN + ★</button>
         </div>
 
-        <!-- Add Bulletin Form -->
+        <!-- LF Form -->
         <div class="form-panel" id="lfFormPanel" style="display: none;">
-          <div class="form-header">
-            <h3 class="bebas" style="font-size: 1.6rem;">Submit New Case</h3>
-            <div class="form-toggle">
-              <button class="form-toggle-btn active" id="btnTypeLost" onclick="setFormType('lost')">★ LOST SOMETHING</button>
-              <button class="form-toggle-btn" id="btnTypeFound" onclick="setFormType('found')">☆ FOUND SOMETHING</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:10px; margin-bottom:20px;">
+            <h3 class="bebas">Submit New Case</h3>
+            <div style="display:flex; background:#000; padding:5px; border:2px solid #333;">
+              <button id="typeLost" onclick="setFormType('lost')" style="background:var(--p4-orange); border:none; padding:5px 15px; font-family:'Bebas Neue'; cursor:pointer;">LOST</button>
+              <button id="typeFound" onclick="setFormType('found')" style="background:transparent; border:none; padding:5px 15px; font-family:'Bebas Neue'; color:#666; cursor:pointer;">FOUND</button>
             </div>
           </div>
-
-          <form id="lfForm" onsubmit="submitLfItem(event)">
+          <form onsubmit="submitLfItem(event)">
             <div class="grid-2">
-              <div class="form-group">
-                <label class="form-label">Item Headline</label>
-                <input type="text" id="lfTitle" required class="form-input" placeholder="BE CEAR & PRECISE" />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Reporting Date</label>
-                <input type="date" id="lfDate" required class="form-input" />
-              </div>
+              <div class="form-group"><label class="form-label">Headline</label><input type="text" id="lfTitle" required class="form-input" /></div>
+              <div class="form-group"><label class="form-label">Date</label><input type="date" id="lfDate" required class="form-input" /></div>
             </div>
-
             <div class="grid-2">
-              <div class="form-group">
-                <label class="form-label">Campus Zone Location</label>
-                <select id="lfLocation" class="form-select">
-                  <option>Atrium</option>
-                  <option>Library</option>
-                  <option>Sports Pitch</option>
-                  <option>Cafeteria</option>
-                  <option>HS Wing</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Category</label>
-                <select id="lfCategory" class="form-select">
-                  <option value="Clothing/Blazer">Clothing/Blazer</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="ID/Card">ID Card</option>
-                  <option value="Bottle/Flask">Water Flask</option>
-                  <option value="Keys/Fobs">Keys/Fobs</option>
-                  <option value="Bags/Books">Bags/Books</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+              <div class="form-group"><label class="form-label">Location</label><select id="lfLocation" class="form-select"><option>Atrium</option><option>Library</option><option>Cafeteria</option><option>HS Wing</option><option>Sports Pitch</option><option>Other</option></select></div>
+              <div class="form-group"><label class="form-label">Category</label><select id="lfCategory" class="form-select"><option>Electronics</option><option>Clothing</option><option>ID/Card</option><option>Bags/Books</option><option>Bottle</option></select></div>
             </div>
-
-            <div class="form-group" style="margin-bottom: 16px;">
-              <label class="form-label">Details & Marks</label>
-              <textarea id="lfDesc" rows="2" class="form-textarea" placeholder="DESCRIBE THE MARKS..."></textarea>
-            </div>
-
+            <div class="form-group"><label class="form-label">Details</label><textarea id="lfDesc" rows="2" class="form-textarea"></textarea></div>
             <div class="grid-2">
-              <div class="form-group">
-                <label class="form-label">Filer Student Name</label>
-                <input type="text" id="lfName" required class="form-input" placeholder="E.G. JULIAN SONG" />
-              </div>
-              <div class="form-group">
-                <label class="form-label">Contact Details (Email / WeChat)</label>
-                <input type="text" id="lfContact" required class="form-input" placeholder="E.G. EMAIL OR PHONE" />
-              </div>
+              <div class="form-group"><label class="form-label">Reporter Name</label><input type="text" id="lfName" required class="form-input" /></div>
+              <div class="form-group"><label class="form-label">Contact (Email/WeChat)</label><input type="text" id="lfContact" required class="form-input" /></div>
+            </div>
+            <div class="form-group" id="rewardGroup"><label class="form-label">Reward (Optional)</label><input type="text" id="lfReward" class="form-input" /></div>
+            
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label class="form-label">Item Photo (Upload or Select Preset)</label>
+                <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                    <span id="uploadStatus">Click to Upload Image 📸</span>
+                    <input type="file" id="fileInput" hidden accept="image/*" onchange="handleImageUpload(event)">
+                    <img id="customPreview" class="upload-preview" />
+                </div>
+                <div class="preset-photos" id="presetPhotos"></div>
             </div>
 
-            <div class="form-group" id="rewardGroup" style="margin-top: 16px;">
-              <label class="form-label" style="color:var(--p4-orange)">Incentive Reward (Optional)</label>
-              <input type="text" id="lfReward" class="form-input" placeholder="E.G. A SLICE OF CAKE!" />
-            </div>
-
-            <div class="form-group" style="margin-top: 16px;">
-              <label class="form-label">Item Placeholder Photo</label>
-              <div class="preset-photos" id="presetPhotos"></div>
-            </div>
-
-            <div class="form-actions">
-              <button type="button" class="cancel-btn" onclick="toggleFormPanel()">CANCEL</button>
-              <button type="submit" class="submit-btn" id="btnPublishLabel">★ PUBLISH BULLETIN ★</button>
+            <div style="display:flex; justify-content:flex-end; gap:15px; margin-top:20px; border-top:1px solid #333; padding-top:15px;">
+              <button type="button" onclick="toggleFormPanel()" style="background:none; border:none; color:#666; cursor:pointer; font-family:'Bebas Neue';">CANCEL</button>
+              <button type="submit" class="submit-btn" style="background:var(--p4-yellow); border:2px solid #000; font-family:'Bebas Neue'; padding:10px 30px; cursor:pointer;">★ PUBLISH BULLETIN ★</button>
             </div>
           </form>
         </div>
 
-        <!-- Filters Bar -->
-        <div class="filter-bar">
-          <div class="search-wrap">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="filterSearch" class="search-input" placeholder="Search bulletins..." oninput="renderLF()" />
-          </div>
-          <div>
-            <select id="filterType" class="form-select animate-pulse" style="width: 100%; border-color:var(--p4-pure);" onchange="renderLF()">
-              <option value="all">ALL BULLETINS</option>
-              <option value="lost">LOST ONLY</option>
-              <option value="found">FOUND ONLY</option>
-              <option value="reclaimed">RECLAIMED ONLY</option>
-            </select>
-          </div>
-          <div>
-            <select id="filterLoc" class="form-select" style="width: 100%;" onchange="renderLF()">
-              <option value="all">ALL LOCATIONS</option>
-              <option>Atrium</option>
-              <option>Library</option>
-              <option>Sports Pitch</option>
-              <option>Cafeteria</option>
-              <option>HS Wing</option>
-            </select>
-          </div>
-          <div>
-            <select id="filterCat" class="form-select" style="width: 100%;" onchange="renderLF()">
-              <option value="all">ALL CATEGORIES</option>
-              <option value="Clothing/Blazer">CLOTHING</option>
-              <option value="Electronics">ELECTRONICS</option>
-              <option value="ID/Card">ID CARD</option>
-              <option value="Bottle/Flask">WATER BOTTLE</option>
-            </select>
-          </div>
+        <!-- Filters -->
+        <div class="filter-bar" style="display:flex; gap:10px; background:var(--p4-card); padding:15px; border:2px solid #000; margin-bottom:25px; flex-wrap:wrap;">
+            <input type="text" id="filterSearch" placeholder="Search bulletins..." class="form-input" style="flex:1;" oninput="renderLF()">
+            <select id="filterType" class="form-select" onchange="renderLF()"><option value="all">ALL BULLETINS</option><option value="lost">LOST</option><option value="found">FOUND</option><option value="reclaimed">RECLAIMED</option></select>
+            <select id="filterLoc" class="form-select" onchange="renderLF()"><option value="all">ALL LOCATIONS</option><option>Atrium</option><option>Library</option><option>Cafeteria</option><option>HS Wing</option></select>
         </div>
 
-        <!-- Dynamic list of bulletins -->
         <div id="lfItemsGrid" class="grid-cards"></div>
-        
       </div>
-
     </main>
 
-    <!-- Modal Box for Details (Shared for Directory & L&F) -->
+    <!-- Global Modal -->
     <div class="modal-overlay" id="detailModal" style="display: none;" onclick="closeModal()">
       <div class="modal-card" onclick="event.stopPropagation()">
         <button class="modal-close" onclick="closeModal()">✕</button>
-        
         <div class="modal-sidebar" id="modalSidebar">
-          <span class="category-badge" id="modalBadge">counseling</span>
-          <h3 class="bebas" id="modalTitle" style="font-size: 1.85rem; color:#fff; line-height:1; margin-top: 12px; text-transform: uppercase;"></h3>
-          
-          <div id="modalMetaInfo" style="margin-top: 24px; display: flex; flex-direction: column; gap:12px;">
-            <!-- Dynamic Meta -->
-          </div>
-
-          <div id="modalQuoteBox" style="background:var(--p4-yellow); color:var(--p4-pure); padding: 12px; margin-top: 24px; transform: rotate(-1deg); border: 1px solid #000;">
-            <p id="modalQuote" style="font-size: 10px; font-weight: bold; font-style: italic;"></p>
-          </div>
+          <span class="category-badge" id="modalBadge" style="background:var(--p4-yellow); color:#000; padding:4px 10px; font-family:'JetBrains Mono'; font-weight:bold; font-size:10px;"></span>
+          <h3 class="bebas" id="modalTitle" style="font-size: 2rem; margin-top:15px; color:#fff;"></h3>
+          <div id="modalMeta" style="margin-top:20px; font-size:12px; display:flex; flex-direction:column; gap:10px;"></div>
         </div>
-
-        <div class="modal-content" id="modalContent">
-          <!-- Dynamic Content -->
-        </div>
-
+        <div class="modal-content" id="modalContent"></div>
       </div>
     </div>
 
-    <!-- Retro Footer -->
-    <footer class="shadow-black" style="background-color: rgba(0,0,0,0.4); border-color: var(--p4-pure); padding: 24px;">
+    <footer>
       <div class="footer-hazard"></div>
-      <h4 class="bebas" style="font-size: 1.8rem; color:var(--p4-yellow); letter-spacing: 0.05em;">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
-      <p class="mono" style="font-size: 9px; color:rgba(255,255,255,0.3); max-width: 500px; margin: 12px auto 0 auto; line-height:1.6;">
-        Western Academy of Beijing. This platform operates independently in service of high school community safety and onboarding convenience. Direct inquiries to <span style="color: var(--p4-cyan)">angelia_crouch@wab.edu</span>.
-      </p>
-      <p style="font-size: 10px; color:rgba(255,255,255,0.15); margin-top: 24px;" class="mono">© 2026 WAB Directory Portal. Retro Pop Yellow Edition.</p>
+      <h4 class="bebas" style="font-size: 1.8rem; color:var(--p4-yellow);">★ BEIJING WAB COMMUNITY SHIELD ★</h4>
+      <p class="mono" style="font-size: 9px; opacity: 0.4; margin-top: 10px;">© 2026 Western Academy of Beijing Community Resource Hub.</p>
     </footer>
-
   </div>
 
   <script>
-    // --- SUPABASE CONFIGURATION ---
+    // --- SUPABASE CONFIG ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const TABLE_NAME = 'bulletins';
 
-    // Asset presets
     const presetImages = [
-      { name: 'Navy Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=400' },
-      { name: 'Headphones', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=400' },
-      { name: 'Calculator', url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?auto=format&fit=crop&q=80&w=400' },
-      { name: 'Water Flask', url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&q=80&w=400' },
-      { name: 'Keychain', url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=400' },
-      { name: 'Backpack', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=400' }
+      { name: 'Blazer', url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400' },
+      { name: 'Headphones', url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400' },
+      { name: 'Calculator', url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?w=400' },
+      { name: 'Water Flask', url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400' },
+      { name: 'Backpack', url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400' }
     ];
 
-    // Directories dossiers dataset
     const resources = [
-      { id: 'res-counseling-1', category: 'counseling', title: 'High School Support & Wellbeing', subtitle: 'Confidential Guidance & Emotional Counseling', lead: 'Ms. Sarah Martinez', location: 'HS Admin Block, 2nd Floor', hours: 'Monday – Friday, 08:00 – 16:30', description: 'Providing a safe harbor for personal, academic, and mental health challenges.', keyServices: ['Mental Health Chats', 'Stress Masterclasses'], contactInfo: { email: 'hscounseling@wab.edu' }, p5Quote: 'You dont have to carry stress alone.' },
-      { id: 'res-library-1', category: 'library', title: 'The Hub: Library & Research Center', subtitle: 'Inquiry & Research aid', lead: 'Dr. Timothy Cole', location: 'The HUB Atrium', hours: 'Monday – Friday, 07:30 – 18:00', description: 'Cutting-edge collaborative space with thousands of physical texts.', keyServices: ['IB EE Mentorship', 'Private Study Booths'], contactInfo: { email: 'hub_library@wab.edu' }, p5Quote: 'Knowledge is built on curious inquiry.' },
-      { id: 'res-tech-1', category: 'tech', title: 'WAB TigerTech Support Center', subtitle: 'MacBook help', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', hours: 'Monday – Friday, 08:00 – 17:00', description: 'Core support for school-issued MacBooks and network glitches.', keyServices: ['Hardware Repair', 'Wi-Fi Configuration'], contactInfo: { email: 'support@wab.edu' }, p5Quote: 'Technical glitches are temporary.' }
+      { id: '1', category: 'counseling', title: 'HS Support & Wellbeing', lead: 'Ms. Sarah Martinez', location: 'HS Admin, 2nd Floor', description: 'Confidential Guidance & Emotional Counseling for all high school students.' },
+      { id: '2', category: 'tech', title: 'TigerTech Support Center', lead: 'Mr. David Wu', location: 'IT Bar, Ground Floor', description: 'MacBook Diagnostic, Network, and Software troubleshooting Help.' },
+      { id: '3', category: 'library', title: 'The Hub Library', lead: 'Dr. Timothy Cole', location: 'HUB Atrium', description: 'Inquiry, Research Databases, and Literary Aid for IB Extended Essays.' }
     ];
 
     const volunteeringOpportunities = [
-      { id: 'v-001', title: 'Tiger Peer Tutoring Alliance', area: 'Math & Sciences Wing', lead: 'Dr. Angelia Crouch', hours: '2.5 Hours/Week', description: 'Coaching middle school peers.', image: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=400' },
-      { id: 'v-002', title: 'Eco-Warriors Sustainability Audit', area: 'Campus Grounds', lead: 'Dr. Angelia Crouch', hours: '3.0 Hours/Project', description: 'Monitor campus room recycling.', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400' }
+      { id: 'v1', title: 'Tiger Peer Tutoring', description: 'Coaching middle school peers during study halls.', area: 'Math Wing' },
+      { id: 'v2', title: 'Eco-Warriors Audit', description: 'Monitor campus room recycling.', area: 'Campus Grounds' }
     ];
 
-    const quotes = [
-      '"A beautiful campus relies on friendly cooperation. Keep your belongings cataloged!" — HS Advisor',
-      '"Secure your CAS hours early! Dr. Angelia Crouch organizes direct volunteering." — Cap Captain'
-    ];
-
-    // STATE
-    let currentTab = 'directory';
-    let quoteIndex = 0;
-    let selectedImagePreset = presetImages[0].url;
+    let lfItems = []; 
     let activeFormType = 'lost';
-    let lfItems = [];
+    let selectedImage = presetImages[0].url;
     let registrations = JSON.parse(localStorage.getItem('wab_vol_registrations')) || [];
 
     window.onload = async function() {
@@ -1667,17 +476,31 @@
       renderResources();
       renderVolunteering();
       renderPhotoPresets();
-      await fetchBulletins(); // Initial cloud load
+      await fetchBulletins();
     };
 
     // --- CLOUD LOGIC ---
     async function fetchBulletins() {
       const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
-      if (!error) {
-        lfItems = data || [];
-        renderLF();
-        detectMatches();
-      }
+      if (!error) { lfItems = data || []; renderLF(); detectMatches(); }
+    }
+
+    // --- IMAGE UPLOAD LOGIC ---
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            selectedImage = e.target.result; // Base64 string
+            const preview = document.getElementById('customPreview');
+            preview.src = selectedImage;
+            preview.style.display = 'block';
+            document.getElementById('uploadStatus').innerText = "Custom Image Ready ✅";
+            // Unselect preset btns
+            document.querySelectorAll('.preset-img-btn').forEach(btn => btn.style.borderColor = '#2C2C38');
+        };
+        reader.readAsDataURL(file);
     }
 
     async function submitLfItem(e) {
@@ -1693,198 +516,162 @@
         contactDetails: document.getElementById('lfContact').value.trim(),
         Status: 'active',
         RewardInfo: activeFormType === 'lost' ? document.getElementById('lfReward').value.trim() : null,
-        image: selectedImagePreset
+        image: selectedImage
       };
 
       const { error } = await _supabase.from(TABLE_NAME).insert([newItem]);
-      if (error) { alert('Upload Failed: ' + error.message); } 
+      if (error) alert("Upload Failed: " + error.message);
       else { 
-        document.getElementById('lfForm').reset(); 
-        toggleFormPanel(); 
-        await fetchBulletins(); 
+          resetLfForm();
+          toggleFormPanel(); 
+          await fetchBulletins(); 
       }
     }
 
     async function resolveProperty(event, id) {
-      event.stopPropagation(); // Prevent opening detail modal
+      event.stopPropagation();
       const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
-      if (error) { alert("Update failed: " + error.message); } 
-      else { await fetchBulletins(); }
+      if (error) alert("Reclaim failed");
+      else await fetchBulletins();
     }
 
     async function archiveProperty(event, id) {
-      event.stopPropagation(); // Prevent opening detail modal
+      event.stopPropagation();
       if (!confirm("Permanently delete this bulletin?")) return;
       const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
-      if (error) { alert("Delete failed: " + error.message); } 
-      else { await fetchBulletins(); }
+      if (error) alert("Delete failed");
+      else await fetchBulletins();
     }
 
-    // --- MODAL DETAILS ---
+    // --- MODAL VIEW ---
     function openModal(type, id) {
-      const modal = document.getElementById('detailModal');
-      const sidebar = document.getElementById('modalSidebar');
-      const meta = document.getElementById('modalMetaInfo');
+      const meta = document.getElementById('modalMeta');
       const content = document.getElementById('modalContent');
-      const quoteBox = document.getElementById('modalQuoteBox');
+      const badge = document.getElementById('modalBadge');
+      const title = document.getElementById('modalTitle');
 
-      if (type === 'res') {
+      if (type === 'directory') {
         const r = resources.find(x => x.id === id);
-        document.getElementById('modalBadge').className = 'category-badge badge-' + r.category;
-        document.getElementById('modalBadge').innerText = r.category;
-        document.getElementById('modalTitle').innerText = r.title;
-        document.getElementById('modalQuote').innerText = `"${r.p5Quote}"`;
-        quoteBox.style.display = 'block';
-
-        meta.innerHTML = `
-          <div style="border-left: 3px solid var(--p4-yellow); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">DIRECTOR</span><br><strong>${r.lead}</strong></div>
-          <div style="border-left: 3px solid #fff; padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">LOCATION</span><br><strong>${r.location}</strong></div>
-        `;
-
-        content.innerHTML = `
-          <h4 class="bebas" style="font-size:1.5rem; color:var(--p4-yellow);">★ Support Actions ★</h4>
-          <p style="font-size:13px; margin:12px 0;">${r.description}</p>
-          <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:20px;">
-            ${r.keyServices.map(s => `<li style="background:rgba(255,255,255,0.05); padding:10px; border-left:2px solid var(--p4-yellow);">★ ${s}</li>`).join('')}
-          </ul>
-        `;
+        badge.innerText = r.category.toUpperCase();
+        title.innerText = r.title;
+        meta.innerHTML = `<div><b>DIRECTOR:</b> ${r.lead}</div><div><b>LOCATION:</b> ${r.location}</div>`;
+        content.innerHTML = `<p style="line-height:1.6; color:#aaa;">${r.description}</p>`;
       } 
       else if (type === 'lf') {
         const item = lfItems.find(x => x.id.toString() === id.toString());
-        document.getElementById('modalBadge').className = 'category-badge ' + (item.type === 'lost' ? 'badge-lost' : 'badge-found');
-        document.getElementById('modalBadge').innerText = item.type.toUpperCase();
-        document.getElementById('modalTitle').innerText = item.title;
-        quoteBox.style.display = 'none';
-
-        meta.innerHTML = `
-          <div style="border-left: 3px solid var(--p4-cyan); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">REPORTED BY</span><br><strong>${item.studentName}</strong></div>
-          <div style="border-left: 3px solid var(--p4-orange); padding-left: 8px;"><span class="mono" style="font-size: 8px; opacity:0.4;">CONTACT</span><br><strong>${item.contactDetails}</strong></div>
-        `;
-
+        badge.innerText = item.type.toUpperCase();
+        title.innerText = item.title;
+        meta.innerHTML = `<div><b>REPORTED BY:</b> ${item.studentName}</div><div style="color:var(--p4-orange);"><b>CONTACT:</b> ${item.contactDetails}</div>`;
         content.innerHTML = `
-          <div style="height:200px; background:#000; border:2px solid #000; overflow:hidden; margin-bottom:16px;">
-            <img src="${item.image}" style="width:100%; height:100%; object-fit:cover;" />
-          </div>
-          <p class="mono" style="font-size:10px; margin-bottom:12px;">📍 LOC: ${item.location} | 📅 DATE: ${item.date}</p>
-          <div style="background:rgba(255,255,255,0.05); padding:15px; font-size:13px; line-height:1.6; border-radius:4px;">
-            ${item.description || 'No additional details provided.'}
-          </div>
-          ${item.RewardInfo ? `<div style="background:var(--p4-orange); color:#000; padding:10px; margin-top:16px; font-weight:bold;">🏆 REWARD: ${item.RewardInfo}</div>` : ''}
-          <div style="margin-top:20px; font-size:9px; color:rgba(255,255,255,0.2);" class="mono">STATUS: ${item.Status.toUpperCase()} | ID: ${item.id}</div>
+            <img src="${item.image}" style="width:100%; height:250px; object-fit:cover; border:2px solid #000; margin-bottom:15px;"/>
+            <p class="mono" style="font-size:10px; margin-bottom:10px;">📍 ${item.location} | 📅 ${item.date}</p>
+            <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:4px; font-size:13px;">${item.description || 'No additional details provided.'}</div>
+            ${item.RewardInfo ? `<div style="background:var(--p4-orange); color:#000; padding:10px; margin-top:15px; font-weight:bold;">🏆 REWARD: ${item.RewardInfo}</div>` : ''}
         `;
       }
-
-      modal.style.display = 'flex';
+      document.getElementById('detailModal').style.display = 'flex';
     }
 
     function closeModal() { document.getElementById('detailModal').style.display = 'none'; }
 
-    // --- TAB SYSTEM ---
-    function switchTab(tabName) {
-      currentTab = tabName;
-      ['directory', 'volunteering', 'lostfound'].forEach(p => {
-        document.getElementById('panel-' + p).style.display = p === tabName ? 'block' : 'none';
-        document.getElementById('tab-' + p).classList.toggle('active', p === tabName);
-      });
-      if (tabName === 'lostfound') fetchBulletins();
-    }
-
-    function rotateQuote() {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      document.getElementById('quoteParagraph').innerText = quotes[quoteIndex];
-    }
-
-    // --- RENDERS ---
-    function renderResources() {
-      const g = document.getElementById('resourcesGrid');
-      g.innerHTML = resources.map(r => `
-        <div class="c-card" onclick="openModal('res', '${r.id}')">
-          <div class="c-header"><span class="category-badge badge-${r.category}">${r.category}</span></div>
-          <div class="c-body">
-            <h3 class="c-title">${r.title}</h3>
-            <p class="c-desc">${r.description.substring(0, 50)}...</p>
-            <div class="c-meta">📍 LOC: ${r.location}</div>
-          </div>
-          <button class="card-action-btn">★ VIEW DETAILS ★</button>
-        </div>
-      `).join('');
-    }
-
+    // --- RENDERING ---
     function renderLF() {
       const grid = document.getElementById('lfItemsGrid');
       const q = document.getElementById('filterSearch').value.toLowerCase();
       const type = document.getElementById('filterType').value;
+      const loc = document.getElementById('filterLoc').value;
+
       const filtered = lfItems.filter(i => {
-        const matchQ = i.title.toLowerCase().includes(q);
-        const matchT = (type === 'all') || (type === 'reclaimed' ? i.Status === 'reclaimed' : i.type === type && i.Status === 'active');
-        return matchQ && matchT;
+          const matchQ = i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q);
+          const matchT = (type === 'all') || (type === 'reclaimed' ? i.Status === 'reclaimed' : (i.type === type && i.Status === 'active'));
+          const matchL = (loc === 'all') || i.location === loc;
+          return matchQ && matchT && matchL;
       });
 
       grid.innerHTML = filtered.map(item => `
         <div class="lf-card" onclick="openModal('lf', '${item.id}')">
           <div class="lf-img-wrap">
-            <img class="lf-img" src="${item.image}" referrerpolicy="no-referrer" />
+            <img class="lf-img" src="${item.image}" />
             <div class="lf-type-badge ${item.type === 'lost' ? 'badge-lost' : 'badge-found'}">${item.type.toUpperCase()}</div>
             ${item.Status === 'reclaimed' ? '<div class="reclaimed-overlay"><span class="reclaimed-stamp">RECLAIMED</span></div>' : ''}
           </div>
-          <div class="c-body" style="gap:4px;">
-            <h4 class="c-title" style="font-size:1.1rem;">${item.title}</h4>
-            <div style="font-size:9px; opacity:0.5;" class="mono">By: ${item.studentName}</div>
+          <div style="padding:15px; flex:1;">
+            <h4 class="bebas" style="font-size:1.3rem; color:#fff;">${item.title}</h4>
+            <div class="mono" style="font-size:9px; opacity:0.5; margin-top:5px;">By: ${item.studentName}</div>
           </div>
           <div class="lf-actions">
             ${item.Status === 'active' ? `
               <button class="reclaim-btn" onclick="resolveProperty(event, '${item.id}')">★ RECLAIM ★</button>
-              <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
-              </button>
-            ` : '<div style="flex:1; text-align:center; padding:8px; font-size:10px; color:var(--p4-cyan);">ARCHIVED</div>'}
+              <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">✕</button>
+            ` : `
+              <div style="flex:1; text-align:center; font-size:10px; color:var(--p4-cyan); font-weight:bold;">COMPLETED</div>
+              <button class="delete-btn" onclick="archiveProperty(event, '${item.id}')">✕</button>
+            `}
           </div>
         </div>
       `).join('');
     }
 
-    function renderVolunteering() {
-      document.getElementById('volOpportunitiesGrid').innerHTML = volunteeringOpportunities.map(o => `
-        <div class="v-card">
-          <div class="v-pfp-box"><img src="${o.image}"/></div>
-          <div class="v-body-box">
-            <h4 class="v-title-name">${o.title}</h4>
-            <p class="v-sub-desc">${o.description}</p>
-          </div>
-          <button class="v-select-btn" onclick="document.getElementById('vApplyRole').value='${o.id}'">★ SELECT ★</button>
-        </div>
-      `).join('');
-      renderRegList();
-    }
-
-    function submitVolunteerApp(e) {
-      e.preventDefault();
-      const newApp = { name: document.getElementById('vApplyName').value.trim(), timestamp: Date.now() };
-      registrations.unshift(newApp);
-      localStorage.setItem('wab_vol_registrations', JSON.stringify(registrations));
-      renderRegList();
-    }
-
-    function renderRegList() {
-      const container = document.getElementById('registrationsList');
-      container.innerHTML = registrations.map(r => `<div class="reg-item"><span class="reg-title">${r.name} - SUBMITTED</span></div>`).join('');
-    }
-
-    // Matches
     function detectMatches() {
       const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
       const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
-      const results = [];
-      lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) results.push({l, f}); })});
-      document.getElementById('collisionWidget').style.display = results.length > 0 ? 'block' : 'none';
-      if(results.length > 0) document.getElementById('collisionsList').innerHTML = results.map(m => `<div class="match-tag-card">Clash: ${m.l.title} & ${m.f.title} @ ${m.l.location}</div>`).join('');
+      const matches = [];
+      lost.forEach(l => { found.forEach(f => { if(l.location === f.location && l.category === f.category) matches.push({l, f}); })});
+      const widget = document.getElementById('matchWidget');
+      if (matches.length > 0) {
+        widget.style.display = 'block';
+        document.getElementById('collisionsList').innerHTML = matches.map(m => `<div class="match-tag-card">Collision: <b>${m.l.title}</b> matches <b>${m.f.title}</b> at ${m.l.location}</div>`).join('');
+      } else widget.style.display = 'none';
     }
 
-    // UI Switches
+    // --- UI HELPERS ---
+    function switchTab(tab) {
+      ['directory', 'volunteering', 'lostfound'].forEach(p => document.getElementById('panel-' + p).style.display = (p === tab ? 'block' : 'none'));
+      ['directory', 'volunteering', 'lostfound'].forEach(t => document.getElementById('tab-' + t).classList.toggle('active', t === tab));
+      if (tab === 'lostfound') fetchBulletins();
+    }
     function toggleFormPanel() { const p = document.getElementById('lfFormPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; }
-    function setFormType(t) { activeFormType = t; document.getElementById('btnTypeLost').classList.toggle('active', t==='lost'); document.getElementById('btnTypeFound').classList.toggle('active', t==='found'); document.getElementById('rewardGroup').style.display = t==='lost' ? 'block' : 'none'; }
-    function renderPhotoPresets() { document.getElementById('presetPhotos').innerHTML = presetImages.map(p => `<button type="button" class="preset-img-btn" onclick="selectPresetImage('${p.url}')"><img src="${p.url}" /></button>`).join(''); }
-    function selectPresetImage(u) { selectedImagePreset = u; }
+    function setFormType(t) { 
+        activeFormType = t;
+        document.getElementById('typeLost').style.background = (t === 'lost' ? 'var(--p4-orange)' : 'none');
+        document.getElementById('typeFound').style.background = (t === 'found' ? 'var(--p4-yellow)' : 'none');
+        document.getElementById('rewardGroup').style.display = (t === 'lost' ? 'block' : 'none');
+    }
+    function resetLfForm() {
+        document.getElementById('customPreview').style.display = 'none';
+        document.getElementById('uploadStatus').innerText = "Click to Upload Image 📸";
+        selectedImage = presetImages[0].url;
+    }
+    function renderPhotoPresets() {
+      document.getElementById('presetPhotos').innerHTML = presetImages.map(p => `
+        <button type="button" class="preset-img-btn" style="border:2px solid #2C2C38; margin-right:5px; height:50px; width:50px; overflow:hidden; cursor:pointer;" onclick="selectPresetImage('${p.url}', this)">
+          <img src="${p.url}" style="width:100%; height:100%; object-fit:cover;" />
+        </button>
+      `).join('');
+    }
+    function selectPresetImage(u, btn) {
+        selectedImage = u;
+        document.querySelectorAll('.preset-img-btn').forEach(b => b.style.borderColor = '#2C2C38');
+        btn.style.borderColor = 'var(--p4-yellow)';
+        document.getElementById('customPreview').style.display = 'none';
+        document.getElementById('uploadStatus').innerText = "Click to Upload Image 📸";
+    }
+    function renderResources() {
+      document.getElementById('resourcesGrid').innerHTML = resources.map(r => `
+        <div class="c-card" onclick="openModal('directory', '${r.id}')">
+          <div class="card-header"><span class="category-badge" style="background:var(--p4-yellow); color:#000;">${r.category}</span></div>
+          <div style="padding:15px;"><h3 class="bebas" style="font-size:1.5rem; color:#fff;">${r.title}</h3></div>
+          <button style="width:100%; padding:10px; background:#000; color:#fff; border:none; font-family:'Bebas Neue'; cursor:pointer;">VIEW DETAILS</button>
+        </div>
+      `).join('');
+    }
+    function renderVolunteering() {
+      document.getElementById('volOpportunitiesGrid').innerHTML = volunteeringOpportunities.map(o => `
+        <div class="v-card"><div style="padding:15px;"><h4 class="bebas" style="font-size:1.4rem; color:#fff;">${o.title}</h4><p class="mono" style="font-size:10px; opacity:0.5;">📍 ${o.area}</p></div></div>
+      `).join('');
+    }
+    function submitVolunteerApp(e) { e.preventDefault(); alert("App Sent Locally!"); }
+    function rotateQuote() { document.getElementById('quoteParagraph').innerText = "Keep WAB beautiful with collaboration!"; }
   </script>
 </body>
 </html>

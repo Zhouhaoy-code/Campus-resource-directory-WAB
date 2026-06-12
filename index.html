@@ -14,21 +14,20 @@
   <style>
     /* 
     ================================================================
-    WAB ULTIMATE SYSTEM STYLESHEET - V4.2 REFINED
-    THEME: RED, BLACK, YELLOW (AGGRESSIVE HIGH-CONTRAST)
+    WAB ULTIMATE SYSTEM STYLESHEET - SOEJIMA EDITION (V5.0)
+    THEME: RED, BLACK, YELLOW, WHITE (PERSONA STYLIZATION)
     ================================================================
     */
 
     :root {
+      --p5-red: #D32F2F;
+      --p5-black: #000000;
+      --p5-white: #FFFFFF;
       --wab-yellow: #FDF100;
-      --wab-red: #FF0000;
-      --wab-dark: #000000;
-      --wab-ink: #111111;
-      --wab-gray: #1C1C1E;
-      --wab-white: #FFFFFF;
       --wab-cyan: #00f3ff;
-      --wab-border: 6px solid #000000;
       --skew-deg: -7deg;
+      
+      --pattern-houndstooth: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgba(255,255,255,0.03)"><path d="M0 0h20v20H0zM20 20h20v20H20z"/><path d="M20 0L0 20v20h20L40 20V0H20z" fill="rgba(255,255,255,0.02)"/></svg>');
       
       --stripes: repeating-linear-gradient(
         -45deg,
@@ -39,13 +38,13 @@
       --red-hazard: repeating-linear-gradient(
         45deg,
         #000 0, #000 5px,
-        var(--wab-red) 5px, var(--wab-red) 10px
+        var(--p5-red) 5px, var(--p5-red) 10px
       );
 
-      --halftone: radial-gradient(circle, rgba(255, 0, 0, 0.15) 1px, transparent 1px);
+      --halftone: radial-gradient(circle, rgba(255, 0, 0, 0.2) 1.5px, transparent 1.5px);
     }
 
-    /* GLOBAL RESET & GRAIN EFFECT */
+    /* GLOBAL RESET */
     * { 
       box-sizing: border-box; 
       margin: 0; 
@@ -55,423 +54,275 @@
     }
 
     body {
-      background-color: var(--wab-dark);
+      background-color: var(--p5-black);
       background-image: 
         var(--halftone),
-        linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.85));
-      background-size: 25px 25px, 100% 100%;
-      color: var(--wab-white);
+        var(--pattern-houndstooth),
+        linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+      background-size: 30px 30px, 60px 60px, 100% 100%;
+      color: var(--p5-white);
       font-family: 'Space Grotesk', sans-serif;
       overflow-x: hidden;
       min-height: 100vh;
       scroll-behavior: smooth;
     }
 
-    /* Grain Overlay */
-    body::before {
+    /* Persona-style Background Action Lines */
+    body::after {
       content: "";
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: url('https://grainy-gradients.vercel.app/noise.svg');
-      opacity: 0.04; pointer-events: none; z-index: 9999;
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%),
+                        repeating-conic-gradient(from 0deg, transparent 0deg 10deg, rgba(211,47,47,0.03) 10deg 20deg);
+      pointer-events: none; z-index: -1;
     }
 
     /* UTILITIES */
     .bebas { font-family: 'Bebas Neue', sans-serif; }
     .mono { font-family: 'JetBrains Mono', monospace; }
-    .skew { transform: skew(var(--skew-deg)); }
-    .unskew { transform: skew(calc(var(--skew-deg) * -1)); }
-    .shadow-yellow { filter: drop-shadow(15px 15px 0 #000); }
-    .shadow-red { filter: drop-shadow(10px 10px 0 var(--wab-red)); }
+    .shadow-p5 { filter: drop-shadow(10px 10px 0 var(--p5-red)); }
     
-    .glitch-text:hover {
-      animation: shake 0.2s infinite;
-      text-shadow: 2px 0 var(--wab-cyan), -2px 0 var(--wab-red);
-    }
-
     /* ANIMATIONS */
+    @keyframes p5-shake { 
+      0% { transform: translate(0,0) rotate(0deg); }
+      25% { transform: translate(2px, -2px) rotate(1deg); }
+      75% { transform: translate(-2px, 2px) rotate(-1deg); }
+      100% { transform: translate(0,0) rotate(0deg); }
+    }
     @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-    @keyframes shake { 0% { transform: translate(0,0); } 10% { transform: translate(-2px, 2px); } 20% { transform: translate(2px, -2px); } 100% { transform: translate(0,0); } }
-    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-    /* LAYOUT COMPONENTS */
+    /* LAYOUT */
     .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; position: relative; }
 
-    /* SCROLL PROGRESS */
-    #scrollProgress {
-        position: fixed; top: 0; left: 0; height: 10px; background: var(--stripes);
-        z-index: 10001; width: 0%; border-bottom: 2px solid #000;
-    }
-
-    /* TOP HAZARD UI */
+    /* TOP HAZARD */
     .top-hazard {
-      height: 40px;
+      height: 45px;
       background: var(--stripes);
       border-bottom: 8px solid #000;
       position: sticky; top: 0; z-index: 9999;
       display: flex; align-items: center; justify-content: center;
-    }
-    .top-hazard span {
-        background: #000; color: #fff; padding: 2px 15px; font-family: 'JetBrains Mono';
-        font-size: 10px; font-weight: 900; letter-spacing: 2px;
-    }
-
-    .scanning-line {
-      position: fixed; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(to bottom, transparent, var(--wab-red), transparent);
-      z-index: 9998; pointer-events: none; opacity: 0.4;
-      animation: scanline 4s linear infinite;
+      clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
     }
 
     /* 
     ================================================================
-    HEADER / HERO
+    HEADER / HERO - SOEJIMA STYLED
     ================================================================
     */
     header {
-      display: flex; flex-direction: column; gap: 40px; margin: 60px 0;
+      display: flex; flex-direction: column; gap: 40px; margin: 80px 0;
+      perspective: 1000px;
     }
-    @media (min-width: 992px) { header { flex-direction: row; align-items: stretch; } }
+    @media (min-width: 992px) { header { flex-direction: row; } }
 
     .hero-main {
-      flex: 1;
-      background: var(--wab-yellow);
-      border: 10px solid #000;
+      flex: 1.5;
+      background: var(--p5-white);
+      border: 12px solid #000;
       padding: 60px;
       position: relative;
-      transform: rotate(-1deg);
-      box-shadow: 30px 30px 0 var(--wab-red);
-      transition: 0.3s;
+      transform: rotate(-2deg) skew(-2deg);
+      box-shadow: 40px 40px 0 var(--p5-red), 45px 45px 0 #000;
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .hero-main:hover { transform: rotate(0deg) scale(1.01); }
+    .hero-main:hover { transform: rotate(0deg) skew(0deg) scale(1.02); }
 
     .hero-tag {
-      position: absolute; top: -20px; left: 30px;
-      background: #000; color: var(--wab-yellow);
-      padding: 8px 25px; font-weight: 900; font-family: 'JetBrains Mono';
-      border: 4px solid #000; transform: skew(-15deg);
+      position: absolute; top: -30px; left: 50px;
+      background: var(--p5-red); color: #fff;
+      padding: 10px 30px; font-weight: 900; font-family: 'JetBrains Mono';
+      border: 5px solid #000; transform: skew(-15deg);
+      z-index: 10;
     }
 
     .hero-main h1 {
-      font-size: clamp(4rem, 12vw, 7.5rem);
-      color: #000; line-height: 0.75;
+      font-size: clamp(4rem, 15vw, 9rem);
+      color: #000; line-height: 0.8;
       text-transform: uppercase; margin-bottom: 30px;
-      letter-spacing: -5px;
-      filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.1));
+      letter-spacing: -8px;
+      position: relative;
+    }
+    .hero-main h1 span {
+        background: #000; color: var(--p5-white); padding: 0 15px;
+        display: inline-block; transform: rotate(3deg);
     }
 
     .hero-main p {
-      background: #000; color: #fff;
-      display: inline-block; padding: 10px 20px;
-      font-family: 'JetBrains Mono'; font-weight: bold;
-      transform: skew(-10deg); font-size: 1.1rem;
-    }
-
-    /* NEWS TICKER */
-    .ticker-wrap {
-        background: #000; border: 4px solid var(--wab-red); margin-top: 40px;
-        overflow: hidden; padding: 10px 0; transform: skew(-5deg);
-    }
-    .ticker {
-        display: flex; white-space: nowrap; animation: marquee 30s linear infinite;
-    }
-    .ticker-item {
-        color: var(--wab-yellow); font-family: 'JetBrains Mono'; font-weight: 900;
-        padding: 0 40px; font-size: 14px; text-transform: uppercase;
+      background: #000; color: var(--wab-yellow);
+      display: inline-block; padding: 12px 25px;
+      font-family: 'JetBrains Mono'; font-weight: 900;
+      transform: skew(-10deg); font-size: 1.2rem;
     }
 
     .hero-sidebar {
-      width: 100%;
-      background: var(--wab-red);
+      flex: 0.8;
+      background: var(--p5-red);
       border: 10px solid #000;
       padding: 40px;
       display: flex; flex-direction: column; justify-content: space-between;
-      transform: rotate(1deg);
-      box-shadow: 20px 20px 0 var(--wab-yellow);
+      transform: rotate(3deg) translateY(20px);
+      box-shadow: -20px 20px 0 var(--wab-yellow), -25px 25px 0 #000;
     }
-    @media (min-width: 992px) { .hero-sidebar { width: 400px; } }
 
     .sidebar-clock {
-      font-size: 4rem; font-family: 'Bebas Neue'; color: #000;
-      border-bottom: 8px solid #000; margin-bottom: 20px;
-      text-align: center; background: rgba(255,255,255,0.1);
-    }
-
-    .status-panel {
-      background: #000; color: var(--wab-yellow);
-      padding: 20px; font-family: 'JetBrains Mono';
-      font-size: 12px; font-weight: 900;
-      line-height: 1.8; border: 2px solid rgba(255,255,255,0.2);
+      font-size: 5rem; font-family: 'Bebas Neue'; color: #000;
+      border-bottom: 10px solid #000; margin-bottom: 20px;
+      text-align: right; letter-spacing: 5px;
+      background: rgba(255,255,255,0.2); padding: 10px;
     }
 
     .quote-box {
-      margin-top: 30px; background: var(--wab-white); color: #000;
-      padding: 25px; border: 6px solid #000; position: relative;
-      font-weight: 800; font-size: 14px; transition: 0.3s;
-    }
-    .quote-box:hover { transform: scale(1.05); }
-    .quote-box::after {
-      content: "REPLY_MESSAGE"; position: absolute; bottom: -12px; right: 10px;
-      background: #000; color: #fff; font-size: 8px; padding: 4px 12px;
+      margin-top: 30px; background: #000; color: #fff;
+      padding: 30px; border: 4px solid var(--p5-white); position: relative;
+      font-weight: 800; font-style: italic;
+      clip-path: polygon(0 15%, 100% 0, 95% 85%, 5% 100%);
     }
 
     /* 
     ================================================================
-    WAB EMERGENCY INFOGRAPHIC BAR
-    ================================================================
-    */
-    .emergency-broadcast {
-        background: var(--wab-dark);
-        border: 8px solid var(--wab-red);
-        margin-bottom: 80px;
-        padding: 30px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        position: relative;
-    }
-    .emergency-broadcast::before {
-        content: "CRITICAL_HOTLINES";
-        position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-        background: var(--wab-red); color: #fff; padding: 5px 30px;
-        font-family: 'Bebas Neue'; font-size: 1.5rem; border: 4px solid #000;
-    }
-
-    .broadcast-item {
-        background: var(--wab-ink);
-        border: 4px solid #333;
-        padding: 20px;
-        display: flex; gap: 15px; align-items: center;
-        text-decoration: none; transition: 0.3s;
-    }
-    .broadcast-item:hover { border-color: var(--wab-yellow); transform: scale(1.05) skew(-3deg); background: #1a1a1a; }
-    
-    .broadcast-icon {
-        background: var(--wab-red); color: #fff;
-        width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-        font-size: 1.5rem; font-weight: 900; border: 3px solid #000; flex-shrink: 0;
-    }
-    .broadcast-info strong { display: block; color: var(--wab-yellow); font-size: 1.2rem; font-family: 'Bebas Neue'; }
-    .broadcast-info span { font-family: 'JetBrains Mono'; font-size: 10px; color: #888; text-transform: uppercase; }
-
-    /* 
-    ================================================================
-    TABS & NAVIGATION
+    NAV TABS - SHATTERED STYLE
     ================================================================
     */
     .nav-tabs {
-      display: flex; gap: 20px; margin-bottom: 80px; flex-wrap: wrap;
+      display: flex; gap: 15px; margin-bottom: 100px; flex-wrap: wrap;
     }
     .nav-tab-btn {
-      flex: 1; min-width: 250px;
-      padding: 35px; font-family: 'Bebas Neue'; font-size: 2.2rem;
-      text-transform: uppercase; border: 8px solid #000;
-      background: #111; color: #444; cursor: pointer;
-      position: relative; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+      flex: 1; min-width: 280px;
+      padding: 40px 20px; font-family: 'Bebas Neue'; font-size: 2.5rem;
+      border: 8px solid #000; background: #222; color: #666;
+      cursor: pointer; position: relative; overflow: hidden;
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+      transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
-    .nav-tab-btn:hover { color: var(--wab-white); border-color: var(--wab-red); background: #1a1a1a; }
+    .nav-tab-btn:hover { color: #fff; transform: translateY(-5px); background: #333; }
     .nav-tab-btn.active {
-      background: var(--wab-yellow); color: #000; border-color: #000;
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 15px 15px 0 var(--wab-red);
+      background: var(--p5-red); color: #fff; border-color: #000;
+      transform: scale(1.1) rotate(-3deg);
+      box-shadow: 0 0 0 10px #000;
+      z-index: 100;
     }
-    .nav-tab-btn span { position: absolute; top: 10px; right: 25px; font-size: 11px; font-family: 'JetBrains Mono'; font-weight: 900; }
+    .nav-tab-btn span {
+        position: absolute; bottom: 5px; right: 20%;
+        font-size: 12px; font-family: 'JetBrains Mono'; background: #000; padding: 2px 10px;
+    }
 
     /* 
     ================================================================
-    DIRECTORY SYSTEM
+    DIRECTORY - DOSSIER CARDS
     ================================================================
     */
     .grid-deck {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 50px;
     }
 
     .dossier-card {
-      background: var(--wab-gray); border: 8px solid #000;
-      position: relative; transition: 0.4s; overflow: hidden;
+      background: var(--p5-white); color: #000; border: 10px solid #000;
+      position: relative; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      clip-path: polygon(0 0, 100% 5%, 95% 100%, 5% 95%);
     }
-    .dossier-card:hover { transform: translateY(-15px); box-shadow: 20px 20px 0 var(--wab-yellow); }
+    .dossier-card:hover { transform: scale(1.05) rotate(2deg); box-shadow: 30px 30px 0 var(--p5-red); }
     
     .dossier-header {
-      height: 110px; background: var(--wab-red); border-bottom: 8px solid #000;
+      height: 120px; background: #000; color: var(--p5-white);
       display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
+      position: relative; border-bottom: 10px solid #000;
     }
     .dossier-header::after {
-      content: ""; position: absolute; inset: 0; background: var(--red-hazard); opacity: 0.2;
+      content: "★ ★ ★"; position: absolute; bottom: 5px; font-size: 10px; color: var(--p5-red);
     }
     
-    .dossier-body { padding: 30px; }
-    .dossier-id { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--wab-red); margin-bottom: 12px; display: block; font-weight: 900; }
+    .dossier-body { padding: 40px 30px; }
     .dossier-title { 
-      font-family: 'Bebas Neue'; font-size: 2.8rem; line-height: 0.9; margin-bottom: 15px; 
-      text-shadow: 2px 2px 0 #000; 
+      font-family: 'Bebas Neue'; font-size: 3.2rem; line-height: 0.8; margin-bottom: 20px; 
+      color: #000; text-transform: uppercase;
     }
-    .dossier-desc { font-size: 14px; color: #bbb; line-height: 1.5; margin-bottom: 25px; }
+    .dossier-desc { font-size: 15px; font-weight: 700; line-height: 1.4; color: #333; }
 
     .dossier-footer {
-      background: #000; padding: 20px; text-align: center;
-      font-family: 'Bebas Neue'; font-size: 1.6rem; color: var(--wab-yellow);
-      cursor: pointer; transition: 0.3s; border-top: 4px solid #222;
+      background: var(--p5-red); padding: 25px; text-align: center;
+      font-family: 'Bebas Neue'; font-size: 2rem; color: #fff;
+      cursor: pointer; transition: 0.3s;
     }
-    .dossier-footer:hover { background: var(--wab-yellow); color: #000; }
+    .dossier-footer:hover { background: #000; letter-spacing: 5px; }
 
     /* 
     ================================================================
-    BULLETIN / LOST & FOUND
+    BULLETINS / LOST & FOUND
     ================================================================
     */
-    .match-alert {
-        background: var(--wab-cyan); color: #000; border: 8px solid #000;
-        padding: 30px; margin-bottom: 40px; transform: rotate(-1deg);
-        box-shadow: 15px 15px 0 var(--wab-red);
-    }
-
-    .bulletin-controls {
-        display: flex; justify-content: space-between; align-items: flex-end;
-        margin-bottom: 50px; border-bottom: 10px solid var(--wab-yellow);
-        padding-bottom: 20px; flex-wrap: wrap; gap: 20px;
-    }
-
-    .post-trigger {
-        background: var(--wab-red); color: #fff; border: 6px solid #000;
-        padding: 15px 40px; font-family: 'Bebas Neue'; font-size: 2rem;
-        cursor: pointer; transform: skew(-10deg); transition: 0.3s;
-    }
-    .post-trigger:hover { background: var(--wab-yellow); color: #000; transform: skew(0deg) scale(1.05); }
-
-    .lf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; }
-
     .lf-item-card {
-        background: var(--wab-ink); border: 8px solid #000;
-        transition: 0.4s; position: relative; overflow: hidden;
+        background: #fff; color: #000; border: 10px solid #000;
+        transition: 0.4s; position: relative;
+        transform: rotate(calc(var(--r, 0) * 1deg));
     }
-    .lf-item-card:hover { transform: translateY(-10px); box-shadow: 15px 15px 0 var(--wab-cyan); }
+    .lf-item-card:nth-child(even) { --r: 2; }
+    .lf-item-card:nth-child(odd) { --r: -2; }
+    .lf-item-card:hover { transform: rotate(0deg) scale(1.05) translateY(-10px); z-index: 10; }
 
-    .lf-photo { height: 260px; width: 100%; object-fit: cover; border-bottom: 8px solid #000; filter: grayscale(0.3) contrast(1.1); transition: 0.3s; }
-    .lf-item-card:hover .lf-photo { filter: grayscale(0) contrast(1); }
+    .lf-photo { 
+        height: 280px; width: 100%; object-fit: cover; 
+        border-bottom: 10px solid #000; 
+        filter: contrast(1.2) sepia(0.2);
+    }
     
     .lf-badge {
-        position: absolute; top: 20px; left: -10px;
-        background: var(--wab-yellow); color: #000; padding: 5px 25px;
-        font-family: 'Bebas Neue'; font-size: 1.4rem; transform: rotate(-5deg);
-        border: 4px solid #000; z-index: 2;
+        position: absolute; top: -15px; left: -15px;
+        background: #000; color: #fff; padding: 10px 30px;
+        font-family: 'Bebas Neue'; font-size: 1.8rem; transform: rotate(-10deg);
+        border: 5px solid var(--p5-red); z-index: 5;
     }
-    .badge-lost { background: var(--wab-red); color: #fff; }
 
-    .lf-info { padding: 25px; }
-    .lf-name { font-family: 'Bebas Neue'; font-size: 2.4rem; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
-    .lf-meta-small { font-family: 'JetBrains Mono'; font-size: 11px; color: #888; margin-bottom: 15px; }
-
-    .action-row { display: flex; background: #000; padding: 10px; gap: 10px; border-top: 4px solid #222; }
-    .btn-resolve { flex: 1; background: var(--wab-cyan); border: none; padding: 12px; font-family: 'Bebas Neue'; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
-    .btn-resolve:hover { background: #fff; transform: translateY(-2px); }
-    .btn-trash { background: #222; color: var(--wab-red); border: none; width: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.3s; }
-    .btn-trash:hover { background: var(--wab-red); color: #fff; transform: rotate(90deg); }
-
-    .reclaimed-overlay {
-        position: absolute; inset: 0; background: rgba(0,0,0,0.7);
-        display: flex; align-items: center; justify-content: center; z-index: 5;
-    }
-    .reclaimed-stamp {
-        border: 10px double var(--wab-cyan); color: var(--wab-cyan);
-        padding: 20px; font-family: 'Bebas Neue'; font-size: 4rem;
-        transform: rotate(-15deg); letter-spacing: 5px;
-    }
+    .lf-info { padding: 30px; background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); }
+    .lf-name { font-family: 'Bebas Neue'; font-size: 2.8rem; margin-bottom: 10px; color: #000; background: var(--wab-yellow); display: inline-block; padding: 0 10px; }
 
     /* 
     ================================================================
-    FORMS & INPUTS
+    FORMS - PERSONA UI STYLE
     ================================================================
     */
     .form-panel {
-        background: var(--wab-gray); border: 10px solid #000; padding: 50px;
-        margin-bottom: 60px; position: relative;
-    }
-    .form-group { margin-bottom: 25px; }
-    .form-label { 
-      font-family: 'JetBrains Mono'; font-size: 11px; color: var(--wab-yellow); 
-      text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 10px; 
-      letter-spacing: 1px;
+        background: #000; border: 15px solid var(--p5-white); padding: 60px;
+        outline: 5px solid var(--p5-red); position: relative;
     }
     .f-input {
-        width: 100%; background: #000; border: none; border-bottom: 5px solid #333;
-        padding: 18px; color: #fff; font-family: 'JetBrains Mono'; transition: 0.3s;
-        font-size: 14px;
+        background: #111; border: 4px solid #333; padding: 20px;
+        color: #fff; font-family: 'JetBrains Mono'; font-weight: 900;
+        clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
     }
-    .f-input:focus { border-bottom-color: var(--wab-yellow); background: #0a0a0a; transform: translateX(5px); }
+    .f-input:focus { border-color: var(--p5-red); background: #1a0000; }
 
-    .file-upload-zone {
-        border: 4px dashed #444; padding: 40px; text-align: center;
-        background: #050505; color: #666; font-family: 'Bebas Neue';
-        font-size: 1.5rem; cursor: pointer; transition: 0.3s;
+    .post-trigger {
+        background: var(--p5-white); color: #000; border: 8px solid #000;
+        padding: 20px 50px; font-family: 'Bebas Neue'; font-size: 2.5rem;
+        box-shadow: 10px 10px 0 var(--p5-red);
     }
-    .file-upload-zone:hover { border-color: var(--wab-yellow); color: var(--wab-yellow); background: #000; }
-
-    /* 
-    ================================================================
-    VOLUNTEERING HUB
-    ================================================================
-    */
-    .v-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
-    @media (max-width: 1100px) { .v-grid { grid-template-columns: 1fr; } }
-
-    .opportunity-card {
-        background: #111; border: 8px solid #000; margin-bottom: 30px;
-        display: flex; gap: 0; overflow: hidden; transition: 0.3s;
-    }
-    .opportunity-card:hover { transform: scale(1.02); border-color: var(--wab-red); }
-    .v-img-box { width: 120px; background: var(--wab-red); border-right: 8px solid #000; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue'; font-size: 4rem; color: #000; }
-    .v-details { padding: 30px; flex: 1; }
+    .post-trigger:hover { animation: p5-shake 0.2s infinite; background: var(--wab-yellow); }
 
     /* 
     ================================================================
-    MODAL SYSTEM
+    MODAL - THE OVER-THE-TOP UI
     ================================================================
     */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.98);
-      z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px;
-      backdrop-filter: blur(10px);
-    }
     .modal-card {
-      background: var(--wab-dark); border: 10px solid #000; width: 100%; max-width: 1000px;
-      display: flex; flex-direction: row; position: relative;
-      animation: modalEntrance 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: #fff; border: 15px solid #000;
+      box-shadow: 50px 50px 0 var(--p5-red), -20px -20px 0 var(--wab-yellow);
     }
-    @media (max-width: 800px) { .modal-card { flex-direction: column; max-height: 90vh; overflow-y: auto; } }
-
-    @keyframes modalEntrance { from { transform: translateY(50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-
-    .modal-side { background: var(--wab-red); padding: 50px; width: 35%; border-right: 10px solid #000; }
-    @media (max-width: 800px) { .modal-side { width: 100%; border-right: none; border-bottom: 10px solid #000; } }
-    
-    .modal-content { flex: 1; padding: 60px; overflow-y: auto; max-height: 85vh; background-image: var(--halftone); }
+    .modal-side { background: #000; color: #fff; border-right: 15px solid var(--p5-red); }
+    .modal-content { background-image: var(--halftone); background-color: #f0f0f0; color: #000; }
     .modal-close { 
-        position: absolute; top: -25px; right: -25px; background: var(--wab-yellow); 
-        border: 6px solid #000; width: 60px; height: 60px; font-size: 2rem; 
-        font-weight: 900; cursor: pointer; transition: 0.3s;
+        border-radius: 0; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        width: 80px; height: 80px; background: #000; color: #fff; border: 4px solid var(--p5-red);
     }
-    .modal-close:hover { transform: rotate(90deg); background: var(--wab-red); color: #fff; }
-
-    /* SYSTEM HUD */
-    .system-hud {
-        position: fixed; bottom: 30px; right: 30px; z-index: 9000;
-        background: #000; border: 3px solid var(--wab-yellow); padding: 15px;
-        font-family: 'JetBrains Mono'; font-size: 10px; pointer-events: none;
-    }
-    .hud-line { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 5px; }
-    .status-dot { width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 10px #0f0; }
 
     /* FOOTER */
     footer {
-        margin-top: 150px; background: #000; padding: 120px 40px;
-        text-align: center; border-top: 20px solid var(--wab-yellow);
-        position: relative; overflow: hidden;
+        background: #000; border-top: 30px solid var(--p5-red);
+        padding: 150px 40px; position: relative;
     }
-    .footer-hazard { position: absolute; top: 0; left: 0; width: 100%; height: 20px; background: var(--red-hazard); }
-    footer h2 { text-shadow: 5px 5px 0 var(--wab-red); letter-spacing: -2px; }
+    footer::before {
+        content: ""; position: absolute; top: -60px; left: 0; width: 100%; height: 60px;
+        background: var(--stripes); clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 80%);
+    }
+    footer h2 { font-size: 8rem; color: #fff; filter: drop-shadow(10px 10px 0 var(--p5-red)); }
 
   </style>
 </head>
@@ -479,7 +330,7 @@
 
   <div id="scrollProgress"></div>
   <div class="top-hazard">
-      <span class="mono">CONFIDENTIAL // WAB INTRA-NET ACCESS // AUTH_LEVEL: STUDENT_CORE</span>
+      <span class="mono">★ ACCESSING COGNITIVE HUB // ESTABLISHING CONNECTIVITY ★</span>
   </div>
   <div class="scanning-line"></div>
 
@@ -487,70 +338,61 @@
     
     <!-- HEADER -->
     <header>
-      <div class="hero-main">
-        <div class="hero-tag">DECENTRALIZED ACCESS :: CLOUD.SYNC</div>
-        <h1 class="bebas glitch-text">WAB CAMPUS<br><span>RECOVERY</span> SYSTEM</h1>
-        <p class="mono">> INTERNAL RESOURCE TERMINAL v4.2.0_STABLE</p>
+      <div class="hero-main shadow-p5">
+        <div class="hero-tag">COGNITIVE_RECOVERY_V5</div>
+        <h1 class="bebas">WAB CAMPUS<br><span>RECOVERY</span></h1>
+        <p class="mono">>_ SYSTEM_UPLINK_STABLE // USER: TIGER_SQUAD</p>
         
-        <div style="margin-top:40px; display:flex; gap:20px; flex-wrap:wrap;">
-            <a href="https://mytime.wab-edu.cn/" target="_blank" class="mono shadow-yellow" style="background:#000; color:var(--wab-yellow); padding:15px 30px; text-decoration:none; font-size:14px; font-weight:900; border:6px solid #000; transform:skew(-10deg); transition: 0.3s;">★ MYTIME.WAB ★</a>
-            <a href="https://ps.wab-edu.cn/" target="_blank" class="mono shadow-red" style="background:#000; color:var(--wab-red); padding:15px 30px; text-decoration:none; font-size:14px; font-weight:900; border:6px solid #000; transform:skew(-10deg); transition: 0.3s;">★ POWERSCHOOL ★</a>
+        <div style="margin-top:50px; display:flex; gap:25px; flex-wrap:wrap;">
+            <a href="https://mytime.wab-edu.cn/" target="_blank" class="bebas" style="background:#000; color:#fff; padding:20px 40px; text-decoration:none; font-size:2rem; border:6px solid #000; box-shadow: 8px 8px 0 var(--p5-red); transition:0.2s;">★ MYTIME.WAB ★</a>
+            <a href="https://ps.wab-edu.cn/" target="_blank" class="bebas" style="background:var(--p5-red); color:#fff; padding:20px 40px; text-decoration:none; font-size:2rem; border:6px solid #000; box-shadow: 8px 8px 0 #000; transition:0.2s;">★ POWERSCHOOL ★</a>
         </div>
 
-        <div class="ticker-wrap">
+        <div class="ticker-wrap" style="background:#000; padding:15px; margin-top:40px; transform:rotate(1deg);">
             <div class="ticker">
-                <div class="ticker-item">!! SYSTEM ALERT: CAS DEADLINE APPROACHING FOR GRADE 12 !!</div>
-                <div class="ticker-item">!! TECH BAR NOTICE: ALL MACBOOKS MUST BE UPDATED TO VENTURA !!</div>
-                <div class="ticker-item">!! LOST ITEM FOUND: AIRPODS PRO IN HS ATRIUM !!</div>
-                <div class="ticker-item">!! CAFETERIA: MONDAY SPECIAL - TIGER NOODLES !!</div>
-                <!-- Duplicate for seamless loop -->
-                <div class="ticker-item">!! SYSTEM ALERT: CAS DEADLINE APPROACHING FOR GRADE 12 !!</div>
-                <div class="ticker-item">!! TECH BAR NOTICE: ALL MACBOOKS MUST BE UPDATED TO VENTURA !!</div>
+                <div class="ticker-item" style="color:var(--p5-white)">!! ALERT: CAS LOGS DUE IN 48 HOURS !!</div>
+                <div class="ticker-item" style="color:var(--wab-yellow)">!! TECH BAR: FIRMWARE UPDATES REQUIRED !!</div>
+                <div class="ticker-item" style="color:var(--p5-white)">!! FOUND: LOST CALCULATOR IN ROOM H301 !!</div>
+                <div class="ticker-item" style="color:var(--wab-yellow)">!! CAFETERIA: NEW MONDAY MENU LIVE !!</div>
             </div>
         </div>
       </div>
 
       <div class="hero-sidebar">
         <div class="sidebar-clock bebas" id="wabClock">00:00:00</div>
-        <div class="status-panel">
-            [SYS] ACCESS: GRANTED<br>
-            [SYS] DB_STATUS: <span style="color:#0f0">ONLINE</span><br>
-            [SYS] COORDINATOR: A. CROUCH<br>
-            [SYS] REGION: HS_WING_BEIJING<br>
-            [SYS] UPLINK: 412.09 KB/S
+        <div class="status-panel" style="border: 4px solid #000; background: #fff; color: #000; padding: 20px;">
+            <b class="mono">STATUS:</b> <span style="color:var(--p5-red)">PHANTOM_ONLINE</span><br>
+            <b class="mono">DB:</b> SUPABASE_CLOUD<br>
+            <b class="mono">VER:</b> SOEJIMA_4.2.0<br>
+            <b class="mono">LOC:</b> BEIJING_WAB
         </div>
         <div class="quote-box" id="quoteTrigger" onclick="rotateQuote()">
-          <p id="quoteParagraph" style="line-height: 1.4;">"Keep your CAS hours high and your stress levels low!"</p>
-          <div class="mono" style="font-size: 9px; margin-top: 15px; color: var(--wab-red); font-weight: 900; letter-spacing: 1px;">[ CLICK_TO_ROTATE_QUOTES ]</div>
+          <p id="quoteParagraph">"Take your time... but don't forget your CAS hours."</p>
         </div>
       </div>
     </header>
 
     <!-- HOTLINE BAR -->
-    <div class="emergency-broadcast shadow-yellow">
-        <a href="tel:+861084564155" class="broadcast-item">
-            <div class="broadcast-icon bebas">C</div>
-            <div class="broadcast-info"><strong>CLINIC (ext. 100)</strong><span>Medical Verification Required</span></div>
+    <div class="emergency-broadcast" style="border:12px solid #000; background:var(--p5-red); padding:40px; transform:rotate(-1deg); box-shadow: 20px 20px 0 var(--wab-yellow);">
+        <a href="tel:+861084564155" class="broadcast-item" style="background:#000; border:4px solid #fff;">
+            <div class="broadcast-icon bebas" style="background:var(--wab-yellow); color:#000;">C</div>
+            <div class="broadcast-info"><strong style="color:#fff">CLINIC (ext. 100)</strong><span style="color:rgba(255,255,255,0.5)">IMMEDIATE_AID</span></div>
         </a>
-        <a href="tel:+861084564155" class="broadcast-item">
-            <div class="broadcast-icon bebas">B</div>
-            <div class="broadcast-info"><strong>BUS OFFICE (ext. 200)</strong><span>Route & Logistics Log</span></div>
+        <a href="tel:+861084564155" class="broadcast-item" style="background:#000; border:4px solid #fff;">
+            <div class="broadcast-icon bebas" style="background:var(--p5-red); color:#fff;">B</div>
+            <div class="broadcast-info"><strong style="color:#fff">BUS OFFICE (ext. 200)</strong><span style="color:rgba(255,255,255,0.5)">TRANSPORT_LOGS</span></div>
         </a>
-        <a href="tel:+861084564155" class="broadcast-item">
-            <div class="broadcast-icon bebas">H</div>
-            <div class="broadcast-info"><strong>HS CORE (ext. 331)</strong><span>Academic Admin Hub</span></div>
-        </a>
-        <a href="tel:+861084564155" class="broadcast-item">
-            <div class="broadcast-icon bebas">T</div>
-            <div class="broadcast-info"><strong>TECH BAR (ext. 500)</strong><span>Hardware & IT Defense</span></div>
+        <a href="tel:+861084564155" class="broadcast-item" style="background:#000; border:4px solid #fff;">
+            <div class="broadcast-icon bebas" style="background:#fff; color:#000;">T</div>
+            <div class="broadcast-info"><strong style="color:#fff">TECH BAR (ext. 500)</strong><span style="color:rgba(255,255,255,0.5)">DEVICE_DEFENSE</span></div>
         </a>
     </div>
 
-    <!-- MAIN TABS -->
-    <nav class="nav-tabs">
-      <button class="nav-tab-btn active" id="btnDir" onclick="switchTab('directory')">★ CAMPUS DIRECTORY <span>[01]</span></button>
-      <button class="nav-tab-btn" id="btnVol" onclick="switchTab('volunteering')">★ TIGER VOLUNTEERING <span>[02]</span></button>
-      <button class="nav-tab-btn" id="btnLF" onclick="switchTab('lostfound')">☆ STUDENT BULLETINS <span>[03]</span></button>
+    <!-- NAVIGATION -->
+    <nav class="nav-tabs" style="margin-top: 80px;">
+      <button class="nav-tab-btn active" id="btnDir" onclick="switchTab('directory')">DIRECTORY <span>[01]</span></button>
+      <button class="nav-tab-btn" id="btnVol" onclick="switchTab('volunteering')">VOLUNTEER <span>[02]</span></button>
+      <button class="nav-tab-btn" id="btnLF" onclick="switchTab('lostfound')">BULLETINS <span>[03]</span></button>
     </nav>
 
     <main>
@@ -566,42 +408,28 @@
       <section id="panel-volunteering" style="display: none;">
         <div class="v-grid">
             <div>
-                <h2 class="bebas" style="font-size: 3.5rem; color: #fff; margin-bottom: 40px; border-left: 15px solid var(--wab-red); padding-left: 20px;">OPEN_INITIATIVES</h2>
+                <h2 class="bebas" style="font-size: 5rem; margin-bottom: 40px; text-shadow: 5px 5px 0 var(--p5-red);">OPEN_TASKS</h2>
                 <div id="volOpportunitiesGrid">
-                  <!-- Dynamically Injected Lines -->
+                  <!-- Dynamically Injected -->
                 </div>
             </div>
-            <div class="application-form shadow-red">
-                <h2 class="bebas" style="font-size: 3rem; color:var(--wab-yellow); margin-bottom: 25px; text-shadow: 2px 2px 0 #000;">CAS_VERIFICATION</h2>
-                <p class="mono" style="font-size: 11px; margin-bottom: 30px; opacity: 0.7;">ENTER YOUR DETAILS TO LOG VOLUNTEER HOURS INTO THE HUB REGISTRY.</p>
+            <div class="application-form" style="background:var(--p5-white); color:#000; border:15px solid #000;">
+                <h2 class="bebas" style="font-size: 4rem; margin-bottom: 20px;">CONTRACT_LOG</h2>
                 <form onsubmit="submitVolunteerApp(event)">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" id="vName" class="f-input" required placeholder="LIAM WONG" />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Grade Level</label>
-                        <select id="vGrade" class="f-input">
-                            <option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Target Initiative</label>
+                    <div class="form-group"><label class="form-label">IDENTIFIER</label><input type="text" id="vName" class="f-input" required /></div>
+                    <div class="form-group"><label class="form-label">INITIATIVE</label>
                         <select id="vRole" class="f-input">
-                            <option value="v1">Tiger Peer Tutoring Alliance</option>
-                            <option value="v2">Eco-Warriors Sustainability Audit</option>
-                            <option value="v3">Literacy Buddy Program</option>
-                            <option value="v4">Tech Support Apprenticeship</option>
-                            <option value="v5">Roots & Shoots Collaboration</option>
+                            <option value="v1">Tiger Peer Tutoring</option>
+                            <option value="v2">Eco-Warriors Audit</option>
+                            <option value="v3">Literacy Buddy</option>
+                            <option value="v4">Tech Apprentice</option>
+                            <option value="v5">Roots & Shoots</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Statement of Intent</label>
-                        <textarea id="vMsg" class="f-input" rows="4" placeholder="HOW DOES THIS ALIGN WITH LEARNING OUTCOMES?"></textarea>
-                    </div>
-                    <button type="submit" class="bebas" style="width:100%; background:var(--wab-red); color:#fff; border:6px solid #000; padding:25px; font-size:2.2rem; cursor:pointer; box-shadow: 10px 10px 0 var(--wab-yellow); transition: 0.3s;">★ SUBMIT_APPLICATION ★</button>
+                    <div class="form-group"><label class="form-label">INTENT</label><textarea id="vMsg" class="f-input" rows="4"></textarea></div>
+                    <button type="submit" class="bebas" style="width:100%; background:#000; color:#fff; padding:25px; font-size:2.5rem; border:none; cursor:pointer;">★ SIGN_CONTRACT ★</button>
                 </form>
-                <div id="localRegs" style="margin-top: 40px; border-top: 4px solid #000; padding-top: 20px;"></div>
+                <div id="localRegs" style="margin-top:30px;"></div>
             </div>
         </div>
       </section>
@@ -609,119 +437,74 @@
       <!-- LOST & FOUND -->
       <section id="panel-lostfound" style="display: none;">
         
-        <div id="matchBanner" class="match-alert" style="display: none;">
-            <h4 class="bebas" style="font-size: 2.2rem; margin-bottom: 10px;">!!! CLOUD_MATCH_COLLISION_DETECTED !!!</h4>
-            <div id="collisionsList" class="mono" style="font-size: 13px; font-weight: 900;"></div>
+        <div id="matchBanner" class="match-alert" style="background:var(--wab-yellow); color:#000; border:10px solid #000; font-weight:900; margin-bottom:50px; padding:30px; display:none;">
+            <h4 class="bebas" style="font-size: 3rem;">MATCHING_COGNITION_DETECTED!</h4>
+            <div id="collisionsList" class="mono"></div>
         </div>
 
         <div class="bulletin-controls">
-            <h2 class="bebas" style="font-size: 4.5rem; color: #fff;">DATABASE_BULLETINS</h2>
-            <button class="post-trigger" onclick="toggleForm()">★ FILE NEW CASE + ★</button>
+            <h2 class="bebas" style="font-size: 6rem; color:#fff;">CENTRAL_LOGS</h2>
+            <button class="post-trigger" onclick="toggleForm()">REPORT_NEW_CASE +</button>
         </div>
 
-        <!-- NEW CASE FORM -->
-        <div class="form-panel shadow-red" id="lfFormPanel" style="display: none;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 40px; border-bottom: 4px solid #000; padding-bottom: 20px;">
-                <h3 class="bebas" style="font-size: 3rem; color: var(--wab-yellow);">REGISTRY_FORM_B7</h3>
-                <div style="display:flex; background:#000; padding:8px; border:4px solid #333; transform: skew(-10deg);">
-                    <button id="btnTypeLost" onclick="setFormType('lost')" style="background:var(--wab-red); color:#fff; border:none; padding:12px 30px; font-family:'Bebas Neue'; cursor:pointer; font-size: 1.2rem;">LOST</button>
-                    <button id="btnTypeFound" onclick="setFormType('found')" style="background:transparent; color:#666; border:none; padding:12px 30px; font-family:'Bebas Neue'; cursor:pointer; font-size: 1.2rem;">FOUND</button>
-                </div>
-            </div>
-
+        <!-- FORM PANEL -->
+        <div class="form-panel" id="lfFormPanel" style="display: none; margin-bottom: 100px;">
+            <h3 class="bebas" style="font-size: 4rem; color: #fff; margin-bottom: 40px; background:var(--p5-red); display:inline-block; padding: 0 20px;">INPUT_DATA_STREAM</h3>
             <form onsubmit="submitLfItem(event)">
-                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:30px;">
-                    <div class="form-group">
-                        <label class="form-label">Headline / Subject</label>
-                        <input type="text" id="lfTitle" class="f-input" required placeholder="E.G. BLUE HYDROFLASK" />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Incident Date</label>
-                        <input type="date" id="lfDate" class="f-input" required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Search Zone</label>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
+                    <div class="form-group"><label class="form-label">SUBJECT</label><input type="text" id="lfTitle" class="f-input" required /></div>
+                    <div class="form-group"><label class="form-label">ZONE</label>
                         <select id="lfLocation" class="f-input">
-                            <option>Library HUB</option><option>Cafeteria</option><option>HS Atrium</option><option>Sports Pitch</option><option>Music Floor</option><option>Gym</option><option>Theater</option><option>Bus Lobby</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Resource Class</label>
-                        <select id="lfCategory" class="f-input">
-                            <option>Electronics</option><option>Clothing/Blazer</option><option>ID/Access Cards</option><option>Keys/Fobs</option><option>Bottle/Flask</option><option>Academic Tools</option><option>Other</option>
+                            <option>Library HUB</option><option>Cafeteria</option><option>HS Atrium</option><option>Sports Pitch</option><option>Gym</option>
                         </select>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="form-label">Visual Verification (PHOTO)</label>
-                    <div class="file-upload-zone" onclick="document.getElementById('fileInp').click()">
-                        <span id="uploadLabel">DROP_FILE.JPG // CLICK TO BROWSE_INTERNAL_STORAGE</span>
-                        <input type="file" id="fileInp" hidden accept="image/*" onchange="handleImg(event)">
-                        <img id="imgPreview" style="display:none; max-height:250px; margin:25px auto; border:8px solid #000; box-shadow: 10px 10px 0 var(--wab-yellow);">
+                    <label class="form-label">VISUAL_INPUT</label>
+                    <div class="file-upload-zone" onclick="document.getElementById('fileInp').click()" style="border-width:8px; border-color:var(--p5-red);">
+                        <span id="uploadLabel">UPLOAD_FRAGMENT.PNG</span>
+                        <input type="file" id="fileInp" hidden onchange="handleImg(event)">
+                        <img id="imgPreview" style="display:none; max-height:300px; border:10px solid #000; margin-top:20px;">
                     </div>
-                    <div style="margin-top: 15px; font-size: 10px;" class="mono">OR SELECT SYSTEM PRESET:</div>
-                    <div id="presetsGrid" style="display:flex; gap:15px; margin-top:10px; flex-wrap:wrap;"></div>
+                    <div id="presetsGrid" style="display:flex; gap:15px; margin-top:20px;"></div>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label">Detailed Intelligence (Identifying Marks)</label>
-                    <textarea id="lfDesc" class="f-input" rows="4" placeholder="SERIAL NUMBERS, STICKERS, ENGRAVINGS..."></textarea>
-                </div>
-
+                <div class="form-group"><label class="form-label">IDENTIFYING_MARKS</label><textarea id="lfDesc" class="f-input" rows="3"></textarea></div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px;">
-                    <div class="form-group">
-                        <label class="form-label">Filer Designation (Name)</label>
-                        <input type="text" id="lfName" class="f-input" required placeholder="STUDENT_NAME" />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Contact Uplink (Email/WeChat)</label>
-                        <input type="text" id="lfContact" class="f-input" required placeholder="ADDRESS@WAB.EDU" />
-                    </div>
+                    <div class="form-group"><label class="form-label">REPORTER</label><input type="text" id="lfName" class="f-input" required /></div>
+                    <div class="form-group"><label class="form-label">CONTACT</label><input type="text" id="lfContact" class="f-input" required /></div>
                 </div>
-
-                <div class="form-group" id="rewardGrp">
-                    <label class="form-label">Recovery Incentive (Reward)</label>
-                    <input type="text" id="lfReward" class="f-input" placeholder="BOBA, SNACKS, OR ETERNAL GRATITUDE" />
-                </div>
-
-                <div style="display:flex; justify-content:flex-end; gap:30px; border-top: 8px solid #000; padding-top: 40px; margin-top: 20px;">
-                    <button type="button" onclick="toggleForm()" class="bebas" style="background:none; border:none; color:#666; font-size:2rem; cursor:pointer;">ABORT_DATA_ENTRY</button>
-                    <button type="submit" class="bebas shadow-red" style="background:var(--wab-red); color:#fff; border:8px solid #000; padding:20px 70px; font-size:2.8rem; cursor:pointer; transition: 0.3s;">★ PUBLISH_TO_NETWORK ★</button>
+                <div style="display:flex; justify-content:flex-end; gap:30px; margin-top:40px;">
+                    <button type="button" onclick="toggleForm()" class="bebas" style="background:none; color:#fff; border:none; font-size:2rem; cursor:pointer;">DISCARD</button>
+                    <button type="submit" class="bebas" style="background:var(--p5-red); color:#fff; padding:20px 60px; font-size:3rem; border:8px solid #000; cursor:pointer;">★ DEPLOY ★</button>
                 </div>
             </form>
         </div>
 
-        <!-- Filter UI -->
-        <div style="background:var(--wab-gray); padding:40px; border:10px solid #000; margin-bottom:60px; display:flex; gap:25px; flex-wrap:wrap; align-items: center;" class="shadow-red">
-            <div style="flex:1; position: relative;">
-                <input type="text" id="lfSearch" placeholder="SCAN_DATABASE_BY_KEYWORD..." class="f-input" style="margin-bottom:0; padding-left: 50px;" oninput="renderLF()">
-                <span style="position: absolute; left: 20px; top: 18px; opacity: 0.5;">🔎</span>
-            </div>
-            <select id="lfFilterType" class="f-input" style="width:auto; margin-bottom:0; background: var(--wab-red); border-bottom-color: #000;" onchange="renderLF()">
+        <!-- FILTERS -->
+        <div style="background:#fff; padding:40px; border:12px solid #000; margin-bottom:80px; transform:rotate(1deg); display:flex; gap:30px;">
+            <input type="text" id="lfSearch" placeholder="SCAN_BY_KEYWORD..." class="f-input" style="flex:1; border-color:#000; color:#000; background:#f0f0f0;" oninput="renderLF()">
+            <select id="lfFilterType" class="f-input" style="width:auto; border-color:#000; color:#000; background:#f0f0f0;" onchange="renderLF()">
                 <option value="all">ALL_RECORDS</option>
-                <option value="lost">LOST_ONLY</option>
-                <option value="found">FOUND_ONLY</option>
-                <option value="reclaimed">ARCHIVED/RECLAIMED</option>
+                <option value="lost">LOST</option>
+                <option value="found">FOUND</option>
             </select>
         </div>
 
         <div id="lfItemsGrid" class="lf-grid">
-          <!-- Dynamically Injected Lines -->
-          <div class="mono" style="grid-column: 1/-1; text-align: center; padding: 100px; font-size: 20px;">INITIATING DATABASE SCAN...</div>
+            <!-- Dynamically Injected -->
         </div>
 
       </section>
 
     </main>
 
-    <!-- MODAL ARCHITECTURE -->
+    <!-- MODAL -->
     <div class="modal-overlay" id="globalModal" onclick="closeModal()">
         <div class="modal-card" onclick="event.stopPropagation()">
             <button class="modal-close bebas" onclick="closeModal()">X</button>
             <div class="modal-side">
-                <span id="mBadge" class="mono" style="background:#000; padding:8px 20px; font-size:11px; font-weight:900; letter-spacing: 1px;">SYSTEM_TAG</span>
-                <h2 id="mTitle" class="bebas" style="font-size: 4.5rem; margin-top: 30px; line-height:0.8; text-transform: uppercase;">ITEM_NAME</h2>
+                <span id="mBadge" class="mono" style="background:var(--p5-red); padding:10px 20px; font-size:12px;">SYSTEM_LOG</span>
+                <h2 id="mTitle" class="bebas" style="font-size: 5rem; margin-top: 40px; line-height:0.9;">ITEM_NAME</h2>
                 <div id="mMeta" style="margin-top: 50px;"></div>
             </div>
             <div class="modal-content" id="mContent"></div>
@@ -730,88 +513,60 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-hazard"></div>
-        <h2 class="bebas" style="font-size: clamp(3rem, 10vw, 7rem); color:var(--wab-yellow);">★ BEIJING WAB COMMUNITY SHIELD ★</h2>
-        <div class="mono" style="margin-top:40px; font-size: 13px; color:#555; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 2;">
-            ACCESS_PROTOCOL: SECURE // VERSION: 4.2.0-RELEASE_B<br>
-            CORE_ENGINE: SUPABASE_CLOUD_SYNC // LATENCY: 24ms<br>
-            © 2026 WESTERN ACADEMY OF BEIJING INDEPENDENT PORTAL
-        </div>
-        <div style="margin-top: 50px;">
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="bebas" style="background:var(--wab-yellow); border:4px solid #000; padding:15px 30px; font-size: 1.5rem; cursor: pointer;">RETURN_TO_UPPER_DECK ↑</button>
+        <h2 class="bebas">WAB TIGER SHIELD</h2>
+        <div class="mono" style="margin-top:50px; color:rgba(255,255,255,0.4);">
+            COGNITIVE_RECOVERY_PORTAL // SUPABASE_UPLINK // EST. 2026<br>
+            WESTERN ACADEMY OF BEIJING - INDEPENDENT PORTAL
         </div>
     </footer>
 
   </div>
 
-  <!-- SYSTEM HUD -->
-  <div class="system-hud">
-      <div class="hud-line"><span>STATUS:</span> <div style="display:flex; align-items:center; gap:5px;"><div class="status-dot"></div> <span style="color:#0f0">SYNCED</span></div></div>
-      <div class="hud-line"><span>ENCRYPTION:</span> <span>AES-256</span></div>
-      <div class="hud-line"><span>CLEARANCE:</span> <span style="color:var(--wab-yellow)">L3_STUDENT</span></div>
-  </div>
-
   <script>
     /*
     ================================================================
-    WAB HUB CORE JAVASCRIPT - Preserving logic, adding polish
+    WAB HUB CORE JAVASCRIPT - SOEJIMA EDITION
     ================================================================
     */
 
-    // --- CLOUD CONFIGURATION ---
     const SUPABASE_URL = 'https://gepfsidhkaubmeeuunzy.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_OFTUMvLWP_js5yuhl4RcJQ_S58eahVD';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const TABLE_NAME = 'bulletins';
 
-    // --- DATASETS ---
     const presetImages = [
       { url: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500' },
       { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500' },
       { url: 'https://images.unsplash.com/photo-1627914757106-a5d6118fa031?w=500' },
-      { url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500' },
-      { url: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=500' }
+      { url: 'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500' }
     ];
 
     const resources = [
-      { id:'r1', category:'Counseling', title:'HS Support & Wellbeing', lead:'Sarah Martinez', loc:'Room H214', desc:'Confidential guidance for academic stress, workload management, and personal mental health facilitation for Grades 9-12.' },
-      { id:'r2', category:'IT_Bar', title:'TigerTech Support', lead:'David Wu', loc:'TechBar Level 1', desc:'Core MacBook hardware diagnostic, institutional Wi-Fi & VPN configuration, and software licensing aid (Adobe/Office).' },
-      { id:'r3', category:'Library', title:'The Hub HUB Research', lead:'Tim Cole', loc:'The HUB Atrium', desc:'Advanced research mentorship, JSTOR/Ebsco database subscriptions, and IB Extended Essay literary support center.' },
-      { id:'r4', category:'CAS_Dept', title:'Service & CAS Coordination', lead:'Angelia Crouch', loc:'Global Lounge', desc:'Verification hub for local and international volunteering projects, project approval, and CAS portfolio management.' },
-      { id:'r5', category:'Clinic', title:'Campus Medical Clinic', lead:'Nurse Head', loc:'Administrative Wing', desc:'Immediate first aid, allergic reaction protocols, and chronic medication management center for all students.' },
-      { id:'r6', category:'Athletics', title:'WAB Tigers Sports', lead:'Athletic Dir', loc:'Gym Level 2', desc:'Scheduling hub for ACAMIS/APAC sports events, training protocols, and varsity team announcements.' },
-      { id:'r7', category:'Bus_Office', title:'Transport Logistics', lead:'Admin Team', loc:'West Gate', desc:'Route management, dynamic delay broadcasts, and bus scheduling for the entire WAB student body.' }
+      { id:'r1', category:'Counseling', title:'HS Wellbeing Hub', lead:'Sarah Martinez', loc:'Room H214', desc:'Confidential guidance for academic stress and personal mental health.' },
+      { id:'r2', category:'IT_Bar', title:'TigerTech IT', lead:'David Wu', loc:'TechBar L1', desc:'MacBook hardware diagnostic and software licensing aid.' },
+      { id:'r3', category:'Library', title:'The Hub Research', lead:'Tim Cole', loc:'The HUB Atrium', desc:'Advanced research mentorship and database subscriptions.' },
+      { id:'r4', category:'CAS_Dept', title:'Service Coordination', lead:'Angelia Crouch', loc:'Global Lounge', desc:'Verification hub for volunteering projects and CAS portfolios.' },
+      { id:'r5', category:'Clinic', title:'Medical Center', lead:'Nurse Head', loc:'Admin Wing', desc:'Immediate first aid and chronic medication management.' },
+      { id:'r6', category:'Athletics', title:'WAB Tiger Sports', lead:'Athletic Dir', loc:'Gym L2', desc:'Scheduling hub for ACAMIS/APAC sports events.' }
     ];
 
     const vOpps = [
-      { id:'v1', title:'Tiger Peer Tutoring', area:'HS HUB', lead:'Dr. Angelia Crouch', desc:'Assist middle school students during specified study hall sessions in Math and Science subjects.' },
-      { id:'v2', title:'Eco-Warriors Audit', area:'Campus Wide', lead:'Angelia Crouch', desc:'Environmental auditing of campus energy consumption and room recycling efficiency benchmarks.' },
-      { id:'v3', title:'Literacy Buddy', area:'ES Library', lead:'Primary Liaison', desc:'Reading Illustrative story books and leading reading comprehension tasks for Grade 1-3 children.' },
-      { id:'v4', title:'Tech Support Apprentice', area:'IT Bar', lead:'David Wu', desc:'Assisting the tech team with institutional device setup and minor software troubleshooting.' },
-      { id:'v5', title:'Roots & Shoots', area:'HS Garden', lead:'Angelia Crouch', desc:'Sustainable agriculture initiative involving campus garden maintenance and community pantry donation.' }
+      { id:'v1', title:'Tiger Peer Tutoring', area:'HS HUB', lead:'Dr. Crouch', desc:'Assist middle school students during study hall in Math/Science.' },
+      { id:'v2', title:'Eco-Warriors Audit', area:'Campus Wide', lead:'Angelia Crouch', desc:'Environmental auditing of campus energy consumption.' }
     ];
 
     const quotes = [
-      '"A beautiful campus relies on friendly cooperation. Keep your heart helpful!" — Advisor Vance',
-      '"Found my lost MacBook in under 10 minutes using the Hub Bulletin. Unmatched efficiency!" — Emily K.',
-      '"Secure your CAS hours early! Angelia is checking submissions every Tuesday." — CAS Liaison',
-      '"Clinic ext. 100 for emergencies. Stay safe and hydrated, Tigers!" — Medical Staff',
-      '"The Tech Bar is now accepting reservations for battery replacements. Book now!" — David Wu'
+      '"Justice is found in a helpful heart." — WAB Proverb',
+      '"Found a lost item? You might just be someone\'s hero today."',
+      '"CAS hours are the currency of the spirit. Spend them well."',
+      '"Tech problems? The Bar is your haven. Visit David Wu."'
     ];
 
-    // --- STATE ---
     let lfItems = [];
     let currentTab = 'directory';
     let currentFormType = 'lost';
     let selectedImageStr = presetImages[0].url;
     let localVApps = JSON.parse(localStorage.getItem('wab_v_apps') || '[]');
-
-    // --- SCROLL PROGRESS & CLOCK ---
-    window.onscroll = () => {
-        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        document.getElementById("scrollProgress").style.width = (winScroll / height) * 100 + "%";
-    };
 
     setInterval(() => {
         const d = new Date();
@@ -827,19 +582,13 @@
         await fetchBulletins();
     };
 
-    // --- SYSTEM LOGIC ---
     function switchTab(t) {
         currentTab = t;
         ['directory','volunteering','lostfound'].forEach(p => {
-            const el = document.getElementById('panel-'+p);
-            if(p === t) {
-                el.style.display = 'block';
-                el.style.animation = 'modalEntrance 0.3s ease-out';
-            } else {
-                el.style.display = 'none';
-            }
+            const panel = document.getElementById('panel-'+p);
+            panel.style.display = (p===t?'block':'none');
+            if(p===t) panel.style.animation = 'p5-shake 0.3s ease-out';
         });
-        
         ['btnDir','btnVol','btnLF'].forEach(b => {
             const btn = document.getElementById(b);
             btn.classList.toggle('active', btn.id.toLowerCase().includes(t.toLowerCase().substring(0,3)));
@@ -853,63 +602,30 @@
         setTimeout(() => {
             p.innerText = quotes[Math.floor(Math.random() * quotes.length)];
             p.style.opacity = '1';
-            p.style.animation = 'shake 0.3s';
         }, 200);
     }
 
-    // --- SUPABASE ENGINE ---
     async function fetchBulletins() {
         const { data, error } = await _supabase.from(TABLE_NAME).select('*').order('created_at', { ascending: false });
-        if (!error) { 
-            lfItems = data || []; 
-            renderLF(); 
-            checkMatches(); 
-        }
+        if (!error) { lfItems = data || []; renderLF(); checkMatches(); }
     }
 
     async function submitLfItem(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
-      btn.innerText = "UPLOADING...";
-      btn.disabled = true;
-
       const newItem = {
         type: currentFormType,
         title: document.getElementById('lfTitle').value,
         date: document.getElementById('lfDate').value,
         location: document.getElementById('lfLocation').value,
-        category: document.getElementById('lfCategory').value,
+        category: 'General',
         description: document.getElementById('lfDesc').value,
         studentName: document.getElementById('lfName').value,
         contactDetails: document.getElementById('lfContact').value,
         Status: 'active',
-        RewardInfo: currentFormType === 'lost' ? document.getElementById('lfReward').value : null,
         image: selectedImageStr
       };
-
       const { error } = await _supabase.from(TABLE_NAME).insert([newItem]);
-      if (error) {
-          alert("DATABASE_ERROR: " + error.message);
-      } else {
-          toggleForm();
-          await fetchBulletins();
-          alert("★ RECORD_PUBLISHED_SUCCESSFULLY ★");
-      }
-      btn.innerText = "★ PUBLISH_TO_NETWORK ★";
-      btn.disabled = false;
-    }
-
-    async function updateStatus(event, id) {
-        event.stopPropagation();
-        const { error } = await _supabase.from(TABLE_NAME).update({ Status: 'reclaimed' }).eq('id', id);
-        if(!error) await fetchBulletins();
-    }
-
-    async function eraseRecord(event, id) {
-        event.stopPropagation();
-        if(!confirm("CONFIRM_PERMANENT_DELETION_FROM_SERVERS?")) return;
-        const { error } = await _supabase.from(TABLE_NAME).delete().eq('id', id);
-        if(!error) await fetchBulletins();
+      if (!error) { toggleForm(); fetchBulletins(); }
     }
 
     function handleImg(e) {
@@ -919,13 +635,10 @@
             selectedImageStr = ev.target.result;
             const prev = document.getElementById('imgPreview');
             prev.src = selectedImageStr; prev.style.display = 'block';
-            document.getElementById('uploadLabel').innerText = "CUSTOM_DATA_READY.BIN";
-            document.getElementById('uploadLabel').style.color = "var(--wab-cyan)";
         };
         reader.readAsDataURL(file);
     }
 
-    // --- MODAL ENGINE ---
     function openModal(type, id) {
         const modal = document.getElementById('globalModal');
         const badge = document.getElementById('mBadge');
@@ -935,48 +648,20 @@
 
         if (type === 'directory') {
             const r = resources.find(x => x.id === id);
-            badge.innerText = "DEPARTMENT_DOSSIER";
-            badge.style.background = "var(--wab-yellow)";
-            badge.style.color = "#000";
+            badge.innerText = "DEPARTMENT_REPORT";
             title.innerText = r.title;
-            meta.innerHTML = `
-                <div style="border-left: 8px solid #000; padding-left: 15px; margin-bottom: 20px;">
-                    <span style="color:#000; font-weight:900; font-size:10px;">DIRECTOR:</span><br><b style="font-size:1.5rem;">${r.lead}</b>
-                </div>
-                <div style="border-left: 8px solid #000; padding-left: 15px;">
-                    <span style="color:#000; font-weight:900; font-size:10px;">STATION:</span><br><b style="font-size:1.5rem;">${r.loc}</b>
-                </div>
-            `;
-            content.innerHTML = `
-                <div class="mono" style="font-size: 10px; color: var(--wab-red); font-weight: 900; margin-bottom: 20px;">// DESCRIPTION_START</div>
-                <p style="font-size: 2.2rem; line-height: 1.3; color: #fff; font-weight:700; font-family: 'Space Grotesk';">${r.desc}</p>
-                <div class="mono" style="font-size: 10px; color: var(--wab-red); font-weight: 900; margin-top: 40px;">// EOF</div>
-            `;
+            meta.innerHTML = `<b>LEAD:</b> ${r.lead}<br><b>LOC:</b> ${r.loc}`;
+            content.innerHTML = `<p style="font-size: 2.5rem; font-weight:800; color:#000;">${r.desc}</p>`;
         } else {
             const item = lfItems.find(x => x.id.toString() === id.toString());
-            badge.innerText = item.type.toUpperCase() + "_BULLETIN";
-            badge.style.background = item.type === 'lost' ? "var(--wab-dark)" : "var(--wab-yellow)";
-            badge.style.color = item.type === 'lost' ? "#fff" : "#000";
+            badge.innerText = item.type.toUpperCase() + "_ENTRY";
             title.innerText = item.title;
-            meta.innerHTML = `
-                <div style="border-left: 8px solid #000; padding-left: 15px; margin-bottom: 20px;">
-                    <span style="color:#000; font-weight:900; font-size:10px;">REPORTED_BY:</span><br><b style="font-size:1.5rem;">${item.studentName}</b>
-                </div>
-                <div style="border-left: 8px solid #000; padding-left: 15px;">
-                    <span style="color:#000; font-weight:900; font-size:10px;">CONTACT_LINE:</span><br><b style="color:var(--wab-yellow); font-size:1.5rem; word-break: break-all;">${item.contactDetails}</b>
-                </div>
-            `;
+            meta.innerHTML = `<b>FILER:</b> ${item.studentName}<br><b>CONTACT:</b> ${item.contactDetails}`;
             content.innerHTML = `
-                <div style="position:relative">
-                    <img src="${item.image}" style="width:100%; height:450px; object-fit:cover; border:10px solid #000; margin-bottom:30px;" />
-                    <div class="bebas" style="position:absolute; bottom:40px; right:10px; background:#000; color:var(--wab-yellow); padding:5px 15px; font-size:1.5rem;">IMG_REF_${item.id}</div>
+                <img src="${item.image}" style="width:100%; height:400px; object-fit:cover; border:10px solid #000; margin-bottom:30px;" />
+                <div style="background:#000; color:#fff; padding:30px; font-size: 1.8rem;">
+                    ${item.description || 'NO_ADDITIONAL_DATA'}
                 </div>
-                <div style="background:rgba(255,255,255,0.05); padding:35px; border:4px solid #222; font-size: 1.5rem; line-height:1.6;">
-                    <b class="mono" style="color:var(--wab-red); font-size:12px; display:block; margin-bottom:10px;">DATA_REPORT:</b>
-                    ${item.description || 'NO ADDITIONAL DATA PROVIDED'}
-                </div>
-                ${item.RewardInfo ? `<div style="background:var(--wab-red); color:#fff; padding:25px; margin-top:25px; font-family:'Bebas Neue'; font-size:2.5rem; transform: skew(-5deg);">★ REWARD: ${item.RewardInfo} ★</div>` : ''}
-                <div style="margin-top:40px; opacity:0.3; font-size: 10px;" class="mono">SYSTEM_ID: ${item.id} // STATUS: ${item.Status} // ZONE: ${item.location}</div>
             `;
         }
         modal.style.display = 'flex';
@@ -984,41 +669,24 @@
 
     function closeModal() { document.getElementById('globalModal').style.display = 'none'; }
 
-    // --- RENDERERS ---
     function renderLF() {
         const grid = document.getElementById('lfItemsGrid');
         const q = document.getElementById('lfSearch').value.toLowerCase();
         const tF = document.getElementById('lfFilterType').value;
 
         const filtered = lfItems.filter(i => {
-            const mQ = i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q) || i.location.toLowerCase().includes(q);
-            const mT = (tF === 'all') || (tF === 'reclaimed' ? i.Status === 'reclaimed' : (i.type === tF && i.Status === 'active'));
+            const mQ = i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q);
+            const mT = (tF === 'all') || (i.type === tF);
             return mQ && mT;
         });
 
-        if (filtered.length === 0) {
-            grid.innerHTML = `<div class="mono" style="grid-column: 1/-1; text-align: center; padding: 100px; color:#555;">NO_MATCHING_RECORDS_FOUND</div>`;
-            return;
-        }
-
         grid.innerHTML = filtered.map(item => `
             <article class="lf-item-card" onclick="openModal('lf', '${item.id}')">
-                <div style="position:relative">
-                    <img src="${item.image}" class="lf-photo" />
-                    <div class="lf-badge ${item.type==='lost'?'badge-lost':''}">★ ${item.type.toUpperCase()}</div>
-                    ${item.Status==='reclaimed'?'<div class="reclaimed-overlay"><div class="reclaimed-stamp">RECLAIMED</div></div>':''}
-                </div>
+                <img src="${item.image}" class="lf-photo" />
+                <div class="lf-badge">★ ${item.type.toUpperCase()}</div>
                 <div class="lf-info">
                     <h3 class="lf-name">${item.title}</h3>
-                    <div class="lf-meta-small">📍 ${item.location.toUpperCase()} // 📅 ${item.date}</div>
-                    <div class="mono" style="font-size:10px; opacity:0.5;">FILER: ${item.studentName}</div>
-                </div>
-                <div class="action-row">
-                    ${item.Status==='active'?`
-                        <button class="btn-resolve" onclick="updateStatus(event, '${item.id}')">★ SECURED ★</button>
-                        <button class="btn-trash" title="DELETE RECORD" onclick="eraseRecord(event, '${item.id}')">✕</button>
-                    `:`<div style="flex:1; text-align:center; padding:12px; font-family:'Bebas Neue'; color:var(--wab-cyan); font-size:1.5rem; background:#111;">★ ARCHIVED ★</div>
-                       <button class="btn-trash" onclick="eraseRecord(event, '${item.id}')">✕</button>`}
+                    <div class="mono" style="font-size:12px;">📍 ${item.location} // ${item.date}</div>
                 </div>
             </article>
         `).join('');
@@ -1027,26 +695,24 @@
     function renderResources() {
         document.getElementById('resourcesGrid').innerHTML = resources.map(r => `
             <div class="dossier-card" onclick="openModal('directory', '${r.id}')">
-                <div class="dossier-header"><h3 class="bebas" style="font-size:2.8rem; color:#000; position:relative; z-index:1; letter-spacing: 2px;">${r.category}</h3></div>
+                <div class="dossier-header"><h3 class="bebas" style="font-size:3rem;">${r.category}</h3></div>
                 <div class="dossier-body">
-                    <span class="dossier-id">UPLINK_REF // ${r.id}</span>
                     <h4 class="dossier-title">${r.title}</h4>
-                    <p class="dossier-desc">${r.desc.substring(0,80)}...</p>
+                    <p class="dossier-desc">${r.desc}</p>
                 </div>
-                <div class="dossier-footer">★ ACCESS_DOSSIER ★</div>
+                <div class="dossier-footer">ACCESS_FILES</div>
             </div>
         `).join('');
     }
 
     function renderVolunteering() {
         document.getElementById('volOpportunitiesGrid').innerHTML = vOpps.map(o => `
-            <div class="opportunity-card">
-                <div class="v-img-box bebas">${o.id.substring(1)}</div>
-                <div class="v-details">
-                    <h3 class="bebas" style="font-size:2.6rem; color:var(--wab-red); letter-spacing:1px;">${o.title}</h3>
-                    <div class="mono" style="font-size:10px; margin-bottom:15px; color:#666;">LOCATION: ${o.area} // COORDINATOR: ${o.lead}</div>
-                    <p style="font-size:14px; opacity:0.8; line-height:1.5;">${o.desc}</p>
-                    <button class="btn-resolve" style="margin-top:20px; width:100%; border:4px solid #000; padding:15px;" onclick="document.getElementById('vRole').value='${o.id}'">★ SELECT_INITIATIVE ★</button>
+            <div class="dossier-card" style="background:#000; color:#fff; margin-bottom:30px; border-color:var(--p5-red);">
+                <div class="dossier-body">
+                    <h3 class="bebas" style="font-size:3rem; color:var(--p5-red);">${o.title}</h3>
+                    <p class="mono" style="font-size:12px;">LEAD: ${o.lead}</p>
+                    <p style="margin-top:15px;">${o.desc}</p>
+                    <button onclick="document.getElementById('vRole').value='${o.id}'" style="margin-top:20px; background:#fff; color:#000; border:none; padding:10px 20px; font-family:'Bebas Neue'; cursor:pointer;">SELECT_TASK</button>
                 </div>
             </div>
         `).join('');
@@ -1054,73 +720,35 @@
 
     function submitVolunteerApp(e) {
         e.preventDefault();
-        const app = { 
-            name: document.getElementById('vName').value, 
-            role: document.getElementById('vRole').value, 
-            date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString() 
-        };
+        const app = { name: document.getElementById('vName').value, role: document.getElementById('vRole').value, date: new Date().toLocaleDateString() };
         localVApps.unshift(app);
         localStorage.setItem('wab_v_apps', JSON.stringify(localVApps));
         renderVApps();
-        alert("★ APPLICATION_RECEIVED ★\nLocal registry record created. Coordinator Crouch will verify shortly.");
     }
 
     function renderVApps() {
-        if (localVApps.length === 0) {
-            document.getElementById('localRegs').innerHTML = `<div class="mono" style="font-size:10px; opacity:0.3;">NO_LOCAL_APPLICATIONS_DETECTED</div>`;
-            return;
-        }
-        document.getElementById('localRegs').innerHTML = `<div class="mono" style="font-size:10px; margin-bottom:15px; font-weight:900;">LOCAL_SESSION_LOGS:</div>` + localVApps.map(a => `
-            <div style="background:#000; padding:15px; border:2px solid #333; margin-bottom:10px; font-size:11px; position:relative;">
-                <b style="color:var(--wab-yellow)">${a.name}</b> <br>
-                REG: ${a.role} <br>
-                <span style="opacity:0.5;">TS: ${a.date}</span>
-                <span style="position:absolute; right:15px; top:15px; color:var(--wab-cyan); font-weight:900;">[PENDING]</span>
-            </div>
-        `).join('');
+        document.getElementById('localRegs').innerHTML = localVApps.map(a => `<div style="background:#000; color:#fff; padding:15px; border-left:10px solid var(--p5-red); margin-bottom:10px;">★ ${a.name} SIGNED FOR ${a.role}</div>`).join('');
     }
 
     function checkMatches() {
-        const lost = lfItems.filter(i => i.type === 'lost' && i.Status === 'active');
-        const found = lfItems.filter(i => i.type === 'found' && i.Status === 'active');
+        const lost = lfItems.filter(i => i.type === 'lost');
+        const found = lfItems.filter(i => i.type === 'found');
         const matches = [];
-        lost.forEach(l => { 
-            found.forEach(f => { 
-                if(l.category === f.category && l.location === f.location) {
-                    matches.push({l, f});
-                }
-            });
-        });
+        lost.forEach(l => { found.forEach(f => { if(l.location === f.location) matches.push({l, f}); })});
         const banner = document.getElementById('matchBanner');
         if (matches.length > 0) {
             banner.style.display = 'block';
-            document.getElementById('collisionsList').innerHTML = matches.map(m => `
-                <div style="margin-bottom:5px;">>> MATCH: [${m.l.title}] <-> [${m.f.title}] AT ${m.l.location}</div>
-            `).join('');
-        } else banner.style.display = 'none';
+            document.getElementById('collisionsList').innerHTML = matches.map(m => `MATCH: ${m.l.title} <=> ${m.f.title} @ ${m.l.location}`).join('<br>');
+        }
     }
 
-    // --- UI TOOLS ---
     function toggleForm() {
         const p = document.getElementById('lfFormPanel');
         p.style.display = (p.style.display==='none'?'block':'none');
-        if(p.style.display === 'block') p.scrollIntoView({behavior:'smooth'});
     }
-    
-    function setFormType(t) {
-        currentFormType = t;
-        document.getElementById('btnTypeLost').style.background = (t==='lost'?'var(--wab-red)':'none');
-        document.getElementById('btnTypeLost').style.color = (t==='lost'?'#fff':'#666');
-        document.getElementById('btnTypeFound').style.background = (t==='found'?'var(--wab-yellow)':'none');
-        document.getElementById('btnTypeFound').style.color = (t==='found'?'#000':'#666');
-        document.getElementById('rewardGrp').style.display = (t==='lost'?'block':'none');
-    }
-    
+
     function renderPresets() {
-        document.getElementById('presetsGrid').innerHTML = presetImages.map(p => `
-            <img src="${p.url}" style="width:65px; height:65px; border:4px solid #000; cursor:pointer; object-fit:cover; transition:0.2s;" 
-                 onclick="selectedImageStr='${p.url}'; document.getElementById('imgPreview').src='${p.url}'; document.getElementById('imgPreview').style.display='block';">
-        `).join('');
+        document.getElementById('presetsGrid').innerHTML = presetImages.map(p => `<img src="${p.url}" style="width:70px; height:70px; border:4px solid #000; cursor:pointer;" onclick="selectedImageStr='${p.url}'; document.getElementById('imgPreview').src='${p.url}';">`).join('');
     }
 
   </script>
